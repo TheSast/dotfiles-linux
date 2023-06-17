@@ -1,0 +1,13 @@
+dconf/
+gh/hosts.yml
+gitui/theme.ron
+htop/
+nvim/
+.luarc.json
+procps/
+termtyper/termtyper.ini
+wtf/log.txt
+thefuck/__pycache__
+yai.json
+dawn/
+lazygit/state.yml

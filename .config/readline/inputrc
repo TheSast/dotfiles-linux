@@ -1,0 +1,99 @@
+set bind-tty-special-chars on
+set blink-matching-paren off
+# set byte-oriented off
+set colored-completion-prefix on
+set colored-stats on
+set completion-ignore-case on
+# set completion-map-case off
+# set convert-meta off
+set disable-completion off
+# set echo-control-characters on
+# set enable-bracketed-paste on
+set enable-keypad on
+set enable-meta-key on
+set expand-tilde off
+# set history-preserve-point off
+set horizontal-scroll-mode off
+# set input-meta on
+set mark-directories on
+# set mark-modified-lines off
+set mark-symlinked-directories off
+set match-hidden-files on
+# set menu-complete-display-prefix off
+# set meta-flag on
+# set output-meta on
+set page-completions on
+# set prefer-visible-bell on
+set print-completions-horizontally off
+# set revert-all-at-newline off
+set show-all-if-ambiguous on
+set show-all-if-unmodified off
+# set skip-completed-text off
+set visible-stats off
+set bell-style none
+set comment-begin #
+set completion-display-width -1
+set completion-prefix-display-length 0
+# set completion-query-items 100
+set history-size 262144
+# set keyseq-timeout 500
+
+set editing-mode emacs
+set vi-cmd-mode-string "\x1b[34mN\x1b[0m"
+set vi-ins-mode-string " "
+$if mode=vi
+  set show-mode-in-prompt on
+  set keymap vi-insert
+  "\e[200~": ""
+  "\C-s": ""
+  "\C-n": ""
+  "\C-p": ""
+  "\C-v": "paste-clipboard"
+  # ^ idk
+  "\e[0n": ""
+  "\C-r": ""
+  "\C-t": ""
+  "\C-d": ""
+  "\C-w": ""
+  "\C-y": "" 
+
+  "\e[1;2C": ""
+  "\e[1;2D": "" 
+  "\C-q": quoted-insert
+  "\C-l": clear-screen 
+  "jk": vi-movement-mode
+  "kj": vi-movement-mode
+
+  set keymap vi-command
+  "\C-g": ""
+  " ": ""
+  "\C-s": ""
+  "\C-k": ""
+  "\C-n": ""
+  "\eOB": ""
+  "\e[B": ""
+  "+": ""
+  "j": ""
+  "\C-p": ""
+  "\eOA": ""
+  "\e[A": ""
+  "-": ""
+  "k": ""
+  "\C-v": ""
+  "\C-r": ""
+  "\C-t": ""
+  ",": ""
+  ";": ""
+  "|": ""
+  "\C-d": ""
+  "G": end-of-line
+  "/": ""
+  "?": ""
+  "N": ""
+  "n": ""
+  "&": ""
+  "_": ""
+  "\C-y": ""
+
+  "\C-?": backward-char
+$endif

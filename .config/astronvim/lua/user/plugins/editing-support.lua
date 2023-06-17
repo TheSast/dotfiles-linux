@@ -1,0 +1,84 @@
+return {
+  { "AstroNvim/astrocommunity", version = "*" },
+  { import = "astrocommunity.editing-support.todo-comments-nvim" },
+  { import = "astrocommunity.editing-support.zen-mode-nvim" },
+  { import = "astrocommunity.editing-support.dial-nvim" },
+  {
+    "monaqa/dial.nvim",
+    keys = function()
+      return {
+        {
+          "+",
+          mode = { "v" },
+          function() return require("dial.map").inc_visual() end,
+          expr = true,
+          desc = "Increment",
+        },
+        {
+          "-",
+          mode = { "v" },
+          function() return require("dial.map").dec_visual() end,
+          expr = true,
+          desc = "Decrement",
+        },
+        {
+          "g+",
+          mode = { "v" },
+          function() return require("dial.map").inc_gvisual() end,
+          expr = true,
+          desc = "Increment",
+        },
+        {
+          "g-",
+          mode = { "v" },
+          function() return require("dial.map").dec_gvisual() end,
+          expr = true,
+          desc = "Decrement",
+        },
+        {
+          "+",
+          function() return require("dial.map").inc_normal() end,
+          expr = true,
+          desc = "Increment",
+        },
+        {
+          "-",
+          function() return require("dial.map").dec_normal() end,
+          expr = true,
+          desc = "Decrement",
+        },
+      }
+    end,
+  },
+  { import = "astrocommunity.workflow.hardtime-nvim" },
+  {
+    "hardtime.nvim",
+    opts = {
+      restricted_keys = {
+        "h",
+        "j",
+        "k",
+        "l",
+        "gj",
+        "gk",
+      },
+    },
+  },
+  -- "RRethy/vim-illuminate", -- need to change mappings
+  -- { "echasnovski/mini.map", version = "*", lazy = false }, -- need to add mappings
+  -- {
+  --   "cshuaimin/ssr.nvim",
+  --   keys = {
+  --     {
+  --       "<leader>R",
+  --       "<cmd>lua require('ssr').open()<CR>",
+  --       mode = {
+  --         "n",
+  --         "x",
+  --         "o",
+  --       },
+  --     },
+  --   },
+  -- }, -- need to prevent accidental window-switches
+  -- { "mbbill/undotree", lazy = false }, -- need to add mappings
+}

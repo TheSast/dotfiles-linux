@@ -1,0 +1,86 @@
+format = """
+[](#3B4252)\
+$shell\
+[](fg:#3B4252 bg:#4C566A)\
+$directory\
+[](fg:#4C566A bg:#86BBD8)\
+$git_branch\
+$git_commit\
+$git_status\
+$git_state\
+[](fg:#86BBD8)\
+$cmd_duration\
+$line_break\
+$jobs\
+$character\
+"""
+command_timeout = 5000
+add_newline = true
+
+[hostname]
+style = "bg:#3B4252"
+format = "[ssh:$hostname ]($style)"
+
+[shell]
+disabled = false
+bash_indicator = ">_ "
+fish_indicator = "><>"
+zsh_indicator = "%_"
+unknown_indicator = ">  "
+style = "bg:#3B4252"
+format = "[$indicator]($style)"
+
+[directory]
+truncation_length = 5
+style = "bg:#4C566A"
+format = "[ $path ]($style)"
+
+[git_branch]
+style = "bg:#86BBD8 fg:#3B4252"
+format = '[ $symbol $branch ]($style)'
+
+[git_commit]
+style = "bg:#86BBD8 fg:#3B4252"
+format = '[ $hash ]($style)'
+
+[git_status]
+style = "bg:#86BBD8 fg:#3B4252"
+format = '[$all_status$ahead_behind]($style)'
+
+[git_state]
+style = "bg:#86BBD8 fg:#3B4252"
+format = '[ $state($progress_current/$progress_total)]($style)'
+
+[cmd_duration]
+min_time = 500
+style = "fg:#eb7442"
+format = " took [$duration]($style)"
+
+[line_break]
+
+[jobs]
+
+[character]
+success_symbol = '[-](bold green)'
+error_symbol = '[✕](bold red)'
+vimcmd_symbol = '[N](bold blue) '
+vimcmd_replace_one_symbol = '[R](bold red) '
+vimcmd_replace_symbol = '[R](bold red) '
+vimcmd_visual_symbol = "[V ](bold yellow)"
+
+# Shorten long paths by text replacement
+# similar to mapped_locations in Oh My Posh:
+[directory.substitutions]
+"Documents" = " "
+"doc" = " "
+"Downloads" = " "
+"Music" = " "
+"audio" = " "
+"Pictures" = " "
+"img" = " "
+# The order matters.
+# "Important Documents" = "  "
+# will not be replaced, "Documents" was already substituted before.
+# Put "Important Documents" before "Documents" or use the substituted version:
+# "Important  " = "  "
+

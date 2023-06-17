@@ -1,0 +1,1 @@
+set -gx BROWSER "vivaldi"

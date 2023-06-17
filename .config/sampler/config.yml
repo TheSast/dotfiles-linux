@@ -1,0 +1,15 @@
+textboxes:
+  - title: Local weather
+    position: [[40, 8], [40, 24]]
+    rate-ms: 10000
+    color: 178
+    sample: curl wttr.in?0ATQF
+    border: false
+asciiboxes:
+  - title: UTC time
+    position: [[0, 0], [53, 10]]
+    rate-ms: 500
+    color: 43
+    sample: env TZ=UTC date +%r
+    border: false
+    font: 3d
