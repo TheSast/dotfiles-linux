@@ -1,6 +1,5 @@
 return {
   "kmonad/kmonad-vim",
-  { "folke/neodev.nvim", opts = {} }, -- TODO: set category
   { "AstroNvim/astrocommunity", version = "*" },
 
   -- completion
