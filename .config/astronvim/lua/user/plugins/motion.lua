@@ -2,6 +2,7 @@ return {
   -- { "AstroNvim/astrocommunity", version = "*" },
   { "TheSast/astrocommunity", name = "AstroFork" }, -- TODO: remove
   { import = "astrocommunity.motion.nvim-spider" },
+  { import = "astrocommunity.motion.vim-matchup" },
   { import = "astrocommunity.motion.grapple-nvim" },
   -- Possible replacement for leap or complementary plugin to it
   -- { import = "astrocommunity.motion.flash-nvim" },
