@@ -3,6 +3,11 @@ return {
     spell = false,
     shell = "/bin/bash",
     showcmdloc = "statusline",
+    title = true,
+    titlestring = "NeoVim",
+    guifont = "FiraCode_NF,JetBrainsMono_NF",
+    winblend = 30,
+    pumblend = 30,
 
     --   breakindent = true, -- Wrap indent to match  line start
     --   clipboard = "unnamedplus", -- Connection to the system clipboard
@@ -46,16 +51,36 @@ return {
     --   wrap = false, -- Disable wrapping of lines longer than the width of window
     --   writebackup = false, -- Disable making a backup before overwriting a file
   },
-  -- g = {
-  --   highlighturl_enabled = true, -- highlight URLs by default
-  --   mapleader = " ", -- set leader key
-  --   autoformat_enabled = true, -- enable or disable auto formatting at start (lsp.formatting.format_on_save must be enabled)
-  --   codelens_enabled = true, -- enable or disable automatic codelens refreshing for lsp that support it
-  --   lsp_handlers_enabled = true, -- enable or disable default vim.lsp.handlers (hover and signatureHelp)
-  --   cmp_enabled = true, -- enable completion at start
-  --   autopairs_enabled = true, -- enable autopairs at start
-  --   diagnostics_mode = 3, -- set the visibility of diagnostics in the UI (0=off, 1=only show in status line, 2=virtual text off, 3=all on)
-  --   icons_enabled = true, -- disable icons in the UI (disable if no nerd font is available)
-  --   ui_notifications_enabled = true, -- disable notifications when toggling UI elements
-  -- },
+  o = {},
+  g = {
+    neovide_floating_blur_amount_x = 2.0,
+    neovide_floating_blur_amount_y = 2.0,
+    neovide_transparency = 0.9,
+    neovide_scroll_animation_length = 0.55,
+    neovide_hide_mouse_when_typing = true,
+    neovide_underline_automatic_scaling = true,
+    neovide_padding_top = 0,
+    neovide_padding_bottom = 0,
+    neovide_padding_right = 0,
+    neovide_padding_left = 0,
+    neovide_refresh_rate = 120,
+    neovide_refresh_rate_idle = 5,
+    neovide_no_idle = false,
+    neovide_cursor_animation_length = 0.13,
+    neovide_cursor_antialiasing = true,
+    neovide_cursor_animate_in_insert_mode = true,
+    neovide_cursor_animate_animate_command_line = false,
+    neovide_cursor_unfocused_outline_width = 0.125,
+    neovide_cursor_vfx_mode = "",
+    --   highlighturl_enabled = true, -- highlight URLs by default
+    --   mapleader = " ", -- set leader key
+    --   autoformat_enabled = true, -- enable or disable auto formatting at start (lsp.formatting.format_on_save must be enabled)
+    --   codelens_enabled = true, -- enable or disable automatic codelens refreshing for lsp that support it
+    --   lsp_handlers_enabled = true, -- enable or disable default vim.lsp.handlers (hover and signatureHelp)
+    --   cmp_enabled = true, -- enable completion at start
+    --   autopairs_enabled = true, -- enable autopairs at start
+    --   diagnostics_mode = 3, -- set the visibility of diagnostics in the UI (0=off, 1=only show in status line, 2=virtual text off, 3=all on)
+    --   icons_enabled = true, -- disable icons in the UI (disable if no nerd font is available)
+    --   ui_notifications_enabled = true, -- disable notifications when toggling UI elements
+  },
 }
