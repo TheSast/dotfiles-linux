@@ -35,4 +35,5 @@ return {
     },
   },
   -- { import = "astrocommunity.bars-and-lines.dropbar-nvim" }, -- requires nvim 0.10
+  { import = "astrocommunity.workflow.hardtime-nvim" },
 }

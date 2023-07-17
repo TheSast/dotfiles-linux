@@ -1,10 +1,23 @@
 return {
-  { "AstroNvim/astrocommunity", version = "*" },
+  -- { "AstroNvim/astrocommunity", version = "*" },
+  { "TheSast/astrocommunity", name = "AstroFork" }, -- TODO: remove
   { import = "astrocommunity.editing-support.todo-comments-nvim" },
+  { import = "astrocommunity.diagnostics.lsp_lines-nvim" },
+  { import = "astrocommunity.diagnostics.trouble-nvim" },
   { import = "astrocommunity.editing-support.zen-mode-nvim" },
+  {
+    "zen-mode.nvim",
+    keys = {
+      {
+        "<leader>z",
+        "<cmd>ZenMode<CR>",
+        desc = "Enter Zen Mode",
+      },
+    },
+  },
   { import = "astrocommunity.editing-support.dial-nvim" },
   {
-    "monaqa/dial.nvim",
+    "dial.nvim",
     keys = function()
       return {
         {
@@ -50,35 +63,4 @@ return {
       }
     end,
   },
-  { import = "astrocommunity.workflow.hardtime-nvim" },
-  {
-    "hardtime.nvim",
-    opts = {
-      restricted_keys = {
-        "h",
-        "j",
-        "k",
-        "l",
-        "gj",
-        "gk",
-      },
-    },
-  },
-  -- "RRethy/vim-illuminate", -- need to change mappings
-  -- { "echasnovski/mini.map", version = "*", lazy = false }, -- need to add mappings
-  -- {
-  --   "cshuaimin/ssr.nvim",
-  --   keys = {
-  --     {
-  --       "<leader>R",
-  --       "<cmd>lua require('ssr').open()<CR>",
-  --       mode = {
-  --         "n",
-  --         "x",
-  --         "o",
-  --       },
-  --     },
-  --   },
-  -- }, -- need to prevent accidental window-switches
-  -- { "mbbill/undotree", lazy = false }, -- need to add mappings
 }
