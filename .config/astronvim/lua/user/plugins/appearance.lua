@@ -1,6 +1,5 @@
 return {
   { "TheSast/astrocommunity", name = "Astrofork" },
-  { import = "astrocommunity.scrolling.neoscroll-nvim" },
   {
     "AstroNvim/astrotheme",
     event = "VeryLazy",
@@ -11,6 +10,11 @@ return {
   },
   { "AstroNvim/astrocommunity", version = "*" },
   { import = "astrocommunity.bars-and-lines.heirline-mode-text-statusline" },
+  { import = "astrocommunity.scrolling.neoscroll-nvim" },
+  {
+    "neoscroll.nvim",
+    cond = not vim.g.neovide,
+  },
   { import = "astrocommunity.utility.transparent-nvim" },
   { import = "astrocommunity.colorscheme.catppuccin" },
   {
