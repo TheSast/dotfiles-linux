@@ -5,7 +5,7 @@ return {
     opts = {
       section = {
         header = {
-          val = {
+          val = { -- TODO: randomise
             "⠀⠀⠀⠀⠀⠀⠀⢀⣤⠖⠛⠉⠉⠛⠶⣄⡤⠞⠻⠫⠙⠳⢤⡀⠀⠀⠀⠀",
             "⠀⠀⠀⠀⠀⠀⢠⠟⠁⠀⠀⠀⠀⠀⠀⠈⠀⢰⡆⠀⠀⠐⡄⠻⡄⠀⠀⠀",
             "⠀⠀⠀⠀⠀⠀⡾⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠛⠦⠤⣤⣇⢀⢷⠀⠀⠀",
@@ -49,8 +49,18 @@ return {
       mapping = { "jk", "kj" },
     },
   },
+  -- { "AstroNvim/astrocommunity", version = "*" },
   { "TheSast/astrocommunity", name = "AstroFork" }, -- TODO: remove
   { import = "astrocommunity.bars-and-lines.heirline-mode-text-statusline" },
+  {
+    "heirline.nvim",
+    opts = function(_, opts)
+      local status = require "astronvim.utils.status"
+      opts.tabline[2] = status.heirline.make_buflist(status.component.tabline_file_info { close_button = false })
+      opts.tabline[4][2] = nil
+      return opts
+    end,
+  },
   {
     "neo-tree.nvim",
     opts = {
@@ -74,17 +84,9 @@ return {
     "nvim-autopairs",
     opts = {
       fast_wrap = {
-        map = false,
+        map = false, -- death to Alt binds
       },
     },
-  },
-  {
-    "nvim-cmp",
-    opts = function(_, opt)
-      -- local cmp = require "cmp"
-      opt.mapping["<C-Space>"] = nil
-      -- opt.mapping["<idk>"] = cmp.mapping.complete()
-    end,
   },
   {
     "toggleterm.nvim",
