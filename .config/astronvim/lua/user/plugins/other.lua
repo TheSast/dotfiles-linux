@@ -8,12 +8,4 @@ return {
   -- git
   -- { import = "astrocommunity.git.openingh" },
   -- { import = 'astrocommunity.git.octo' }, -- <leader>O taken
-
-  -- diagnostics
-  { import = "astrocommunity.diagnostics.lsp_lines-nvim" },
-  {
-    "folke/trouble.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    opts = {},
-  },
 }

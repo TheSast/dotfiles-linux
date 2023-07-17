@@ -7,8 +7,8 @@ return {
     "nyngwang/nvimgelion",
     event = "VeryLazy",
   },
-  { import = "astrocommunity.bars-and-lines.heirline-mode-text-statusline" },
   -- { "AstroNvim/astrocommunity", version = "*" },
+  { "TheSast/astrocommunity", name = "AstroFork" }, -- TODO: remove
   -- { import = "astrocommunity.color.tint-nvim" }, -- fails to refresh
   { import = "astrocommunity.color.modes-nvim" }, -- FIXME: custom-operator mappings
   { import = "astrocommunity.color.twilight-nvim" },
