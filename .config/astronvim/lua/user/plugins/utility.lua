@@ -35,6 +35,44 @@ return {
     },
   },
   -- { import = "astrocommunity.bars-and-lines.dropbar-nvim" }, -- requires nvim 0.10
+  { import = "astrocommunity.split-and-window.edgy-nvim" },
+  {
+    "edgy.nvim",
+    keys = function()
+      return {
+        {
+          "<leader>st",
+          function() require("edgy").toggle() end,
+          desc = "Toggle Sidebars",
+        },
+        {
+          "<leader>sm",
+          function() require("edgy").goto_main() end,
+          desc = "Select Main Window",
+        },
+        {
+          "<leader>se",
+          "<cmd>Neotree toggle<cr>",
+          desc = "Toggle Explorer",
+        },
+        {
+          "<leader>sf",
+          function() require("edgy").select() end,
+          desc = "Select Sidebar",
+        },
+        {
+          "<leader>e",
+          "<nop>",
+        },
+      }
+    end,
+    init = function()
+      local maps = { n = {} }
+      local icon = vim.g.icons_enabled and " " or ""
+      maps.n["<leader>s"] = { desc = icon .. "Sidebars" }
+      require("astronvim.utils").set_mappings(maps)
+    end,
+  },
   { import = "astrocommunity.workflow.hardtime-nvim" },
   {
     "hardtime.nvim",
