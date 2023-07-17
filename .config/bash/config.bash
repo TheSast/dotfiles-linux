@@ -1,9 +1,7 @@
 #!/bin/bash
 
 # bail on non interactive
-if [ -z "$PS1" ]; then
-    return
-fi
+[[ $- != *i* ]] && return
 
 # omit cd
 shopt -s autocd
