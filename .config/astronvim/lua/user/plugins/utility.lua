@@ -36,4 +36,29 @@ return {
   },
   -- { import = "astrocommunity.bars-and-lines.dropbar-nvim" }, -- requires nvim 0.10
   { import = "astrocommunity.workflow.hardtime-nvim" },
+  {
+    "hardtime.nvim",
+    opts = {
+      resetting_keys = {},
+      restricted_keys = {
+        ["h"] = { "n", "x" },
+        ["j"] = { "n", "x" },
+        ["k"] = { "n", "x" },
+        ["l"] = { "n", "x" },
+        ["gj"] = { "n", "x" },
+        ["gk"] = { "n", "x" },
+      },
+      disabled_keys = {
+        ["<UP>"] = { "n", "x" },
+        ["<DOWN>"] = { "n", "x" },
+        ["<LEFT>"] = { "n", "x" },
+        ["<RIGHT>"] = { "n", "x" },
+        ["<Insert>"] = { "n", "x" },
+        ["<Home>"] = { "n", "x" },
+        ["<End>"] = { "n", "x" },
+        ["<PageUp>"] = { "n", "x" },
+        ["<PageDown>"] = { "n", "x" },
+      },
+    },
+  },
 }
