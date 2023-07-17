@@ -1,5 +1,4 @@
 return {
-  { "TheSast/astrocommunity", name = "Astrofork" },
   {
     "AstroNvim/astrotheme",
     event = "VeryLazy",
@@ -8,8 +7,15 @@ return {
     "nyngwang/nvimgelion",
     event = "VeryLazy",
   },
-  { "AstroNvim/astrocommunity", version = "*" },
   { import = "astrocommunity.bars-and-lines.heirline-mode-text-statusline" },
+  -- { "AstroNvim/astrocommunity", version = "*" },
+  -- { import = "astrocommunity.color.tint-nvim" }, -- fails to refresh
+  { import = "astrocommunity.color.modes-nvim" }, -- FIXME: custom-operator mappings
+  { import = "astrocommunity.color.twilight-nvim" },
+  {
+    "twilight.nvim",
+    keys = function() return {} end,
+  },
   { import = "astrocommunity.scrolling.neoscroll-nvim" },
   {
     "neoscroll.nvim",
