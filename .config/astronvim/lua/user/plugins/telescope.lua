@@ -1,9 +1,21 @@
 return {
-  "telescope.nvim",
-  dependencies = {
-    "jvgrootveld/telescope-zoxide",
-    "debugloop/telescope-undo.nvim",
+  -- { "AstroNvim/astrocommunity", version = "*" },
+  { "TheSast/astrocommunity", name = "AstroFork" }, -- TODO: remove
+  { import = "astrocommunity.editing-support.telescope-undo-nvim" },
+  {
+    "telescope.nvim",
+    dependencies = {
+      "jvgrootveld/telescope-zoxide",
+    },
+    keys = {
+      {
+        "<leader>fz",
+        "<cmd>Telescope zoxide list<CR>",
+        desc = "Find directories",
+      },
+    },
     opts = function(_, opts)
+      require("telescope").load_extension "zoxide"
       return require("astronvim.utils").extend_tbl(opts, {
         defaults = {
           winblend = vim.g.neovide and vim.o.winblend,
@@ -11,14 +23,4 @@ return {
       })
     end,
   },
-  keys = {
-    { "<leader>fz", "<cmd>Telescope zoxide list<CR>", desc = "Find directories" },
-    { "<leader>fu", "<cmd>Telescope undo<CR>", desc = "Find undos" },
-  },
-  config = function(...)
-    require "plugins.configs.telescope"(...)
-    local telescope = require "telescope"
-    telescope.load_extension "zoxide"
-    telescope.load_extension "undo"
-  end,
 }
