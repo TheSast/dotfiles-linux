@@ -6,7 +6,7 @@
 # set -ga user-keys
 set -g key-table root
 set -g mouse off                       # do not capture any mouse input
-set -g prefix C-Space                  # use Ctrl + nvim leader
+set -g prefix M-Space                  # use Alt + nvim leader
 set -g prefix2 None
 set -g status-keys emacs               # use emacs bindings for the commandline
 set -g mode-keys vi                    # use vim bindings for copy-mode
@@ -31,12 +31,12 @@ bind -T copy-mode-vi   C-u             send -X halfpage-up
 bind -T copy-mode-vi   C-d             send -X halfpage-down
 bind -T copy-mode-vi   C-y             send -X scroll-up
 bind -T copy-mode-vi   C-e             send -X scroll-down
-bind -T copy-mode-vi   \#              send-keys -FX search-backward "#{copy_cursor_word}"
+bind -T copy-mode-vi   \#              send -FX search-backward "#{copy_cursor_word}"
 bind -T copy-mode-vi   \$              send -X end-of-line
 bind -T copy-mode-vi   L               send -X end-of-line # there is no foward-to-indentation
 bind -T copy-mode-vi   \%              send -X next-matching-bracket
-bind -T copy-mode-vi   *               send-keys -FX search-forward "#{copy_cursor_word}"
-bind -T copy-mode-vi   ,               send-keys -X jump-reverse
+bind -T copy-mode-vi   *               send -FX search-forward "#{copy_cursor_word}"
+bind -T copy-mode-vi   ,               send -X jump-reverse
 bind -T copy-mode-vi   /               command-prompt -T search -p "(search down)" { send -X search-forward "%%" }
 bind -T copy-mode-vi   0               send -X start-of-line
 bind -T copy-mode-vi   1               command-prompt -N -I 1 -p (repeat) { send -N "%%" }
@@ -49,16 +49,16 @@ bind -T copy-mode-vi   7               command-prompt -N -I 7 -p (repeat) { send
 bind -T copy-mode-vi   8               command-prompt -N -I 8 -p (repeat) { send -N "%%" }
 bind -T copy-mode-vi   9               command-prompt -N -I 9 -p (repeat) { send -N "%%" }
 bind -T copy-mode-vi   :               command-prompt
-bind -T copy-mode-vi   \;              send-keys -X jump-again
+bind -T copy-mode-vi   \;              send -X jump-again
 bind -T copy-mode-vi   ?               command-prompt -T search -p "(search up)" { send -X search-backward "%%" }
-bind -T copy-mode-vi   W               send-keys -X next-space
+bind -T copy-mode-vi   W               send -X next-space
 bind -T copy-mode-vi   E               send -X next-space-end
 bind -T copy-mode-vi   B               send -X previous-space
 bind -T copy-mode-vi   F               command-prompt -1 -p "(jump backward)" { send -X jump-backward "%%" }
 bind -T copy-mode-vi   G               send -X history-bottom
 bind -T copy-mode-vi   N               send -X search-reverse
 bind -T copy-mode-vi   T               command-prompt -1 -p "(jump to backward)" { send -X jump-to-backward "%%" }
-bind -T copy-mode-vi   V               send-keys -X select-line
+bind -T copy-mode-vi   V               send -X select-line
 bind -T copy-mode-vi   ^               send -X back-to-indentation
 bind -T copy-mode-vi   H               send -X back-to-indentation
 bind -T copy-mode-vi   w               send -X next-word
@@ -98,11 +98,11 @@ bind -T copy-mode-vi   O               send -X cancel
 
 # --- Prefix Table Bindings ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-bind                   C-Space         send-prefix
-bind                   Escape          copy-mode
+bind                   M-Space         send-prefix
+bind                   v               copy-mode
 
 #                      C-n
-bind                   C-q             confirm -p "Kill session #{session_name}? (y/N)" { kill-session }
+bind                   M-q             confirm -p "Kill session #{session_name}? (y/N)" { kill-session }
 
 bind                   e               choose-tree -Zw
 bind                   n               new-window
@@ -120,16 +120,16 @@ bind                   9               select-window -t :=9
 
 bind                   E               display-panes -d 0
 bind                   s               set -g synchronize-panes
-bind                   |               split-window -h -c "#{pane_current_path}"
-bind                   \\              split-window -v -c "#{pane_current_path}"
+bind -n                M-|             split-window -h -c "#{pane_current_path}"
+bind -n                M-\\            split-window -v -c "#{pane_current_path}"
 #                      H               
 #                      J               
 #                      K               
 #                      L               
-bind                   Down            select-layout -o
-bind                   Up              select-layout -E
-bind -r                Right           select-layout -p
-bind -r                Left            select-layout -n
+bind                   Down            select-layout -o # TODO: improve layout mappings
+bind                   Up              select-layout -E # TODO: improve layout mappings
+bind -r                Right           select-layout -p # TODO: improve layout mappings
+bind -r                Left            select-layout -n # TODO: improve layout mappings
 #                      C-Down
 #                      C-Up
 #                      C-Right
@@ -139,15 +139,23 @@ bind                   q               run "$XDG_CONFIG_HOME/tmux/scripts/kill_p
 #                      C-j
 #                      C-k
 #                      C-l
+bind -n                M-h             select-pane -L
+bind -n                M-j             select-pane -D
+bind -n                M-k             select-pane -U
+bind -n                M-l             select-pane -R
+bind -n                M-Left          resize-pane -L 3
+bind -n                M-Down          resize-pane -D 3
+bind -n                M-Up            resize-pane -U 3
+bind -n                M-Right         resize-pane -R 3
 
 bind                   u               switch-client -T toggle-table
 bind                   p               switch-client -T package-table
 bind -T toggle-table   t               set -g pane-border-status
 bind -T package-table  i               tpm-install
 bind -T package-table  u               tpm-update
-bind                   :               command-prompt
+bind -n                M-:             { set -g status-position top ; command-prompt ; set -g status-position bottom } # TODO: tmux-topcmd
 #                      f
-bind                   F1              list-keys -N
+bind -n                M-F1            list-keys -N
 bind                   M               select-pane -M
 bind                   m               select-pane -m
 bind                   t               clock-mode

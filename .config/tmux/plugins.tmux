@@ -32,9 +32,9 @@ set -g @tpm-clean 'no-key'                                  # default M-u
 
 set -g @sessionist-goto 'nah'                               # default g
 set -g @sessionist-alternate 'i-m-good'                     # default S
-set -g @sessionist-new 'C-n'                                # default C
+set -g @sessionist-new 'M-n'                                # default C
 set -g @sessionist-promote-pane 'unbound'                   # default @
-set -g @sessionist-promote-window 'C-t'                     # default C-@
+set -g @sessionist-promote-window 'M-t'                     # default C-@
 set -g @sessionist-join-pane 'nope'                         # default t
 set -g @sessionist-kill-session 'no-thanks'                 # default X
 
