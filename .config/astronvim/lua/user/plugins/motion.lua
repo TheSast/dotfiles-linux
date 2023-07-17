@@ -86,5 +86,4 @@ return {
       }
     end,
   },
-  { import = "astrocommunity.motion.mini-move" },
 }
