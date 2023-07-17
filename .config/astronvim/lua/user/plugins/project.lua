@@ -5,8 +5,13 @@ return {
     "oil.nvim",
     keys = function()
       return {
-        { "<leader>E", function() require("oil").open() end, desc = "Edit folder" },
+        {
+          "<leader>E",
+          function() require("oil").open() end,
+          desc = "Edit folder",
+        },
       }
     end,
   },
+  { import = "astrocommunity.note-taking.neorg" },
 }
