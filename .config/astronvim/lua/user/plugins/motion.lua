@@ -1,6 +1,5 @@
 return {
-  -- { "AstroNvim/astrocommunity", version = "*" },
-  { "TheSast/astrocommunity", name = "AstroFork" }, -- TODO: remove
+  { "AstroNvim/astrocommunity", version = "*" },
   { import = "astrocommunity.motion.nvim-spider" },
   { import = "astrocommunity.motion.vim-matchup" },
   { import = "astrocommunity.motion.grapple-nvim" },

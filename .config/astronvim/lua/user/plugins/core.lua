@@ -49,8 +49,7 @@ return {
       mapping = { "jk", "kj" },
     },
   },
-  -- { "AstroNvim/astrocommunity", version = "*" },
-  { "TheSast/astrocommunity", name = "AstroFork" }, -- TODO: remove
+  { "AstroNvim/astrocommunity", version = "*" },
   { import = "astrocommunity.bars-and-lines.heirline-mode-text-statusline" },
   {
     "heirline.nvim",

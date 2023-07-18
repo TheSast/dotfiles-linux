@@ -1,6 +1,5 @@
 return {
-  -- { "AstroNvim/astrocommunity", version = "*" },
-  { "TheSast/astrocommunity", name = "AstroFork" }, -- TODO: remove
+  { "AstroNvim/astrocommunity", version = "*" },
   { import = "astrocommunity.editing-support.telescope-undo-nvim" },
   {
     "telescope.nvim",

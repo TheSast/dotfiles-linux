@@ -1,6 +1,5 @@
 return {
-  { "TheSast/astrocommunity", name = "AstroFork" },
-  -- { "AstroNvim/astrocommunity", version = "*" },
+  { "AstroNvim/astrocommunity", version = "*" },
   { import = "astrocommunity.utility.noice-nvim" },
   { import = "astrocommunity.split-and-window.minimap-vim" },
   {
