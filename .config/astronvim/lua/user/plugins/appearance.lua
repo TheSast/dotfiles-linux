@@ -20,7 +20,6 @@ return {
     "neoscroll.nvim",
     cond = not vim.g.neovide,
   },
-  { import = "astrocommunity.utility.transparent-nvim" },
   { import = "astrocommunity.colorscheme.catppuccin" },
   {
     "catppuccin",
