@@ -4,6 +4,7 @@ set -g @plugin 'TheSast/tpm'                                # Tmux Plugin Manage
 set -g @plugin 'TheSast/tmux-transient-status'              # Automatically make your tmux status-bar vanish when unneded.
 set -g @plugin 'TheSast/tmux-sessionist'                    # Lightweight tmux utils for manipulating sessions -- Using fork while waiting on pr respones upstream
 set -g @plugin 'TheSast/tmux-nav-master'                    # Easy cross-navigation with tmux and other programs.
+set -g @plugin 'TheSast/tmux-locker'                        # Lock away your tmux keybinds temporarely.
 set -g @plugin 'erikw/tmux-powerline'                       # A tmux plugin giving you a hackable status bar consisting of dynamic & beautiful looking powerline segments, written purely in bash.
 set -g @plugin 'tmux-plugins/tmux-resurrect'                # Persists tmux environment across system restarts.
 set -g @plugin 'tmux-plugins/tmux-continuum'                # Continuous saving of tmux environment. Automatic restore when tmux is started. Automatic tmux start when computer is turned on.
@@ -29,6 +30,8 @@ set -g @continuum-save-interval '10'                        # minutes
 set -g @tpm-install 'no-key'                                # default I 
 set -g @tpm-update 'no-key'                                 # default U
 set -g @tpm-clean 'no-key'                                  # default M-u
+
+set -g @locker-bind 'nothing'                               # defautl C-g
 
 set -g @sessionist-goto 'nah'                               # default g
 set -g @sessionist-alternate 'i-m-good'                     # default S
