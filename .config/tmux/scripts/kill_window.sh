@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 CURRENT_SESSION_ID="$1"
 CURRENT_WINDOW_ID="$2"

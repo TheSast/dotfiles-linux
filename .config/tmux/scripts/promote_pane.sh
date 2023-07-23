@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env sh
 
 CURRENT_WINDOW_ID="$1"
 CURRENT_PANE_ID="$2"

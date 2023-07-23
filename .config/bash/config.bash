@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # bail on non interactive
 [[ $- != *i* ]] && return

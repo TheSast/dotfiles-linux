@@ -1,14 +1,14 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 # fish-like function-sourcing
 for foo in "$XDG_CONFIG_HOME"/bash/functions/*; do
-  source "$foo"
+	source "$foo"
 done
 
 # fish-like conf.d sourcing
 for script in "$XDG_CONFIG_HOME"/bash/conf.d/*; do
-  source "$script"
+	source "$script"
 done
 
 # actual bashrc
