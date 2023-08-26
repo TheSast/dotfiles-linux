@@ -29,7 +29,7 @@ set -g assume-paste-time 1
 set -g base-index 1
 set -g bell-action any # [any | none | current | other]
 set -g default-command ''
-set -g default-shell "/usr/bin/fish"
+set -g default-shell "$SHELL"
 set -g default-size 80x24
 set -g destroy-unattached off # [on | off]
 set -g detach-on-destroy off # [off | on | no-detached]
