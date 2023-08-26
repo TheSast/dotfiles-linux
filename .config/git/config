@@ -11,17 +11,7 @@
 
 [core]
 	editor = nvim
-	pager = delta
-
-[interactive]
-  diffFilter = delta --color-only
-
-[delta]
-  line-numbers = true
-  side-by-side = true
-  hyperlinks = true
-  hyperlinks-file-link-format = "file-line://{path}:{line}"
-  colorMoved = default
+	pager = less
 
 [merge]
   conflictstyle = diff3
@@ -30,18 +20,8 @@
 	defaultBranch = main
 
 [alias]
-	lo = log --color --decorate --graph --pretty=oneline --abbrev-commit --date=iso8601
-	st = status --short --branch --show-stash --ahead-behind
-	ls = !exa --git-ignore --icons -l --git --no-permissions --no-filesize --no-user --no-time  
-	dif = !git diff | bat --language diff
-	track = add
-	untrack = rm --cached -r
 	unstage = restore --staged
-	uncommit = !echo "cool idea, but git reset is a sad command that defaults to ALL FILES when given no commit, use 'git reset --mixed [commit]'"
-	commit-date = commit -m "`date +'%m/%d/%Y %H:%M %:z'`" # does not work :(
-	ui = !gitui
 	amend = commit --amend
-
 
 [advice]
 	addEmptyPathspec = true
