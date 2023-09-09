@@ -1,1 +1,0 @@
-alias clear="clear -x"

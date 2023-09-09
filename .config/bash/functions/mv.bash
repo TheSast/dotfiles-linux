@@ -1,1 +1,0 @@
-alias mv="mv -i"
