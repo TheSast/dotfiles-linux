@@ -1,5 +1,8 @@
+# would be nice to have dynamic colorschemes
 format = """
-[](#3B4252)\
+[](fg:#3B4252)\
+$username\
+$hostname\
 $shell\
 [](fg:#3B4252 bg:#4C566A)\
 $directory\
@@ -9,6 +12,7 @@ $git_commit\
 $git_status\
 $git_state\
 [](fg:#86BBD8)\
+$sudo\
 $cmd_duration\
 $line_break\
 $jobs\
@@ -17,16 +21,22 @@ $character\
 command_timeout = 5000
 add_newline = true
 
+[username]
+style_user = "white"
+format = '[$user]($style bg:#3B4252)'
+
 [hostname]
 style = "bg:#3B4252"
-format = "[ssh:$hostname ]($style)"
+format = "[@$hostname ]($style)"
 
 [shell]
 disabled = false
 bash_indicator = ">_ "
 fish_indicator = "><>"
-zsh_indicator = "%_"
-unknown_indicator = ">  "
+zsh_indicator = "%_ "
+powershell_indicator = ">>>"
+cmd_indicator = "<<<"
+unknown_indicator = "?_ "
 style = "bg:#3B4252"
 format = "[$indicator]($style)"
 
@@ -37,7 +47,7 @@ format = "[ $path ]($style)"
 
 [git_branch]
 style = "bg:#86BBD8 fg:#3B4252"
-format = '[ $symbol $branch ]($style)'
+format = '[ $symbol$branch ]($style)'
 
 [git_commit]
 style = "bg:#86BBD8 fg:#3B4252"
@@ -51,6 +61,13 @@ format = '[$all_status$ahead_behind]($style)'
 style = "bg:#86BBD8 fg:#3B4252"
 format = '[ $state($progress_current/$progress_total)]($style)'
 
+[sudo]
+allow_windows = true
+disabled = false
+symbol = '!'
+# style = 'bold green'
+format = '[ $symbol]($style)'
+
 [cmd_duration]
 min_time = 500
 style = "fg:#eb7442"
@@ -62,25 +79,9 @@ format = " took [$duration]($style)"
 
 [character]
 success_symbol = '[-](bold green)'
+# would be nice to have sudo module ehre
 error_symbol = '[✕](bold red)'
 vimcmd_symbol = '[N](bold blue) '
 vimcmd_replace_one_symbol = '[R](bold red) '
 vimcmd_replace_symbol = '[R](bold red) '
 vimcmd_visual_symbol = "[V ](bold yellow)"
-
-# Shorten long paths by text replacement
-# similar to mapped_locations in Oh My Posh:
-[directory.substitutions]
-"Documents" = " "
-"doc" = " "
-"Downloads" = " "
-"Music" = " "
-"audio" = " "
-"Pictures" = " "
-"img" = " "
-# The order matters.
-# "Important Documents" = "  "
-# will not be replaced, "Documents" was already substituted before.
-# Put "Important Documents" before "Documents" or use the substituted version:
-# "Important  " = "  "
-
