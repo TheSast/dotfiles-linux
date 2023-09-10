@@ -1,10 +1,22 @@
 return {
   { "AstroNvim/astrocommunity", version = "*" },
-  { import = "astrocommunity.editing-support.todo-comments-nvim" },
   { import = "astrocommunity.lsp.inc-rename-nvim" },
   { import = "astrocommunity.lsp.lsp-inlayhints-nvim" },
   { import = "astrocommunity.diagnostics.lsp_lines-nvim" },
   { import = "astrocommunity.diagnostics.trouble-nvim" },
+  { import = "astrocommunity.fuzzy-finder.telescope-zoxide" },
+  {
+    "telescope.nvim",
+    opts = function(_, opts)
+      return require("astronvim.utils").extend_tbl(opts, {
+        defaults = {
+          windblend = vim.g.neovide and vim.o.windblend,
+        },
+      })
+    end,
+  },
+  { import = "astrocommunity.editing-support.telescope-undo-nvim" },
+  { import = "astrocommunity.editing-support.todo-comments-nvim" },
   { import = "astrocommunity.editing-support.zen-mode-nvim" },
   {
     "zen-mode.nvim",
