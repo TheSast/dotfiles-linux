@@ -13,6 +13,7 @@ $git_status\
 $git_state\
 [](fg:#86BBD8)\
 $sudo\
+$nix_shell\
 $cmd_duration\
 $line_break\
 $jobs\
@@ -67,6 +68,12 @@ disabled = false
 symbol = '!'
 # style = 'bold green'
 format = '[ $symbol]($style)'
+
+[nix_shell]
+impure_msg = '[❄️](bold blue)'
+pure_msg = '[❄️](bold green)'
+unknown_msg = '[❄️](bold yellow)'
+format = ' $state'
 
 [cmd_duration]
 min_time = 500

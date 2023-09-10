@@ -8,3 +8,6 @@ end
 # hide greeting
 set fish_greeting
 
+functions -e l
+functions -e la
+functions -e ll
