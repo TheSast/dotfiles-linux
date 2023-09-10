@@ -1,6 +1,17 @@
 return {
   { "AstroNvim/astrocommunity", version = "*" },
   { import = "astrocommunity.motion.nvim-spider" },
+  {
+    "nvim-spider",
+    keys = {
+      {
+        "x",
+        "<cmd>lua require('spider').motion('ge')<CR>",
+        mode = { "n", "x", "o" },
+        desc = "Previous end of word",
+      },
+    },
+  },
   { import = "astrocommunity.motion.vim-matchup" },
   { import = "astrocommunity.motion.grapple-nvim" },
   -- Possible replacement for leap or complementary plugin to it
@@ -90,19 +101,19 @@ return {
   },
   -- { import = "astrocommunity.motion.mini-surround" }, -- TODO: use instead of nvim-surround
   -- {
-  -- "mini.surround"
+  --    "mini.surround",
   --    opts = {
-  --   mappings = {
-  --     add = "gsa", -- Add surrounding in Normal and Visual modes
-  --     delete = "gsd", -- Delete surrounding
-  --     find = "gsf", -- Find surrounding (to the right)
-  --     find_left = "gsF", -- Find surrounding (to the left)
-  --     highlight = "gsh", -- Highlight surrounding
-  --     replace = "gsr", -- Replace surrounding
-  --     update_n_lines = "gsn", -- Update `n_lines`
+  --     mappings = {
+  --       add = "Ya", -- Add surrounding in Normal and Visual modes
+  --       delete = "Yd", -- Delete surrounding
+  --       find = "Yf", -- Find surrounding (to the right)
+  --       find_left = "YF", -- Find surrounding (to the left)
+  --       highlight = "Yh", -- Highlight surrounding
+  --       replace = "Yr", -- Replace surrounding
+  --       update_n_lines = "Yn", -- Update `n_lines`
+  --     },
   --   },
   -- },
-  -- }
   { import = "astrocommunity.motion.nvim-surround" }, -- TODO: swap for mini.surround
   {
     "nvim-surround",
@@ -110,14 +121,14 @@ return {
       keymaps = {
         insert = false,
         insert_line = false,
-        normal = "gs",
+        normal = "Y",
         normal_cur = false,
         normal_line = false,
         normal_cur_line = false,
-        visual = "gs",
+        visual = "Y",
         visual_line = false,
-        delete = "d" .. "gs",
-        change = "c" .. "gs",
+        delete = "d" .. "Y",
+        change = "c" .. "Y",
         change_line = false,
       },
     },

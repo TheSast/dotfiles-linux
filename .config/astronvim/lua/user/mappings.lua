@@ -15,20 +15,23 @@ return {
     ["<leader>o"] = false,
     ["<C-s>"] = false,
     ["<BS>"] = "<nop>",
+    ["<C-a>"] = "<nop>",
     ["<C-q>"] = "<nop>",
+    ["<C-x>"] = "<nop>",
     ["<C-z>"] = "<nop>",
     ["<C-Tab>"] = "<nop>",
     ["<Space>"] = "<nop>",
     ["+"] = { "<C-a>", desc = "Increment" },
     ["-"] = { "<C-x>", desc = "Decrement" },
     ["A"] = { "g_a", desc = "Append to line (non-blank)" },
-    ["C"] = { '"_c', desc = "Change without yanking" }, -- TODO: cutmoar.nvim
-    ["D"] = { '"_d', desc = "Delete without yanking" }, -- TODO: cutmoar.nvim
-    ["H"] = { "_", desc = "Start of line (non-blank)" },
+    ["C"] = { '"_c', desc = "Change without yanking" },
+    ["D"] = { '"_d', desc = "Delete without yanking" },
+    ["H"] = "<nop>",
     ["J"] = "<nop>",
     ["K"] = "<nop>",
-    ["L"] = { "g_", desc = "End of line (non-blank)" },
+    ["L"] = "<nop>",
     ["M"] = { "J", desc = "Merge lines (down)" },
+    ["X"] = { "gE", desc = "Previous end of WORD" },
     ["Y"] = "<nop>",
     ["ZZ"] = "<nop>",
     ["ZQ"] = "<nop>",
@@ -36,57 +39,57 @@ return {
     ["_"] = { "g_", desc = "End of line (non-blank)" },
     ["g+"] = "<nop>",
     ["g-"] = "<nop>",
-    -- ["g^"] = { desc = "Start of visual line (non-blank)" }, -- TODO: impement proper g^ and equivalent g_
-    -- ["g_"] = { desc = "End of visual line (non-blank)" }, -- TODO: impement proper g^ and equivalent g_
+    -- ["g^"] = { "??", desc = "Start of visual line (non-blank)" }, -- TODO: impement proper g^ and equivalent g_ , might not be needed
+    -- ["g_"] = { "??", desc = "End of visual line (non-blank)" }, -- TODO: impement proper gg_ and equivalent g_
+    ["g_"] = "<nop>",
     ["gA"] = { "A", desc = "Append to line" },
     ["gJ"] = "<nop>",
     ["gM"] = { "gJ", desc = "Merge lines (down) without spaces" },
     ["gC"] = { "gM", desc = "Go to character at middle of the textline" },
+    ["gc"] = { "gm", desc = "Go to character at middle of the screenline" },
+    ["x"] = { "ge", desc = "Previous end of word" },
     ["zJ"] = { "zt", desc = "Bottom this line" },
     ["zK"] = { "zb", desc = "Top this line" },
-    ["gc"] = { "gm", desc = "Go to character at middle of the screenline" },
     ["zb"] = "<nop>",
     ["zt"] = "<nop>",
-    -- ["?"] = { "ge", desc = "Previous end of word" },
   },
   x = {
+    ["<C-a>"] = "<nop>",
+    ["<C-q>"] = "<nop>",
+    ["<C-x>"] = "<nop>",
     ["<C-z>"] = "<nop>",
     ["^"] = { "_", desc = "Start of line (non-blank)" },
     ["_"] = { "g_", desc = "End of line (non-blank)" },
     ["+"] = { "<C-a>", desc = "Increment" },
     ["-"] = { "<C-x>", desc = "Decrement" },
-    ["A"] = { "g_a", desc = "Append to line (non-blank)" },
     ["C"] = { '"_c', desc = "Change without yanking" },
     ["D"] = { '"_d', desc = "Delete without yanking" },
-    ["H"] = { "0_", desc = "Start of line (non-blank)" },
+    ["H"] = "<nop>",
     ["J"] = "<nop>",
     ["K"] = "<nop>",
-    ["L"] = { "$g_", desc = "End of line (non-blank)" },
+    ["L"] = "<nop>",
     ["M"] = { "J", desc = "Merge lines (down)" },
+    ["X"] = { "gE", desc = "Previous end of WORD" },
     ["Y"] = "<nop>",
-    -- ["g^"] = { desc = "Start of visual line (non-blank)" }, -- TODO: impement proper g^ and equivalent g_
-    -- ["g_"] = { desc = "End of visual line (non-blank)" }, -- TODO: impement proper g^ and equivalent g_
+    -- ["g^"] = { "??", desc = "Start of visual line (non-blank)" }, -- TODO: impement proper g^ and equivalent g_ , might not be needed
+    -- ["g_"] = { "??", desc = "End of visual line (non-blank)" }, -- TODO: impement proper gg_ and equivalent g_
+    ["g_"] = "<nop>",
     ["g/"] = { "<esc>/\\%V", desc = "Search inside visual selection" },
     ["g?"] = { "<esc>?\\%V", desc = "Backwards search inside visual selection" },
-    -- ["?"] = { "ge", desc = "Previous end of word" },
+    ["x"] = { "ge", desc = "Previous end of word" },
   },
   o = {
-    ["^"] = {--[[  "_",  ]]
-      desc = "End of line (non-blank)",
-    },
+    -- ["^"] = { "_", desc = "Start of line (non-blank)" },
     ["_"] = { "g_", desc = "End of line (non-blank)" },
     ["+"] = "<nop>",
     ["-"] = "<nop>",
-    ["H"] = {
-      "^", --[[  "_",  ]]
-      desc = "Start of line (non-blank)",
-    },
+    ["H"] = "<nop>",
     ["J"] = "<nop>",
     ["K"] = "<nop>",
-    ["L"] = { "g_", desc = "End of line (non-blank)" },
-    -- ["g^"] = { desc = "Start of visual line (non-blank)" }, -- TODO: impement proper g^ and equivalent g_
-    -- ["g_"] = { desc = "End of visual line (non-blank)" }, -- TODO: impement proper g^ and equivalent g_
-    -- ["?"] = { "ge", desc = "Previous end of word" },
+    ["L"] = "<nop>",
+    -- ["g^"] = { "??", desc = "Start of visual line (non-blank)" }, -- TODO: impement proper g^ and equivalent g_ , might not be needed
+    -- ["g_"] = { "??", desc = "End of visual line (non-blank)" }, -- TODO: impement proper gg_ and equivalent g_
+    ["g_"] = "<nop>",
   },
   i = {
     ["<C-BS>"] = "<C-w>",
