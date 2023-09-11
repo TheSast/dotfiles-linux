@@ -13,9 +13,6 @@ set -g mode-keys vi                    # use vim bindings for copy-mode
 
 # --- Unbind Everything ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-unbind -aqT session-table
-unbind -aqT toggle-table
-unbind -aqT package-table
 unbind -aqT copy-mode
 unbind -aqT copy-mode-vi
 unbind -aqT prefix
@@ -148,11 +145,7 @@ bind -n                M-Down          resize-pane -D 3
 bind -n                M-Up            resize-pane -U 3
 bind -n                M-Right         resize-pane -R 3
 
-bind                   u               switch-client -T toggle-table
-bind                   p               switch-client -T package-table
-bind -T toggle-table   t               set -g pane-border-status
-bind -T package-table  i               tpm-install
-bind -T package-table  u               tpm-update
+bind                   u               set -g pane-border-status
 bind -n                M-:             { set -g status-position top ; command-prompt ; set -g status-position bottom } # TODO: tmux-topcmd
 #                      f
 bind -n                M-F1            list-keys -N
@@ -160,6 +153,5 @@ bind                   M               select-pane -M
 bind                   m               select-pane -m
 bind                   t               clock-mode
 bind                   z               resize-pane -Z
-bind                   S               switch-client -T session-table
-bind -T session-table  s               resurrect-save
-bind -T session-table  l               resurrect-restore
+bind                   S               resurrect-save
+bind                   R               resurrect-restore
