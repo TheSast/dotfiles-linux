@@ -1,0 +1,58 @@
+@define-color base01 #ffa041;
+@define-color base02 #ff0000;
+@define-color base03 #ff00ff;
+
+* {
+    border: none;
+    border-radius: 0;
+    font-family: "JetBrainsMono Nerd Font";
+    font-weight: bold;
+    font-size: 16px;
+    min-height: 0;
+}
+
+window#waybar {
+    background: rgba(51,46,52,0.7);
+    color: rgba(255,255,255,1.0);
+}
+
+tooltip {
+    background: rgba(51,46,52,0.8);
+    border-radius: 7.5px;
+}
+
+tooltip label{
+    color: rgba(255,255,255,1.0);
+}
+
+#tray, 
+#workspaces,
+#bluetooth,
+#network,
+#battery,
+#clock {
+    padding: 0px 8px;
+    margin: 0px 3px;
+    border-left: 0px;
+    border-right: 0px;
+}
+
+#workspaces button {
+    color: rgba(255,255,255,0.3);
+}
+
+#workspaces button.active {
+    color: rgba(255,255,255,1.0);
+}
+
+#battery.warning {
+    color: @base01;
+}
+
+#battery.critical {
+    color: @base02;
+}
+
+#battery.dead {
+    color: @base03;
+}

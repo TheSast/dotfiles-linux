@@ -1,0 +1,58 @@
+{
+    "layer": "top",
+    "position": "top", // top / bottom
+    "height": 25,
+    "spacing": 4,
+    "modules-left": ["tray"],
+    "modules-center": ["hyprland/workspaces"],
+    "modules-right": ["bluetooth", "network", "battery", "clock"],
+    "tray": {
+        "icon-size": 19,
+        "spacing": 10
+    },
+    "hyprland/workspaces" : {
+        "format": "",
+    },
+    "network": {
+        "format-wifi": "",
+        "tooltip-format-wifi": "{essid}",
+        "format-ethernet": "󰈀",
+        "format-disconnected": "",
+        "tooltip-format-disconnected": " ",
+	    "on-click": "nm-connection-editor"
+    },
+    "bluetooth": {
+	    "format": "",
+	    "format-connected": "",
+	    "tooltip-format-connected": "{device_alias}",
+	    "format-connected-battery": "",
+	    "tooltip-format-connected-battery": "{device_alias} {device_battery_percentage}",
+	    "format-disabled": "",
+	    "on-click": "bluetooth-manager"
+	},
+    "battery": {
+        "states": {
+            "warning": 35,
+            "critical": 15,
+            "dead": 5
+        },
+        "format": "err",
+        "format-discharging": "{icon}",
+        "format-discharging-critical": "{capacity} {icon}",
+        "format-discharging-dead": "{capacity} {icon}",
+        // "format-discharging-dead": "{capacity}% {icon}",
+        "tooltip-format-discharging": "{capacity}%",
+        "tooltip-format-discharging-critical": "{time}",
+        "tooltip-format-discharging-dead": "{time}",
+        "format-charging": "",
+        "format-charging-dead": "{capacity} ",
+        "tooltip-format-charging": "{capacity}%",
+        "tooltip-format-charging-dead": "",
+        "format-plugged": "󰟧",
+        "tooltip-format-plugged": "",
+        "format-icons": [" ", " ", " ", " ", " "]
+    },
+    "clock": {
+	    "format": "{:%R}"
+    }
+}
