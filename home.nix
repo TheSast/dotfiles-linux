@@ -8,8 +8,15 @@ let
       sha256 = "0a5vjzlbkgxv80r4cba3gdmdbd7vccg11kbsn71bjkfc0pkajyyb";
     })
     { config = config.nixpkgs.config; };
-in
-{
+  unstablerpkgs =
+    import
+    (builtins.fetchTarball {
+      name = "nixos-unstable-2023-12-08";
+      url = "https://github.com/nixos/nixpkgs/archive/b8eebcad828c07879009bce5e3faa4906bb2fabd.tar.gz";
+      sha256 = "0v1wj9hwg7xghs5pb487y16j0cl2pdxpfjawndvgm9gfdghgv1zd";
+    })
+    {config = config.nixpkgs.config;};
+in {
   home.username = "u";
   home.homeDirectory = "/home/u";
 
@@ -165,10 +172,11 @@ in
     HISTCONTROL = builtins.concatStringsSep ":" config.programs.bash.historyControl;
     CARGO_HOME = "${config.xdg.dataHome}/cargo";
     VISUAL = "nvim";
-    EDITOR = "${config.home.sessionVariables.VISUAL}";
+    EDITOR = config.home.sessionVariables.VISUAL;
     GNUPGHOME = "${config.xdg.dataHome}/gnupg";
     LESSHISTFILE = "${config.xdg.stateHome}/less/history";
     MANPAGER = "sh -c 'col -bx | bat -l man -p'";
+    NVIM_APPNAME = "astronvim";
     NODE_REPL_HISTORY = "${config.xdg.dataHome}/node_repl_history";
     NPM_CONFIG_USERCONFIG = "${config.xdg.configHome}/npm/npmrc";
     INPUTRC = "${config.xdg.configHome}/readline/inputrc";
@@ -178,6 +186,12 @@ in
     VIEB_DATAFOLDER = "${config.xdg.stateHome}/Vieb";
   };
 
+  # These are picked up by GDM and KDE Plasma (apparently?) but not by SDDM (which straight up loads your shell config) or other DMs
+  systemd.user.sessionVariables = {
+    NVIM_APPNAME = config.home.sessionVariables.NVIM_APPNAME;
+    VISUAL = config.home.sessionVariables.VISUAL;
+    EDITOR = config.home.sessionVariables.EDITOR;
+  };
   home.shellAliases = {
     mv = "mv -i";
     clear = "clear -x";
@@ -242,6 +256,22 @@ in
   };
   programs.hyfetch.enable = true;
   programs.lazygit.enable = true;
+  programs.neovim = {
+    enable = true;
+    package = unstablerpkgs.neovim-unwrapped;
+    extraPackages = with pkgs; [
+      gcc # treesitter
+      gnumake # jsregexp for luasnip
+      commitlint
+      lua-language-server
+      stylua
+      luajitPackages.luacheck
+      nil
+      alejandra
+      deadnix
+      statix
+    ];
+  };
   programs.starship.enable = true; # should not be in PATH
   programs.starship.enableFishIntegration = true;
   programs.zoxide.enable = true;
