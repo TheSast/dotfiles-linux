@@ -3,7 +3,7 @@ return {
     "AstroNvim/astrolsp",
     ---@type AstroLSPOpts
     opts = {
-      -- -@diagnostic disable: missing-fields
+      ---@diagnostic disable: missing-fields
       config = {
         rust_analyzer = {
           settings = {
@@ -26,6 +26,7 @@ return {
                 closureReturnTypeHints = { alwyas = true },
                 discriminatingHints = { enable = true },
                 expressionAdjustmentHints = { always = true },
+                closureReturnTypeHints = { enable = "always" },
               },
             },
           },
