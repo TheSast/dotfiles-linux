@@ -6,7 +6,9 @@ else
   background = "light"
 end
 
--- vim.g.mapleader = " " -- sets vim.g.mapleader
+-- I AM GOING CRAZY WHY DOES NEODEV NOT DEFINE `vim` WHEN IN MY CONFIG FOLDER BUT IT DOES WHEN I AM IN A PLUGIN FOLDER (AND OPEN ANOTHER LUA FILE FIRST) AAAA
+vim.g.mapleader = " "
+vim.g.maplocalleader = vim.api.nvim_replace_termcodes("<C-Space>", true, true, true)
 vim.opt.showcmdloc = "statusline"
 vim.opt.title = true
 vim.opt.titlestring = vim.g.neovide and "Neovide" or "NeoVim"
@@ -17,7 +19,6 @@ vim.opt.pumblend = 30
 vim.opt.background = background
 -- vim.opt.cpoptions = vim.opt.cpoptions:remove "_" --[[or]] -- :gsub("_" "")
 vim.opt.cpoptions = "aABceFs"
--- vim.g.maplocalleader = "<C-Space>"
 vim.g.neovide_floating_blur_amount_x = 2.0
 vim.g.neovide_floating_blur_amount_y = 2.0
 -- vim.g.neovide_transparency = 0.9
