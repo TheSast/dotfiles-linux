@@ -34,8 +34,14 @@ return {
         ["C"] = { '"_c', desc = "Change without yanking" },
         ["D"] = { '"_d', desc = "Delete without yanking" },
         ["H"] = "<nop>",
-        ["J"] = "<nop>",
-        ["K"] = "<nop>",
+        ["J"] = {
+          function() require("astrocore.buffer").nav(vim.v.count > 0 and vim.v.count or 1) end,
+          desc = "Next buffer",
+        },
+        ["K"] = {
+          function() require("astrocore.buffer").nav(-(vim.v.count > 0 and vim.v.count or 1)) end,
+          desc = "Previous buffer",
+        },
         ["L"] = "<nop>",
         -- ["M"] = { "J", desc = "Merge lines (down)" },
         ["S"] = "<nop>", -- leap refueses to bind to keys mapped to <nop> until another leap mappings is called
@@ -84,9 +90,13 @@ return {
         ["Y"] = "<nop>",
         -- ["g^"] = { "??", desc = "Start of visual line (non-blank)" }, -- TODO: impement proper g^ and equivalent g_ , might not be needed
         -- ["g_"] = { "??", desc = "End of visual line (non-blank)" }, -- TODO: impement proper gg_ and equivalent g_
+        ["g+"] = { "g<C-a>", desc = "Increment sequentially" },
+        ["g-"] = { "g<C-x>", desc = "Decrement sequentially" },
         ["g_"] = "<nop>",
         ["g/"] = { "<esc>/\\%V", desc = "Search inside visual selection" },
         ["g?"] = { "<esc>?\\%V", desc = "Backwards search inside visual selection" },
+        ["gE"] = "<nop>",
+        ["ge"] = "<nop>",
         ["x"] = { "ge", desc = "Previous end of word" },
       },
       o = {

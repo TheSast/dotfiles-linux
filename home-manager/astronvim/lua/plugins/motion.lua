@@ -1,56 +1,71 @@
 return {
   { import = "astrocommunity.motion.nvim-spider" },
+  ---@type LazySpec
   {
     "nvim-spider",
-    keys = {
+    dependencies = {
       {
-        "x",
-        "<cmd>lua require('spider').motion('ge')<CR>",
-        mode = { "n", "x", "o" },
-        desc = "Previous end of word",
+        "AstroNvim/astrocore",
+        opts = {
+          mappings = {
+            n = {
+              ["ge"] = "<nop>",
+              ["x"] = { "<cmd>lua require('spider').motion('ge')<CR>", desc = "Previous end of word" },
+            },
+            x = {
+              ["ge"] = "<nop>",
+              ["x"] = { "<cmd>lua require('spider').motion('ge')<CR>", desc = "Previous end of word" },
+            },
+            o = {
+              ["ge"] = "<nop>",
+              ["x"] = { "<cmd>lua require('spider').motion('ge')<CR>", desc = "Previous end of word" },
+            },
+          },
+        },
       },
     },
   },
   { import = "astrocommunity.motion.leap-nvim" },
   {
     "leap.nvim",
-    -- lazy = false,
-    event = { "User AstroFile", "InsertEnter" },
-    keys = function()
-      return {
-        {
-          "s",
-          "<Plug>(leap-forward-to)",
-          mode = { "n", "x", "o" },
-          desc = "Leap forward to",
-        },
-        {
-          "S",
-          "<Plug>(leap-backward-to)",
-          mode = { "n", "x", "o" },
-          desc = "Leap backward to",
-        },
-      }
-    end,
+    -- event = { "User AstroFile", "InsertEnter" },
     opts = {
       safe_labels = {},
     },
+    -- dependencies = {
+    --   {
+    --     "AstroNvim/astrocore",
+    --     opts = {
+    --       mappings = {
+    --         n = {
+    --           ["x"] = false,
+    --         },
+    --         x = {
+    --           ["x"] = false,
+    --         },
+    --         o = {
+    --           ["x"] = false,
+    --         },
+    --       },
+    --     },
+    --   },
+    -- },
   },
-  -- -- { import = "astrocommunity.motion.mini-surround" }, -- TODO: use instead of nvim-surround
-  -- -- {
-  -- --    "mini.surround",
-  -- --    opts = {
-  -- --     mappings = {
-  -- --       add = "Ya", -- Add surrounding in Normal and Visual modes
-  -- --       delete = "Yd", -- Delete surrounding
-  -- --       find = "Yf", -- Find surrounding (to the right)
-  -- --       find_left = "YF", -- Find surrounding (to the left)
-  -- --       highlight = "Yh", -- Highlight surrounding
-  -- --       replace = "Yr", -- Replace surrounding
-  -- --       update_n_lines = "Yn", -- Update `n_lines`
-  -- --     },
-  -- --   },
-  -- -- },
+  -- { import = "astrocommunity.motion.mini-surround" }, -- TODO: use instead of nvim-surround
+  -- {
+  --    "mini.surround",
+  --    opts = {
+  --     mappings = {
+  --       add = "Ya", -- Add surrounding in Normal and Visual modes
+  --       delete = "Yd", -- Delete surrounding
+  --       find = "Yf", -- Find surrounding (to the right)
+  --       find_left = "YF", -- Find surrounding (to the left)
+  --       highlight = "Yh", -- Highlight surrounding
+  --       replace = "Yr", -- Replace surrounding
+  --       update_n_lines = "Yn", -- Update `n_lines`
+  --     },
+  --   },
+  -- },
   { import = "astrocommunity.motion.nvim-surround" }, -- TODO: swap for mini.surround
   {
     "nvim-surround",
@@ -71,8 +86,8 @@ return {
     },
   },
   {
-	  "chrisgrieser/nvim-various-textobjs",
-	  lazy = false,
-	  opts = { useDefaultKeymaps = true },
+    "chrisgrieser/nvim-various-textobjs",
+    lazy = false,
+    opts = { useDefaultKeymaps = true },
   },
 }

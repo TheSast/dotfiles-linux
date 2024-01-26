@@ -20,13 +20,6 @@ return {
   { import = "astrocommunity.editing-support.todo-comments-nvim" },
   {
     "todo-comments.nvim",
-    keys = {
-      {
-        "<leader>fT",
-        "<cmd>TodoTelescope<CR>",
-        desc = "Find TODO, WARN, FIXME, and others",
-      },
-    },
     opts = {
       keywords = {
         TODO = { alt = { "todo", "unimplemented" } },
@@ -42,15 +35,32 @@ return {
         pattern = [[\b(KEYWORDS)(:|!\()]],
       },
     },
+    dependencies = {
+      {
+        "AstroNvim/astrocore",
+        opts = {
+          mappings = {
+            n = {
+              ["<leader>fT"] = { function() vim.cmd "TodoTelescope" end, desc = "Find TODO, WARN, FIXME, and others" },
+            },
+          },
+        },
+      },
+    },
   },
   { import = "astrocommunity.editing-support.zen-mode-nvim" },
   {
     "zen-mode.nvim",
-    keys = {
+    dependencies = {
       {
-        "<leader>z",
-        "<cmd>ZenMode<CR>",
-        desc = "Enter Zen Mode",
+        "AstroNvim/astrocore",
+        opts = {
+          mappings = {
+            n = {
+              ["<leader>z"] = { function() vim.cmd "ZenMode" end, desc = "Enter Zen Mode" },
+            },
+          },
+        },
       },
     },
   },
