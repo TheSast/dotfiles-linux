@@ -241,6 +241,16 @@
       "includeIf \"gitdir/i:~/workspace/school\"".path = "~/workspace/school/gitconfig";
     };
   };
+  programs.hyfetch = {
+    enable = true;
+    settings = {
+      preset = "rainbow";
+      mode = "rgb";
+      color_align = {
+        mode = "horizontal";
+      };
+    };
+  };
   programs.lazygit.enable = true;
   programs.neovim = {
     enable = true;
