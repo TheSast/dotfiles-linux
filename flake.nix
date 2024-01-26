@@ -15,6 +15,22 @@
   }: let
     system = "x86_64-linux";
   in {
+    nixosConfigurations = {
+      charlie = nixpkgs.lib.nixosSystem rec {
+        inherit system;
+
+        specialArgs = {
+          inherit (nixpkgs) lib;
+          inherit inputs nixpkgs system;
+        };
+
+        modules = [
+          ./nixos/configuration.nix
+          ./nixos/hardware-configuration.nix
+        ];
+      };
+    };
+
     homeConfigurations = {
       charlie = inputs.home-manager.lib.homeManagerConfiguration {
         extraSpecialArgs = {
