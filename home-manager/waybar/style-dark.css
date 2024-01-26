@@ -25,24 +25,36 @@ tooltip label{
     color: rgba(255,255,255,1.0);
 }
 
-#tray, 
-#workspaces,
-#bluetooth,
-#network,
+#tray,
 #battery,
 #clock {
     padding: 0px 8px;
     margin: 0px 3px;
-    border-left: 0px;
-    border-right: 0px;
+}
+
+#bluetooth,
+#network,
+#wireplumber,
+#backlight {
+    padding-right: 15px;
+}
+
+#workspaces {
+    margin: 2px 1px 3px 1px;
 }
 
 #workspaces button {
-    color: rgba(255,255,255,0.3);
+    background-color: rgba(255,255,255,0.3);
+    border-radius: 15px;
+    padding: 0px 3px;
+    margin: 4px 3px;
+    transition: all 0.3s ease-in-out;
 }
 
 #workspaces button.active {
-    color: rgba(255,255,255,1.0);
+    background-color: rgba(255,255,255,1.0);
+    min-width: 45px;
+    transition: all 0.3s ease-in-out;
 }
 
 #battery.warning {
@@ -56,3 +68,4 @@ tooltip label{
 #battery.dead {
     color: @base03;
 }
+

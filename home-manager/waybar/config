@@ -1,58 +1,135 @@
 {
     "layer": "top",
-    "position": "top", // top / bottom
-    "height": 25,
+    "position": "top",
+    "height": 30,
     "spacing": 4,
-    "modules-left": ["tray"],
+    "modules-left": [
+         "tray"
+         // "tray",
+         // "idle_inhibitor",
+         // "wlr/taskbar"
+    ],
     "modules-center": ["hyprland/workspaces"],
-    "modules-right": ["bluetooth", "network", "battery", "clock"],
+    "modules-right": ["privacy", "group/toolbar", "clock"],
     "tray": {
-        "icon-size": 19,
-        "spacing": 10
+         "icon-size": 19,
+         "spacing": 10
+    },
+    "idle_inhibitor": {
+         "format": "{icon}",
+         "format-icons": {
+             "activated": "",
+             "deactivated": ""
+         }
+    },
+    "wlr/taskbar": {
+         "format": "{icon}",
+         "icon-size": 18,
+         "tooltip-format": "{title}",
+         "on-click": "activate",
+         "on-click-middle": "close",
+         "ignore-list": [
+            "Alacritty"
+         ],
+         "rewrite": {
+             "(.*) - (.*) - Obsidian": "$1 - Obsidian",
+             "Vieb - (.*)": "Vieb"
+         }
     },
     "hyprland/workspaces" : {
-        "format": "",
+         "on-click": "activate",
+         "active-only": false,
+         "all-outputs": true,
+         "format": " "
+    },
+    "privacy": {
+	    "modules": [
+		    {
+			    "type": "screenshare"
+		    },
+		    {
+			    "type": "audio-in"
+		    }
+	    ]
+    },
+    "group/toolbar": {
+        "orientation": "inherit",
+        "drawer": {
+            "transition-duration": 300,
+            "children-class": "non-primary-tool",
+            "transition-left-to-right": false
+        },
+        "modules": [
+            "battery",
+            "backlight",
+            "wireplumber",
+            // "pulseaudio",
+            "bluetooth",
+            "network"
+        ]
+
+    },
+    "backlight": {
+        "scroll-step": 0.75,
+        "reverse-scrolling": true,
+        "format": "{percent} {icon}",
+        "format-icons": ["", "", "", "", "", "", "", "", "", "", "", "", "", ""]
+    },
+    "wireplumber": {
+        "scroll-step": 0.75,
+        "reverse-scrolling": true,
+        "format": "{volume} {icon}",
+        "format-muted": "- 󰝟",
+        "format-icons": {
+            // "headphone": "",
+            "default": ["", "", ""]
+        }
+    },
+    // "pulseaudio": {
+    //     "format": "{format_source} tes",
+    //     "format-source": "{volume}% ",
+    //     "format-source-muted": " - "
+    // },
+    "bluetooth": {
+        "format": "",
+        "format-connected": "󰂱",
+        "tooltip-format-connected": "{device_alias}",
+        "format-connected-battery": "",
+        "tooltip-format-connected-battery": "{device_alias} {device_battery_percentage}",
+        "format-disabled": "󰂲",
+        // "󰤾", "󰤿", "󰥀", "󰥁", "󰥂", "󰥃", "󰥄", "󰥅", "󰥆", "󰥈",
+        "on-click": "blueman-manager"
     },
     "network": {
-        "format-wifi": "",
+        "format-wifi": "󰖩", // 
         "tooltip-format-wifi": "{essid}",
         "format-ethernet": "󰈀",
-        "format-disconnected": "",
+        "format-disconnected": "󰖪",
         "tooltip-format-disconnected": " ",
-	    "on-click": "nm-connection-editor"
+        "on-click": "nm-connection-editor"
     },
-    "bluetooth": {
-	    "format": "",
-	    "format-connected": "",
-	    "tooltip-format-connected": "{device_alias}",
-	    "format-connected-battery": "",
-	    "tooltip-format-connected-battery": "{device_alias} {device_battery_percentage}",
-	    "format-disabled": "",
-	    "on-click": "bluetooth-manager"
-	},
     "battery": {
-        "states": {
-            "warning": 35,
-            "critical": 15,
-            "dead": 5
-        },
-        "format": "err",
-        "format-discharging": "{icon}",
-        "format-discharging-critical": "{capacity} {icon}",
-        "format-discharging-dead": "{capacity} {icon}",
-        // "format-discharging-dead": "{capacity}% {icon}",
-        "tooltip-format-discharging": "{capacity}%",
-        "tooltip-format-discharging-critical": "{time}",
-        "tooltip-format-discharging-dead": "{time}",
-        "format-charging": "",
-        "format-charging-dead": "{capacity} ",
-        "tooltip-format-charging": "{capacity}%",
-        "tooltip-format-charging-dead": "",
-        "format-plugged": "󰟧",
-        "tooltip-format-plugged": "",
-        "format-icons": [" ", " ", " ", " ", " "]
+         "states": {
+             "warning": 35,
+             "critical": 15,
+             "dead": 5
+         },
+         "format": "err",
+         "format-discharging": "{icon}",
+         "format-discharging-critical": "{capacity} {icon}",
+         "format-discharging-dead": "{capacity} {icon}",
+         "tooltip-format-discharging": "{capacity}%",
+         "tooltip-format-discharging-critical": "{time}",
+         "tooltip-format-discharging-dead": "{time}",
+         "format-charging": "",
+         "format-charging-dead": "{capacity} ",
+         "tooltip-format-charging": "{capacity}%",
+         "tooltip-format-charging-dead": "",
+         "format-plugged": "󰟧",
+         "tooltip-format-plugged": "",
+         "format-icons": [" ", " ", " ", " ", " "]
     },
     "clock": {
-	    "format": "{:%R}"
+         "format": "{:%R}"
     }
 }

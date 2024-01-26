@@ -127,6 +127,9 @@
       tmux-powerline = {
         source = ./tmux-powerline;
       };
+      waybar = {
+        source = ./waybar;
+      };
     };
   };
 
