@@ -215,6 +215,7 @@
           [ "$current_repository" != "$last_repository" ]
           onefetch --include-hidden
         end
+        set -gx last_repository $current_repository
       '';
     };
     interactiveShellInit = ''
