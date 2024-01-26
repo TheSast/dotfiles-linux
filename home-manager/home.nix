@@ -237,6 +237,7 @@
     userName = "TheSast";
     userEmail = "27977196+TheSast@users.noreply.github.com";
     aliases = {
+      track = "add --intent-to-add";
       unstage = "restore --staged";
       amend = "commit --amend";
     };
