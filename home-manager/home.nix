@@ -203,6 +203,8 @@
   programs.broot.enable = true;
   programs.eza = {
     enable = true;
+    git = true;
+    icons = true;
   };
   programs.fish = {
     enable = true;
