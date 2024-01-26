@@ -1,0 +1,3 @@
+layout = "inverted"
+sort = "name"
+suppress-size = true
