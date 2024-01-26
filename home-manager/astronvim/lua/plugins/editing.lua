@@ -12,7 +12,7 @@ return {
       return require("astrocore").extend_tbl(opts, {
         defaults = {
           --- @diagnostic disable: undefined-field -- this is not defined by default, but neovide picks up on it
-          windblend = vim.g.neovide and vim.o.windblend,
+          windblend = vim.g.neovide and vim.o.winblend,
         },
       })
     end,

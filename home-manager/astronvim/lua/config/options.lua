@@ -9,7 +9,7 @@ end
 -- vim.g.mapleader = " " -- sets vim.g.mapleader
 vim.opt.showcmdloc = "statusline"
 vim.opt.title = true
-vim.opt.titlestring = "NeoVim"
+vim.opt.titlestring = vim.g.neovide and "Neovide" or "NeoVim"
 vim.opt.guifont = "FiraCode_Nerd_Font_Med:h12"
 vim.opt.winblend = 30
 vim.opt.pumblend = 30
