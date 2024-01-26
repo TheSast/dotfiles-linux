@@ -171,6 +171,12 @@
 
   # These are picked up by GDM and KDE Plasma (apparently?) but not by SDDM (which straight up loads your shell config) or other DMs
   systemd.user.sessionVariables = {
+    XDG_DOCUMENTS_DIR = config.xdg.userDirs.documents;
+    XDG_PICTURES_DIR = config.xdg.userDirs.pictures;
+    XDG_DOWNLOAD_DIR = config.xdg.userDirs.download;
+    XDG_DESKTOP_DIR = config.xdg.userDirs.desktop;
+    XDG_VIDEOS_DIR = config.xdg.userDirs.videos;
+    XDG_MUSIC_DIR = config.xdg.userDirs.music;
     NVIM_APPNAME = config.home.sessionVariables.NVIM_APPNAME;
     VISUAL = config.home.sessionVariables.VISUAL;
     EDITOR = config.home.sessionVariables.EDITOR;
