@@ -276,6 +276,7 @@
       lua-language-server
       luajitPackages.luacheck
       nil
+      nodePackages.vscode-json-languageserver # neoconf
       statix
       stylua
     ];
