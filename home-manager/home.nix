@@ -62,6 +62,61 @@
 
   xdg = {
     enable = true;
+    desktopEntries = {
+      Discord = {
+        name = "Discord";
+        # actions = {};
+        genericName = "Messaging Platform";
+        exec = "vieb --config-file=${config.xdg.configHome}/Vieb/Erwic/Discord/erwicrc --erwic=${config.xdg.configHome}/Vieb/Erwic/Discord/erwic.json --datafolder=${config.xdg.stateHome}/Erwic/Discord --ozone-platform-hint=auto";
+        icon = "${config.xdg.configHome}/Vieb/Erwic/Discord/icon.png";
+        terminal = false;
+        type = "Application";
+        # mimeType = [ "" ];
+        # comment = "comment here";
+        categories = ["Network" "Chat" "InstantMessaging"];
+      };
+      Element = {
+        name = "Element";
+        genericName = "Messaging Platform";
+        exec = "vieb --config-file=${config.xdg.configHome}/Vieb/Erwic/Element/erwicrc --erwic=${config.xdg.configHome}/Vieb/Erwic/Element/erwic.json --datafolder=${config.xdg.stateHome}/Erwic/Element --ozone-platform-hint=auto";
+        icon = "${config.xdg.configHome}/Vieb/Erwic/Element/icon.png";
+        terminal = false;
+        type = "Application";
+        categories = ["Network" "Chat" "InstantMessaging"];
+      };
+      Bitwarden = {
+        name = "Bitwarden";
+        genericName = "Password Manager";
+        exec = "vieb --config-file=${config.xdg.configHome}/Vieb/Erwic/Bitwarden/erwicrc --erwic=${config.xdg.configHome}/Vieb/Erwic/Bitwarden/erwic.json --datafolder=${config.xdg.stateHome}/Erwic/Bitwarden --ozone-platform-hint=auto";
+        icon = "${config.xdg.configHome}/Vieb/Erwic/Bitwarden/icon.png";
+        terminal = false;
+        type = "Application";
+        categories = ["Network"];
+      };
+      Protonmail = {
+        name = "Proton Mail";
+        genericName = "Electronic Mail Client";
+        exec = "vieb --config-file=${config.xdg.configHome}/Vieb/Erwic/Proton_Mail/erwicrc --erwic=${config.xdg.configHome}/Vieb/Erwic/Proton_Mail/erwic.json --datafolder=${config.xdg.stateHome}/Erwic/Proton_Mail --ozone-platform-hint=auto";
+        icon = "${config.xdg.configHome}/Vieb/Erwic/Proton_Mail/icon.png";
+        terminal = false;
+        type = "Application";
+        categories = ["Network" "Email"];
+      };
+      YouTube = {
+        name = "YouTube";
+        genericName = "Video Streaming Platform";
+        exec = "vieb --config-file=${config.xdg.configHome}/Vieb/Erwic/YouTube/erwicrc --erwic=${config.xdg.configHome}/Vieb/Erwic/YouTube/erwic.json --datafolder=${config.xdg.stateHome}/Erwic/YouTube --ozone-platform-hint=auto";
+        icon = "${config.xdg.configHome}/Vieb/Erwic/YouTube/icon.png";
+        terminal = false;
+        type = "Application";
+        categories = [
+          "Network"
+          /*
+          "AudioVideo"
+          */
+        ]; # only one main category
+      };
+    };
     mimeApps = {
       enable = true;
       defaultApplications = {
@@ -124,6 +179,9 @@
       tmux-powerline = {
         source = ./tmux-powerline;
       };
+      Vieb = {
+        source = ./Vieb;
+      };
       waybar = {
         source = ./waybar;
       };
@@ -167,6 +225,7 @@
     INPUTRC = "${config.xdg.configHome}/readline/inputrc";
     RUSTUP_HOME = "${config.xdg.dataHome}/rustup";
     STARSHIP_CONFIG = "${config.xdg.configHome}/starship/starship.toml";
+    inherit (config.systemd.user.sessionVariables) VIEB_CONFIG_FILE VIEB_DATAFOLDER;
   };
 
   # These are picked up by GDM and KDE Plasma (apparently?) but not by SDDM (which straight up loads your shell config) or other DMs
@@ -177,6 +236,8 @@
     XDG_DESKTOP_DIR = config.xdg.userDirs.desktop;
     XDG_VIDEOS_DIR = config.xdg.userDirs.videos;
     XDG_MUSIC_DIR = config.xdg.userDirs.music;
+    VIEB_CONFIG_FILE = "${config.xdg.configHome}/Vieb/viebrc";
+    VIEB_DATAFOLDER = "${config.xdg.stateHome}/Vieb";
     NVIM_APPNAME = config.home.sessionVariables.NVIM_APPNAME;
     VISUAL = config.home.sessionVariables.VISUAL;
     EDITOR = config.home.sessionVariables.EDITOR;

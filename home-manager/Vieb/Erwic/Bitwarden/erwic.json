@@ -1,0 +1,10 @@
+{
+    "name": "Bitwarden",
+    "icon": "./icon.png",
+    "apps": [
+        {
+            "container": "Bitwarden",
+            "url": "https://vault.bitwarden.com/"
+        }
+    ]
+}

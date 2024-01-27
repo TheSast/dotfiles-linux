@@ -1,0 +1,10 @@
+{
+    "name": "Element",
+    "icon": "./icon.svg",
+    "apps": [
+        {
+            "container": "Element",
+            "url": "https://app.element.io/"
+        }
+    ]
+}

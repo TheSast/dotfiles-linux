@@ -1,0 +1,10 @@
+{
+    "name": "YouTube",
+    "icon": "./icon.png",
+    "apps": [
+        {
+            "container": "YouTube",
+            "url": "https://youtube.com/"
+        }
+    ]
+}

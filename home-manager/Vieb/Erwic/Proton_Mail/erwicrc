@@ -1,0 +1,3 @@
+source ../shared.vieb
+set nativenotification=always
+set permissionpersistentstorage=allow

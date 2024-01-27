@@ -1,0 +1,10 @@
+{
+    "name": "Proton_Mail",
+    "icon": "./icon.png",
+    "apps": [
+        {
+            "container": "Proton_Mail",
+            "url": "https://mail.proton.me/"
+        }
+    ]
+}
