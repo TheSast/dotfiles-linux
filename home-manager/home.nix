@@ -155,9 +155,6 @@
       astronvim = {
         source = ./astronvim;
       };
-      bat = {
-        source = ./bat;
-      };
       erdtree = {
         source = ./erdtree;
       };
