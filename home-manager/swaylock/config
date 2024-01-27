@@ -13,6 +13,7 @@ indicator-thickness=15
 effect-vignette=0.5:0.5
 screenshots
 daemonize
+# TODO: use wallust colors
 line-color=1f1d2e
 inside-color=1f1d2e
 inside-ver-color=1f1d2e

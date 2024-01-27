@@ -1,4 +1,5 @@
 " Options
+source colorscheme.vieb
 set clearhistoryinterval=2days
 set containercolors=
 set containercolors+=temp\d+~#ff0

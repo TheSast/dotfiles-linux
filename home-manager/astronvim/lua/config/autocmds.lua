@@ -31,3 +31,5 @@ vim.api.nvim_create_autocmd("FileType", {
 --     if new_showtabline ~= vim.opt.showtabline:get() then vim.opt.showtabline = new_showtabline end
 --   end,
 -- })
+
+-- TODO: add auto dark!
