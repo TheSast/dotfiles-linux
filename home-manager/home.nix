@@ -368,7 +368,6 @@
       gpg.format = "ssh";
       merge.conflictstyle = "diff3";
       init.defaultBranch = "main";
-      "includeIf \"gitdir/i:~/workspace/school\"".path = "~/workspace/school/gitconfig";
     };
   };
   programs.hyfetch = {
