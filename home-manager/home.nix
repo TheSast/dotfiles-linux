@@ -103,9 +103,6 @@
       bat = {
         source = ./bat;
       };
-      bottom = {
-        source = ./bottom;
-      };
       erdtree = {
         source = ./erdtree;
       };
@@ -198,7 +195,6 @@
     historyControl = ["erasedups"];
   };
   programs.bat.enable = true;
-  programs.bottom.enable = true;
   programs.btop.enable = true;
   programs.broot.enable = true;
   programs.eza = {
