@@ -44,17 +44,21 @@ tooltip label{
 }
 
 #workspaces button {
-    background-color: rgba(51,46,52,0.3);
+    background: rgba(51,46,52,0.3);
     border-radius: 15px;
     padding: 0px 3px;
     margin: 4px 3px;
     transition: all 0.3s ease-in-out;
 }
 
-#workspaces button.active {
-    background-color: rgba(51,46,52,1.0);
-    min-width: 45px;
+#workspaces button:hover {
+    background: rgba(51,46,52,0.7);
     transition: all 0.3s ease-in-out;
+}
+
+#workspaces button.active {
+    background: rgba(51,46,52,1.0);
+    min-width: 45px;
 }
 
 #battery.warning {
