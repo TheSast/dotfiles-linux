@@ -2,3 +2,4 @@ source ../shared.vieb
 set nativenotification=smallonly
 set permissionsallowed+=discord.com~microphone~mediadevicesfull~notifications
 set permissionsasked+=discord.com~displaycapture~camera
+" vim: ft=vim
