@@ -170,6 +170,9 @@
       starship = {
         source = ./starship;
       };
+      swaylock = {
+        source = ./swaylock;
+      };
       tmux = {
         source = ./tmux;
       };
@@ -340,8 +343,10 @@
     enableFishIntegration = true;
     enableTransience = true;
   };
-  programs.swaylock.enable = true;
-  programs.swaylock.package = pkgs.swaylock-effects;
+  programs.swaylock = {
+    enable = true;
+    package = pkgs.swaylock-effects;
+  };
   programs.zoxide = {
     enable = true;
     enableFishIntegration = true;
