@@ -3,7 +3,6 @@ if true then return {} end -- REMOVE THIS LINE TO ACTIVATE THIS FILE
 -- AstroUI allows you to easily modify highlight groups easily for any and all colorschemes
 return {
   "AstroNvim/astroui",
-  ---@type AstroUIOpts
   opts = {
     colorscheme = "astrodark", -- change colorscheme
     highlights = {

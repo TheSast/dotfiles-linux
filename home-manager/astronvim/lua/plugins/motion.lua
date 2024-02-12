@@ -1,6 +1,5 @@
 return {
   { import = "astrocommunity.motion.nvim-spider" },
-  ---@type LazySpec
   {
     "nvim-spider",
     dependencies = {
