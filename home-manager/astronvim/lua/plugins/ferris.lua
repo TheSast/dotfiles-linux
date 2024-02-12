@@ -1,6 +1,6 @@
 return {
   {
-    "AstroNvim/astrolsp",
+    "astrolsp",
     opts = {
       config = {
         rust_analyzer = {

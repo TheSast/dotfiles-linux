@@ -1,5 +1,5 @@
 return {
-  "nvimtools/none-ls.nvim",
+  "none-ls.nvim",
   opts = function(_, opts)
     local nls = require("null-ls").builtins
     -- does the list fed to null-ls need contain unique elements?

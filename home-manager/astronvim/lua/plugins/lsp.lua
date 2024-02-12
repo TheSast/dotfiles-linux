@@ -1,5 +1,5 @@
 return {
-  "AstroNvim/astrolsp",
+  "astrolsp",
   opts = function(_, opts)
     -- does the list fed to astrolsp need contain unique elements?
     -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md

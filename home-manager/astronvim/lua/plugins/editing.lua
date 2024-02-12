@@ -36,7 +36,7 @@ return {
     },
     dependencies = {
       {
-        "AstroNvim/astrocore",
+        "astrocore",
         opts = {
           mappings = {
             n = {
@@ -52,7 +52,7 @@ return {
     "zen-mode.nvim",
     dependencies = {
       {
-        "AstroNvim/astrocore",
+        "astrocore",
         opts = {
           mappings = {
             n = {
