@@ -152,4 +152,16 @@ return {
   --     )
   --   end,
   -- },
+  {
+    "nvim-treesitter",
+    opts = {
+      incremental_selection = {
+        enable = false,
+      },
+    },
+  },
+  {
+    "nvim-treesitter-textobjects",
+    enabled = false,
+  },
 }
