@@ -21,5 +21,10 @@ return {
         },
       },
     },
+    dependencies = {
+      "heirline.nvim",
+      optional = true,
+      opts = function(_, opts) opts.statusline[9] = require("astroui.status").component.lsp { lsp_progress = false } end,
+    },
   },
 }
