@@ -2,33 +2,22 @@ return {
   { import = "astrocommunity.utility.noice-nvim" },
   {
     "noice.nvim",
-    enabled = false,
+    enabled = true, -- commands such as `:set timeoutlen?` don't show input, may disable sometimes
     opts = {
+      cmdline = {
+        format = {
+          lua = false,
+        },
+      },
+      messages = {
+        enabled = false,
+      },
       lsp = {
-        -- it keeps sending anotification when saving, yanking, deleting, undoing, it's actually driving me insane
-        cmdline = {
-          enabled = true,
-        },
-        message = {
-          enabled = false,
-        },
-        messages = {
-          enabled = false,
-        },
-        popupmenu = {
-          enabled = false,
-        },
-        redirect = {
-          enabled = false,
-        },
-        notify = {
-          enabled = false,
+        signature = {
+          enabled = false, -- FIXME: something else is attempting to handle this
         },
         hover = {
-          enabled = false,
-        },
-        signature = {
-          enabled = false,
+          enabled = false, -- FIXME: something else is attempting to handle this
         },
       },
     },
