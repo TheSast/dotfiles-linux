@@ -50,38 +50,29 @@ return {
     --   },
     -- },
   },
-  -- { import = "astrocommunity.motion.mini-surround" }, -- TODO: use instead of nvim-surround
-  -- {
-  --    "mini.surround",
-  --    opts = {
-  --     mappings = {
-  --       add = "Ya", -- Add surrounding in Normal and Visual modes
-  --       delete = "Yd", -- Delete surrounding
-  --       find = "Yf", -- Find surrounding (to the right)
-  --       find_left = "YF", -- Find surrounding (to the left)
-  --       highlight = "Yh", -- Highlight surrounding
-  --       replace = "Yr", -- Replace surrounding
-  --       update_n_lines = "Yn", -- Update `n_lines`
-  --     },
-  --   },
-  -- },
-  { import = "astrocommunity.motion.nvim-surround" }, -- TODO: swap for mini.surround
+  { import = "astrocommunity.motion.mini-surround" },
   {
-    "nvim-surround",
+    -- {[{
+    -- NOTE: does not create surroundings text objects, e.g. in `cY2}]` `2}` is handled in a custom way, as are each of the operators in opts.mappings
+    -- NOTE: will not implement {count1}{operator}{count2}{motion|textobj}
+    -- ISSUE: does not handle registers, unable to be used with "{register} (even "_)
+    "mini.surround",
+    event = "User AstroFile",
     opts = {
-      keymaps = {
-        insert = false,
-        insert_line = false,
-        normal = "Y",
-        normal_cur = false,
-        normal_line = false,
-        normal_cur_line = false,
-        visual = "Y",
-        visual_line = false,
-        delete = "d" .. "Y",
-        change = "c" .. "Y",
-        change_line = false,
+      mappings = { -- should be set by astrocore for better lazyness?
+        add = "Y",
+        delete = "dY",
+        find = "",
+        find_left = "",
+        highlight = "",
+        replace = "cY",
+        update_n_lines = "",
+        suffix_last = "",
+        suffix_next = "",
       },
+      respect_selection_type = true,
+      n_lines = 100,
+      silent = true,
     },
   },
   {
