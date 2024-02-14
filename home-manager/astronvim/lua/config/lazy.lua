@@ -9,7 +9,14 @@ vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 require("lazy").setup {
   spec = {
     -- TODO: change `branch="v4"` to `version="^4"` and `version=^6` respectively on release
-    { "AstroNvim/AstroNvim", branch = "v4", import = "astronvim.plugins" },
+    {
+      "AstroNvim/AstroNvim",
+      branch = "v4",
+      import = "astronvim.plugins",
+      opts = {
+        maplocalleader = vim.api.nvim_replace_termcodes("<C-Space>", true, true, true),
+      },
+    },
     { "AstroNvim/astrocommunity", branch = "v4" },
     { import = "plugins" },
   },
