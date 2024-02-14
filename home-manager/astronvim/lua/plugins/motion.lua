@@ -76,6 +76,15 @@ return {
     },
   },
   {
+    "backdround/improved-ft.nvim",
+    event = "User AstroFile",
+    opts = {
+      use_default_mappings = true, -- should be set by astrocore for better lazyness?
+      use_relative_repetition = true,
+      use_relative_repetition_offsets = true,
+    },
+  },
+  {
     "chrisgrieser/nvim-various-textobjs",
     lazy = false,
     opts = { useDefaultKeymaps = true },
