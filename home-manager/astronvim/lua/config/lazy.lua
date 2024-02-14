@@ -13,8 +13,9 @@ require("lazy").setup {
     { "AstroNvim/astrocommunity", branch = "v4" },
     { import = "plugins" },
   },
-  install = { colorscheme = { "astrodark", "habamax" } },
+  change_detection = { notify = false },
   defaults = { lazy = true },
+  install = { colorscheme = { "habamax" } },
   performance = {
     rtp = {
       disabled_plugins = {
