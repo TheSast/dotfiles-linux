@@ -27,7 +27,7 @@ return {
   { import = "astrocommunity.motion.leap-nvim" },
   {
     "leap.nvim",
-    -- event = { "User AstroFile", "InsertEnter" },
+    event = "User AstroFile",
     opts = {
       safe_labels = {},
     },

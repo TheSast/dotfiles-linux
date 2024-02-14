@@ -14,6 +14,7 @@ require("lazy").setup {
     { import = "plugins" },
   },
   install = { colorscheme = { "astrodark", "habamax" } },
+  defaults = { lazy = true },
   performance = {
     rtp = {
       disabled_plugins = {
