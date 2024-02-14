@@ -82,7 +82,6 @@ return {
       mapping = { "jk", "kj" },
     },
   },
-  -- { import = "astrocommunity.bars-and-lines.heirline-mode-text-statusline" },
   {
     "heirline.nvim",
     opts = function(_, opts)

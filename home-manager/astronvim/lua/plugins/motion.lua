@@ -1,56 +1,61 @@
 return {
-  { import = "astrocommunity.motion.nvim-spider" },
   {
     "nvim-spider",
     dependencies = {
-      {
-        "AstroNvim/astrocore",
-        opts = {
-          mappings = {
-            n = {
-              ["ge"] = "<nop>",
-              ["x"] = { "<cmd>lua require('spider').motion('ge')<CR>", desc = "Previous end of word" },
-            },
-            x = {
-              ["ge"] = "<nop>",
-              ["x"] = { "<cmd>lua require('spider').motion('ge')<CR>", desc = "Previous end of word" },
-            },
-            o = {
-              ["ge"] = "<nop>",
-              ["x"] = { "<cmd>lua require('spider').motion('ge')<CR>", desc = "Previous end of word" },
-            },
+      "astrocore",
+      opts = {
+        mappings = {
+          n = {
+            ["w"] = { "<Cmd>lua require('spider').motion('w')<CR>", desc = "Next word" },
+            ["e"] = { "<Cmd>lua require('spider').motion('e')<CR>", desc = "Next end of word" },
+            ["b"] = { "<Cmd>lua require('spider').motion('b')<CR>", desc = "Previous word" },
+            ["x"] = { "<Cmd>lua require('spider').motion('ge')<CR>", desc = "Previous end of word" },
+          },
+          x = {
+            ["w"] = { "<Cmd>lua require('spider').motion('w')<CR>", desc = "Next word" },
+            ["e"] = { "<Cmd>lua require('spider').motion('e')<CR>", desc = "Next end of word" },
+            ["b"] = { "<Cmd>lua require('spider').motion('b')<CR>", desc = "Previous word" },
+            ["x"] = { "<Cmd>lua require('spider').motion('ge')<CR>", desc = "Previous end of word" },
+          },
+          o = {
+            ["w"] = { "<Cmd>lua require('spider').motion('w')<CR>", desc = "Next word" },
+            ["e"] = { "<Cmd>lua require('spider').motion('e')<CR>", desc = "Next end of word" },
+            ["b"] = { "<Cmd>lua require('spider').motion('b')<CR>", desc = "Previous word" },
+            ["x"] = { "<Cmd>lua require('spider').motion('ge')<CR>", desc = "Previous end of word" },
           },
         },
       },
     },
   },
-  { import = "astrocommunity.motion.leap-nvim" },
   {
     "leap.nvim",
     event = "User AstroFile",
     opts = {
       safe_labels = {},
     },
-    -- dependencies = {
-    --   {
-    --     "AstroNvim/astrocore",
-    --     opts = {
-    --       mappings = {
-    --         n = {
-    --           ["x"] = false,
-    --         },
-    --         x = {
-    --           ["x"] = false,
-    --         },
-    --         o = {
-    --           ["x"] = false,
-    --         },
-    --       },
-    --     },
-    --   },
-    -- },
+    dependencies = {
+      "astrocore",
+      opts = {
+        mappings = {
+          n = {
+            ["s"] = { "<Plug>(leap-forward-to)", desc = "Leap forward to" },
+            ["S"] = { "<Plug>(leap-backward-to)", desc = "Leap backward to" },
+            ["gs"] = { "<Plug>(leap-from-window)", desc = "Leap from window" },
+          },
+          x = {
+            ["s"] = { "<Plug>(leap-forward-to)", desc = "Leap forward to" },
+            ["S"] = { "<Plug>(leap-backward-to)", desc = "Leap backward to" },
+            ["gs"] = { "<Plug>(leap-from-window)", desc = "Leap from window" },
+          },
+          o = {
+            ["s"] = { "<Plug>(leap-forward-to)", desc = "Leap forward to" },
+            ["S"] = { "<Plug>(leap-backward-to)", desc = "Leap backward to" },
+            ["gs"] = { "<Plug>(leap-from-window)", desc = "Leap from window" },
+          },
+        },
+      },
+    },
   },
-  { import = "astrocommunity.motion.mini-surround" },
   {
     -- {[{
     -- NOTE: does not create surroundings text objects, e.g. in `cY2}]` `2}` is handled in a custom way, as are each of the operators in opts.mappings

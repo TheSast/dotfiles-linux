@@ -1,12 +1,4 @@
 return {
-  { import = "astrocommunity.lsp.inc-rename-nvim" },
-  { import = "astrocommunity.lsp.lsp-inlayhints-nvim" },
-  { import = "astrocommunity.lsp.garbage-day-nvim" },
-  -- { import = "astrocommunity.diagnostics.lsp_lines-nvim" },
-  -- { import = "astrocommunity.diagnostics.trouble-nvim" },
-  -- { import = "astrocommunity.fuzzy-finder.telescope-zoxide" },
-  -- { import = "astrocommunity.editing-support.telescope-undo-nvim" }, -- WARN: DO NOT UNCOMMET, IS BROKEN, WILL CRIPPLE EDITOR
-  { import = "astrocommunity.editing-support.todo-comments-nvim" },
   {
     "todo-comments.nvim",
     opts = {
@@ -37,7 +29,6 @@ return {
       },
     },
   },
-  { import = "astrocommunity.editing-support.zen-mode-nvim" },
   {
     "zen-mode.nvim",
     dependencies = {

@@ -1,5 +1,4 @@
 return {
-  { import = "astrocommunity.utility.noice-nvim" },
   {
     "noice.nvim",
     enabled = true, -- commands such as `:set timeoutlen?` don't show input, may disable sometimes
