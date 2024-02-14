@@ -2,7 +2,6 @@ return {
   "none-ls.nvim",
   opts = function(_, opts)
     local nls = require("null-ls").builtins
-    -- does the list fed to null-ls need contain unique elements?
     -- https://github.com/nvimtools/none-ls.nvim/blob/main/doc/BUILTINS.md
     local optional_ls = {
       -- nls.diagnostics.ccpcheck,

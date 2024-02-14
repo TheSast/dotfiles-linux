@@ -1,4 +1,3 @@
--- Default options that are always set: https://github.com/AstroNvim/AstroNvim/blob/main/lua/astronvim/options.lua
 local background
 if tonumber(os.date "%H") >= 18 or tonumber(os.date "%H") < 06 then
   background = "dark"
@@ -6,7 +5,6 @@ else
   background = "light"
 end
 
--- I AM GOING CRAZY WHY DOES NEODEV NOT DEFINE `vim` WHEN IN MY CONFIG FOLDER BUT IT DOES WHEN I AM IN A PLUGIN FOLDER (AND OPEN ANOTHER LUA FILE FIRST) AAAA
 vim.g.mapleader = " "
 vim.g.maplocalleader = vim.api.nvim_replace_termcodes("<C-Space>", true, true, true)
 vim.opt.showcmdloc = "statusline"

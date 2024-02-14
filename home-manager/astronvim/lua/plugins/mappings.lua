@@ -1,4 +1,3 @@
--- AstroCore provides a central place to modify mappings set up as well as which-key menu titles
 return {
   "astrocore",
   opts = {
@@ -130,11 +129,3 @@ return {
     },
   },
 }
--- ["<C-[>"] equivalent to <Esc> in terminal
--- ["<C-_>"] equivalent to C--> in terminal
--- ["<C-@>"] resolves to <C-g> in terminal
--- ["<C-Space>"] equivalent to ["<C-@>"]
--- ["<C-h>"] equivalent to <C-BS> in terminal
--- ["<C-i>"] equivalent to <Tab> in terminal
--- ["<C-j>"] equivalent to <NL> in terminal
--- ["<C-m>"] equivalent to <CR> in terminal
