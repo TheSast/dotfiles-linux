@@ -6,16 +6,6 @@ return {
   -- { import = "astrocommunity.diagnostics.trouble-nvim" },
   -- { import = "astrocommunity.fuzzy-finder.telescope-zoxide" },
   -- { import = "astrocommunity.editing-support.telescope-undo-nvim" }, -- WARN: DO NOT UNCOMMET, IS BROKEN, WILL CRIPPLE EDITOR
-  {
-    "telescope.nvim",
-    opts = function(_, opts)
-      return require("astrocore").extend_tbl(opts, {
-        defaults = {
-          windblend = vim.g.neovide and vim.o.winblend,
-        },
-      })
-    end,
-  },
   { import = "astrocommunity.editing-support.todo-comments-nvim" },
   {
     "todo-comments.nvim",
