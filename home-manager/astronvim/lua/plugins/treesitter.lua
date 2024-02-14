@@ -1,19 +1,32 @@
 return {
-  "nvim-treesitter",
-  opts = function(_, opts)
-    opts.ensure_installed = require("astrocore").list_insert_unique(opts.ensure_installed, {
-      "bash",
-      "c",
-      "cpp",
-      "css",
-      "fish",
-      "lua",
-      "nix",
-      "rust",
-      "toml",
-      "vim",
-      "vimdoc",
-      "yaml",
-    })
-  end,
+  {
+    "nvim-treesitter",
+    -- TODO: move to nix-managed parsers
+    opts = {
+      ensure_installed = {
+        "bash",
+        "c",
+        "cpp",
+        "css",
+        "fish",
+        "lua",
+        "nix",
+        "rust",
+        "toml",
+        "vim",
+        "vimdoc",
+        "yaml",
+        "json",
+        "jsonc",
+      },
+    },
+  },
+  {
+    "luckasRanarison/tree-sitter-hyprlang",
+    event = "User AstroFile",
+    dependencies = {
+      "nvim-treesitter",
+      opts = { ensure_installed = { "hyprlang" } },
+    },
+  },
 }
