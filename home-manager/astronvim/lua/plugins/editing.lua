@@ -22,7 +22,7 @@ return {
         opts = {
           mappings = {
             n = {
-              ["<leader>fT"] = { function() vim.cmd "TodoTelescope" end, desc = "Find TODO, WARN, FIXME, and others" },
+              ["<Leader>fT"] = { function() vim.cmd "TodoTelescope" end, desc = "Find TODO, WARN, FIXME, and others" },
             },
           },
         },
@@ -37,7 +37,7 @@ return {
         opts = {
           mappings = {
             n = {
-              ["<leader>z"] = { function() vim.cmd "ZenMode" end, desc = "Enter Zen Mode" },
+              ["<Leader>z"] = { function() vim.cmd "ZenMode" end, desc = "Enter Zen Mode" },
             },
           },
         },
