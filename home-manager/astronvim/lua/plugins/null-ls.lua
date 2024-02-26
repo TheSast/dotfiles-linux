@@ -37,8 +37,7 @@ return {
     local permanent_ls = vim.list_extend(opts.servers or {}, {
       nls.diagnostics.deadnix,
       nls.diagnostics.statix,
-      nls.diagnostics.luacheck,
-      -- nls.diagnostics.selene,
+      nls.diagnostics.selene,
       nls.diagnostics.commitlint,
       nls.formatting.alejandra,
       nls.formatting.stylua,
