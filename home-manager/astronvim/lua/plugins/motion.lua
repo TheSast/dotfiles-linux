@@ -31,8 +31,14 @@ return {
     "leap.nvim",
     event = "User AstroFile",
     opts = {
-      safe_labels = {},
+      safe_labels = {}, -- ISSUE: doesn't turn off autojump if there is only one valid target
+      case_sensitive = true,
+      special_keys = {
+        next_target = ";", -- does not overrwite the mapping
+        prev_target = ",", -- outside this "LEAP" mode
+      },
     },
+    init = function() vim.api.nvim_set_hl(0, "LeapBackdrop", { link = "Comment" }) end,
     dependencies = {
       "astrocore",
       opts = {
