@@ -75,7 +75,7 @@ return {
   { import = "astrocommunity.editing-support.zen-mode-nvim" },
   -- { import = "astrocommunity.editing-support.dial-nvim" },
   -- utility
-  { import = "astrocommunity.utility.noice-nvim" },
+  -- { import = "astrocommunity.utility.noice-nvim" },
   -- TODO: add to austrocommunity
   -- utf8 support to nvim-spider
   -- https://github.com/chikko80/error-lens.nvim

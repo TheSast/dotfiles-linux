@@ -1,7 +1,7 @@
 return {
   {
     "noice.nvim",
-    enabled = true, -- commands such as `:set timeoutlen?` don't show input, may disable sometimes
+    enabled = false, -- commands such as `:set timeoutlen?` don't show input, may disable sometimes
     opts = {
       cmdline = {
         format = {
@@ -9,7 +9,11 @@ return {
         },
       },
       messages = {
-        enabled = false,
+        -- enabled = false,
+        view = "cmdline",
+        view_error = "cmdline",
+        view_warn = "cmdline",
+        -- view_history = "cmdline",
       },
       lsp = {
         signature = {
