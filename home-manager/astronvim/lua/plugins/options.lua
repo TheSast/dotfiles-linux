@@ -11,7 +11,6 @@ return {
         neovide_underline_automatic_scaling = true,
       },
       opt = {
-        background = (tonumber(os.date "%H") >= 18 or tonumber(os.date "%H") < 06) and "dark" or "light",
         cpoptions = string.gsub(vim.o.cpoptions, "_", ""),
         guifont = "FiraCode_Nerd_Font_Med:h12", -- TODO: move to neovide toml file
         pumblend = 30,
