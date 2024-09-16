@@ -16,3 +16,5 @@ return {
     },
   },
 }
+-- TODO: add auto opt.background! possibly using https://github.com/f-person/auto-dark-mode.nvim and https://askubuntu.com/questions/22313/what-is-dconf-what-is-its-function-and-how-do-i-use-it
+-- TODO: add auto opt_local.spelllang!

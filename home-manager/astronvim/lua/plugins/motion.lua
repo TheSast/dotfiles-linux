@@ -1,7 +1,7 @@
 return {
   {
     "nvim-spider",
-    dependencies = {
+    dependencies = { -- TODO: add utf8 support
       "astrocore",
       opts = {
         mappings = {
@@ -100,4 +100,65 @@ return {
     lazy = false,
     opts = { useDefaultKeymaps = true },
   },
+  -- {
+  --   "ggandor/leap-spooky.nvim",
+  --   event = "User AstroFile",
+  --   opts = {
+  --     -- should be set by astrocore for better lazyness?
+  --     extra_text_objects = {
+  --       "iw", -- why???
+  --       "iW", -- why?????
+  --       "iS",
+  --       "aS",
+  --       "in",
+  --       "an",
+  --       -- ISSUE iw, iW not working, D, C, Y encounters `timeout`
+  --       -- ISSUE multiple textobjects are broken
+  --     },
+  --     prefix = true,
+  --   },
+  --   dependencies = "leap.nvim",
+  -- },
+  -- TODO: https://medium.com/@schtoeffel/you-don-t-need-more-than-one-cursor-in-vim-2c44117d51db
+  -- "paradigm/vim-multiple-cursor",
+  -- "felixr/vim-multiedit",
+  -- "hlissner/vim-multiedit",
+  -- "adinapoli/vim-markmultiple",
+  -- "AndrewRadev/multichange.vim",
+  -- {
+  --   "terryma/vim-multiple-cursors",
+  --   lazy = false,
+  --   -- + simple
+  --   -- - vimscript, laggy, undo is broken
+  -- },
+  -- {
+  --   "mg979/vim-visual-multi",
+  --   lazy = false,
+  --   config = function() vim.g.VM_leader = "Z" end,
+  --   -- + popular
+  --   -- - vimscript, bad defaults, bloated
+  -- },
+  -- https://github.com/otavioschwanck/cool-substitute.nvim
+  -- https://github.com/YacineDo/mc.nvim
+  -- {
+  --   "smoka7/multicursors.nvim",
+  --   event = "VeryLazy",
+  --   dependencies = {
+  --     "smoka7/hydra.nvim",
+  --   },
+  --   opts = {},
+  --   cmd = { "MCstart", "MCvisual", "MCclear", "MCpattern", "MCvisualPattern", "MCunderCursor" },
+  --   -- + lua
+  --   -- - depends on hydra
+  -- },
 }
+-- TODO: fix % to not check comments
+-- TODO: add motion to select `[ foo bar ] baz` in `[[ foo *ar ] baz ]` -- targets.vim?
+-- TODO: consider mini.operators
+-- TODO: add a WINDOW_MANAGEMENT mode using hydra.nvim
+-- TODO: consider antipatterns https://news.ycombinator.com/item?id=12643887
+-- TODO: add iz and az textobj https://github.com/kana/vim-textobj-fold ?
+-- xnoremap iz <Cmd>silent!normal![zjV]z<CR>
+-- onoremap iz <Cmd>normal viz<CR>
+-- xnoremap az <Cmd>silent!normal![zV]zj<CR>
+-- onoremap az <Cmd>normal vaz<CR>

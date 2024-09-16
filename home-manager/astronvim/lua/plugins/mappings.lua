@@ -1,7 +1,9 @@
+-- this mappings file is supposed to be usable regardless of the presence of additional plugins
 return {
   {
     "astrocore",
     opts = {
+      -- ISSUE: mappings set to "<NOP>" still have their `desc`
       mappings = {
         n = {
           ["<Leader>bn"] = { "<Cmd>enew<CR>", desc = "New File" },
@@ -53,16 +55,14 @@ return {
           ["_"] = { "g_", desc = "End of line (non-blank)" },
           ["g+"] = "<NOP>",
           ["g-"] = "<NOP>",
-          -- ["g^"] = { "??", desc = "Start of visual line (non-blank)" }, -- TODO: impement proper g^ and equivalent g_ , might not be needed
-          -- ["g_"] = { "??", desc = "End of visual line (non-blank)" }, -- TODO: impement proper gg_ and equivalent g_
           ["g_"] = "<NOP>",
+          ["g^"] = { desc = "Start of visual line (non-blank)" },
           ["gA"] = { "A", desc = "Append to line" },
           ["gJ"] = "<NOP>",
-          -- ["gM"] = { "gJ", desc = "Merge lines (down) without spaces" },
-          -- ["gC"] = { "gM", desc = "Go to character at middle of the textline" },
+          -- ["g_"] = { "??", desc = "End of visual line (non-blank)" }, -- TODO: impement end on line equivalent to g^
           ["gh"] = { "K", desc = "Go to manual entry" },
           -- ["gc"] = { "gm", desc = "Go to character at middle of the screenline" },
-          ["s"] = "<NOP>", -- leap refueses to bind to keys mapped to <NOP> until another leap mappings is called
+          ["s"] = "<NOP>",
           ["x"] = { "ge", desc = "Previous end of word" },
           -- ["zJ"] = { "zt", desc = "Bottom this line" },
           -- ["zK"] = { "zb", desc = "Top this line" },
@@ -87,29 +87,32 @@ return {
           -- ["M"] = { "J", desc = "Merge lines (down)" },
           ["X"] = { "gE", desc = "Previous end of WORD" },
           ["Y"] = "<NOP>",
-          -- ["g^"] = { "??", desc = "Start of visual line (non-blank)" }, -- TODO: impement proper g^ and equivalent g_ , might not be needed
-          -- ["g_"] = { "??", desc = "End of visual line (non-blank)" }, -- TODO: impement proper gg_ and equivalent g_
+          ["g^"] = { desc = "Start of visual line (non-blank)" },
           ["g+"] = { "g<C-a>", desc = "Increment sequentially" },
           ["g-"] = { "g<C-x>", desc = "Decrement sequentially" },
+          -- ["g_"] = { "??", desc = "End of visual line (non-blank)" }, -- TODO: impement end on line equivalent to g^
           ["g_"] = "<NOP>",
           ["g/"] = { "<esc>/\\%V", desc = "Search inside visual selection" },
           ["g?"] = { "<esc>?\\%V", desc = "Backwards search inside visual selection" },
           ["gE"] = "<NOP>",
           ["ge"] = "<NOP>",
           ["x"] = { "ge", desc = "Previous end of word" },
+          -- TODO: add proper `desc` for `({)}`
         },
         o = {
-          -- ["^"] = { "_", desc = "Start of line (non-blank)" },
           ["_"] = { "g_", desc = "End of line (non-blank)" },
+          -- ["^"] = { "??", desc = "Start of line (non-blank)" },
+          -- ["0"] = { "??", desc = "Start of line" }, -- ISSUE: no counts, no counts repetition
           ["+"] = "<NOP>",
           ["-"] = "<NOP>",
           ["H"] = "<NOP>",
           ["J"] = "<NOP>",
           ["K"] = "<NOP>",
           ["L"] = "<NOP>",
-          -- ["g^"] = { "??", desc = "Start of visual line (non-blank)" }, -- TODO: impement proper g^ and equivalent g_ , might not be needed
-          -- ["g_"] = { "??", desc = "End of visual line (non-blank)" }, -- TODO: impement proper gg_ and equivalent g_
+          ["g^"] = { desc = "Start of visual line (non-blank)" },
+          -- ["g_"] = { "??", desc = "End of visual line (non-blank)" }, -- TODO: impement end on line equivalent to g^
           ["g_"] = "<NOP>",
+          -- TODO: add proper `desc` for `({)}`
         },
         i = {
           ["<C-BS>"] = "<C-w>",
@@ -121,9 +124,9 @@ return {
         },
         c = {
           ["<C-BS>"] = "<C-w>",
-          ["<C-Del>"] = "<C-Right><C-w>",
           ["<C-a>"] = "<Home>",
           -- ["<C-e>"] = "<End>", -- present by default
+          ["<C-Del>"] = "<C-Right><C-w>", -- FIXME: not the same as actual <C-Del>
           ["<C-b>"] = "<Left>",
           ["<C-f>"] = "<Right>",
         },

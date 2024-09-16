@@ -20,7 +20,7 @@ return {
         },
       },
     },
-    dependencies = {
+    dependencies = { -- TODO: add this to astrocommunity
       "heirline.nvim",
       optional = true,
       opts = function(_, opts) opts.statusline[9] = require("astroui.status").component.lsp { lsp_progress = false } end,

@@ -164,3 +164,4 @@ return {
     enabled = false,
   },
 }
+-- TODO: add a cmp source for buffer names, current git branch, filetype and attached language servers
