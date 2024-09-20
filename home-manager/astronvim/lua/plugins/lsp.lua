@@ -1,62 +1,101 @@
+---Mutate an options table by filter the list-like table of lspconfig sources by available binaries, accounting for cmd overrides
+---
+--- NOTE: This mutates opts!
+---@param opts table # Options table with `servers.when_available` table of sources to filter
+---@return table avail # The options table with a filtered source list
+local function handle_lspconfig_avail(opts)
+  local executable = 1
+  opts = opts or {}
+  local srcs = opts.servers.when_available or {}
+  for i = #srcs, 1, -1 do
+    local src = srcs[i]
+    if
+      vim.fn.executable(
+        vim.tbl_get(opts, "config", src, "cmd", 1) or require("lspconfig")[src].document_config.default_config.cmd[1]
+      ) ~= executable
+    then
+      table.remove(srcs, i)
+    end
+  end
+  opts.servers = vim.list_extend(opts.servers.always, srcs)
+  return opts
+end
+
+---Mutate a config table by enabling partial overriding of cmd in source configuration, defaulting to full override
+---
+--- NOTE: This mutates config!
+---@param config table # The configs table with `cmd.override = "partial"` where partial overriding is desired
+---@return table over # The configs table, with each source having a correctly overriden cmd
+local function handle_partial_cmd_over(config)
+  for src_name, src_config in pairs(config) do
+    local default_cmd = require("lspconfig")[src_name].document_config.default_config.cmd
+    src_config.cmd = src_config.cmd or default_cmd
+    if
+      (function()
+        local x = src_config.cmd.override
+        src_config.cmd.override = nil
+        return x
+      end)() == "partial"
+    then
+      for i, _ in ipairs(default_cmd) do
+        if
+          not (type(src_config.cmd[i]) == "string" or (type(src_config.cmd[i]) == "boolean" and not src_config.cmd[i]))
+        then
+          src_config.cmd[i] = default_cmd[i]
+        end
+      end
+      for i = #src_config.cmd, 1, -1 do
+        if type(src_config.cmd[i]) == "boolean" and not src_config.cmd[i] then table.remove(src_config.cmd, i) end
+      end
+    end
+  end
+  return config
+end
+
 return {
   "astrolsp",
-  opts = function(_, opts)
-    -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
-    local optional_srv = {
-      { "bashls", "bash-language-server" },
-      "clangd",
-      { "rust_analyzer", "rust-analyzer" },
-      "marksman",
-      { "html", "html-language-server" },
-      { "htmx", "htmx-lsp" },
-      -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#cssls
-      -- { "cssls", "vscode-css-language-server" },
-      { "cssls", "css-languageserver" }, -- NixOS seems to have a different binary name
-      -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#jsonls
-      -- { "jsonls", "vscode-json-language-server" },
-      { "jsonls", "vscode-json-languageserver" }, -- NixOS seems to have a different binary name
-      -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#yamlls
-      { "yamlls", "yaml-language-server" },
-      "taplo",
-      { "awk_ls", "awk-language-server" },
-    }
-    local permanent_srv = vim.list_extend(opts.servers or {}, {
-      "lua_ls",
-      "nil_ls",
-    })
-    opts.formatting = require("astrocore").extend_tbl(opts.config or {}, {
+  opts = handle_lspconfig_avail {
+    -- :h lspconfig-server-configurations
+    servers = {
+      when_available = {
+        "bashls",
+        "clangd",
+        "rust_analyzer", -- only seems to properly load in once InsertLeave is sent, and takes a while for `vim.lsp.buf.hover()` to work
+        "marksman",
+        "html",
+        "htmx",
+        -- TODO: check setup doc
+        "cssls",
+        -- TODO: check setup doc
+        "jsonls",
+        -- TODO: check setup doc
+        "yamlls",
+        "taplo",
+        "awk_ls",
+      },
+      always = {
+        "lua_ls",
+        "nil_ls",
+      },
+    },
+    formatting = {
       disabled = {
         "lua_ls",
       },
-    })
-    opts.diagnostics = require("astrocore").extend_tbl(opts.diagnostics or {}, {
+    },
+    diagnostics = {
       virtual_text = true,
       underline = true,
-    })
-    opts.config = require("astrocore").extend_tbl(opts.config or {}, {
-      -- lua_ls = {
-      --   settings = {
-      --     Lua = {
-      --       diagnostics = {
-      --         global = { "vim" },
-      --       },
-      --     },
-      --   },
-      -- },
+    },
+    config = handle_partial_cmd_over {
       cssls = {
-        cmd = {
-          "css-languageserver", -- NixOS seems to have a different binary name
-          "--stdio",
-        },
+        cmd = { override = "partial", "css-languageserver" },
       },
       jsonls = {
-        cmd = {
-          "vscode-json-languageserver", -- NixOS seems to have a different binary name
-          "--stdio",
-        },
+        cmd = { override = "partial", "vscode-json-languageserver" },
       },
-    })
-    opts.mappings = require("astrocore").extend_tbl(opts.mappings or {}, {
+    },
+    mappings = {
       n = {
         ["K"] = false,
         ["gh"] = {
@@ -64,19 +103,6 @@ return {
           desc = "Hover symbol details",
         },
       },
-    })
-
-    for i = #optional_srv, 1, -1 do
-      local is_in_path
-      if type(optional_srv[i]) == "table" then
-        is_in_path = vim.fn.executable(optional_srv[i][2] or optional_srv[i][1]) == 1
-        ---@diagnostic disable-next-line:assign-type-mismatch
-        optional_srv[i] = optional_srv[i][1]
-      else
-        is_in_path = vim.fn.executable(optional_srv[i]) == 1
-      end
-      if not is_in_path then table.remove(optional_srv, i) end
-    end
-    opts.servers = vim.list_extend(permanent_srv, optional_srv)
-  end,
+    },
+  },
 }
