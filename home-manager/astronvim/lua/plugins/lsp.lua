@@ -60,6 +60,7 @@ return {
       when_available = {
         "bashls",
         "clangd",
+        "jdtls",
         "rust_analyzer", -- only seems to properly load in once InsertLeave is sent, and takes a while for `vim.lsp.buf.hover()` to work
         "marksman",
         "html",
@@ -93,6 +94,9 @@ return {
       },
       jsonls = {
         cmd = { override = "partial", "vscode-json-languageserver" },
+      },
+      jdtls = {
+        cmd = { override = "partial", "jdt-language-server" },
       },
     },
     mappings = {
