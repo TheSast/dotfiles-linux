@@ -7,11 +7,12 @@ return {
       nls.diagnostics.fish,
       nls.diagnostics.zsh,
       nls.diagnostics.alex,
+      nls.diagnostics.stylelint,
       nls.diagnostics.markdownlint,
 
       nls.formatting.cmake_format,
       nls.formatting.leptosfmt,
-      -- nls.formatting.nixfmt,
+      nls.formatting.nixfmt,
       nls.formatting.yamlfix,
       nls.formatting.yamlfmt,
       nls.formatting.shellharden,
@@ -25,7 +26,12 @@ return {
       nls.diagnostics.statix,
       nls.diagnostics.selene,
       nls.diagnostics.commitlint,
-      nls.formatting.alejandra,
+      nls.formatting.alejandra.with {
+        condition = function(_)
+          local executable = 1
+          return vim.fn.executable(nls.formatting.nixfmt._opts.command) ~= executable
+        end,
+      },
       nls.formatting.stylua,
       -- nls.hover.printenv,
       -- nls.hover.dictionary,
