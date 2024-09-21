@@ -53,60 +53,68 @@ local function handle_partial_cmd_over(config)
 end
 
 return {
-  "astrolsp",
-  opts = handle_lspconfig_avail {
-    -- :h lspconfig-server-configurations
-    servers = {
-      when_available = {
-        "bashls",
-        "clangd",
-        "jdtls",
-        "rust_analyzer", -- only seems to properly load in once InsertLeave is sent, and takes a while for `vim.lsp.buf.hover()` to work
-        "marksman",
-        "html",
-        "htmx",
-        -- TODO: check setup doc
-        "cssls",
-        -- TODO: check setup doc
-        "jsonls",
-        -- TODO: check setup doc
-        "yamlls",
-        "taplo",
-        "awk_ls",
+  {
+    "astrolsp",
+    opts = handle_lspconfig_avail {
+      -- :h lspconfig-server-configurations
+      servers = {
+        when_available = {
+          "bashls",
+          "clangd",
+          "jdtls",
+          "rust_analyzer", -- only seems to properly load in once InsertLeave is sent, and takes a while for `vim.lsp.buf.hover()` to work
+          "marksman",
+          "html",
+          "htmx",
+          -- TODO: check setup doc
+          "cssls",
+          -- TODO: check setup doc
+          "jsonls",
+          -- TODO: check setup doc
+          "yamlls",
+          "taplo",
+          "awk_ls",
+        },
+        always = {
+          "lua_ls",
+          "nil_ls",
+        },
       },
-      always = {
-        "lua_ls",
-        "nil_ls",
+      formatting = {
+        disabled = {
+          "lua_ls",
+        },
       },
-    },
-    formatting = {
-      disabled = {
-        "lua_ls",
+      diagnostics = {
+        virtual_text = true,
+        underline = true,
       },
-    },
-    diagnostics = {
-      virtual_text = true,
-      underline = true,
-    },
-    config = handle_partial_cmd_over {
-      cssls = {
-        cmd = { override = "partial", "css-languageserver" },
+      config = handle_partial_cmd_over {
+        cssls = {
+          cmd = { override = "partial", "css-languageserver" },
+        },
+        jsonls = {
+          cmd = { override = "partial", "vscode-json-languageserver" },
+        },
+        jdtls = {
+          cmd = { override = "partial", "jdt-language-server" },
+        },
+        clangd = {
+          capabilities = {
+            offsetEncoding = "utf-8",
+          },
+        },
       },
-      jsonls = {
-        cmd = { override = "partial", "vscode-json-languageserver" },
-      },
-      jdtls = {
-        cmd = { override = "partial", "jdt-language-server" },
-      },
-    },
-    mappings = {
-      n = {
-        ["K"] = false,
-        ["gh"] = {
-          function() vim.lsp.buf.hover() end,
-          desc = "Hover symbol details",
+      mappings = {
+        n = {
+          ["K"] = false,
+          ["gh"] = {
+            function() vim.lsp.buf.hover() end,
+            desc = "Hover symbol details",
+          },
         },
       },
     },
   },
+  { import = "plugins.lsp" },
 }

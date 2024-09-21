@@ -34,7 +34,6 @@ return {
   },
   {
     "vxpm/ferris.nvim",
-    lazy = true,
     init = function()
       vim.api.nvim_create_autocmd("LspAttach", {
         group = vim.api.nvim_create_augroup("lazy_ferris", { clear = true }),
@@ -55,7 +54,6 @@ return {
   },
   {
     "Saecki/crates.nvim",
-    lazy = true,
     init = function()
       vim.api.nvim_create_autocmd("BufRead", {
         group = vim.api.nvim_create_augroup("CmpSourceCargo", { clear = true }),
