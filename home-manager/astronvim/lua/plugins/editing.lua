@@ -17,13 +17,11 @@ return {
       },
     },
     dependencies = {
-      {
-        "astrocore",
-        opts = {
-          mappings = {
-            n = {
-              ["<Leader>fT"] = { function() vim.cmd "TodoTelescope" end, desc = "Find TODO, WARN, FIXME, and others" },
-            },
+      "astrocore",
+      opts = {
+        mappings = {
+          n = {
+            ["<Leader>fT"] = { function() vim.cmd "TodoTelescope" end, desc = "Find TODO, WARN, FIXME, and others" },
           },
         },
       },
@@ -32,13 +30,11 @@ return {
   {
     "zen-mode.nvim",
     dependencies = {
-      {
-        "astrocore",
-        opts = {
-          mappings = {
-            n = {
-              ["<Leader>z"] = { function() vim.cmd "ZenMode" end, desc = "Enter Zen Mode" },
-            },
+      "astrocore",
+      opts = {
+        mappings = {
+          n = {
+            ["<Leader>z"] = { function() vim.cmd "ZenMode" end, desc = "Enter Zen Mode" },
           },
         },
       },
