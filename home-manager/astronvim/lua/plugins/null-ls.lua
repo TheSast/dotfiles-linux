@@ -4,35 +4,21 @@ return {
     local nls = require("null-ls").builtins
     -- https://github.com/nvimtools/none-ls.nvim/blob/main/doc/BUILTINS.md
     local optional_ls = {
-      -- nls.diagnostics.ccpcheck,
-      -- nls.diagnostics.ccplint,
-      nls.diagnostics.clang_check,
       nls.diagnostics.fish,
       nls.diagnostics.zsh,
-      nls.diagnostics.shellcheck,
       nls.diagnostics.alex,
       nls.diagnostics.markdownlint,
-      nls.diagnostics.mdl,
 
-      nls.formatting.clang_format,
-      -- nls.formatting.cmake_format,
-      nls.formatting.rustfmt,
+      nls.formatting.cmake_format,
       nls.formatting.leptosfmt,
       -- nls.formatting.nixfmt,
-      -- nls.formatting.nixpkgs_fmt,
-      nls.formatting.taplo,
       nls.formatting.yamlfix,
       nls.formatting.yamlfmt,
-      nls.formatting.beautysh,
       nls.formatting.shellharden,
       nls.formatting.shfmt,
       nls.formatting.fish_indent,
       nls.formatting.cbfmt,
-      -- nls.formatting.markdownlint,
-      -- nls.formatting.prettier,
       nls.formatting.prettierd,
-      -- nls.formatting.remark,
-      nls.formatting.mdformat,
     }
     local permanent_ls = vim.list_extend(opts.servers or {}, {
       nls.diagnostics.deadnix,
@@ -41,7 +27,6 @@ return {
       nls.diagnostics.commitlint,
       nls.formatting.alejandra,
       nls.formatting.stylua,
-      -- nls.formatting.lua_format,
       -- nls.hover.printenv,
       -- nls.hover.dictionary,
     })
