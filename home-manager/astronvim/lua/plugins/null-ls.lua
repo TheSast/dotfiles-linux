@@ -25,7 +25,7 @@ return {
       nls.diagnostics.deadnix,
       nls.diagnostics.statix,
       nls.diagnostics.selene,
-      nls.diagnostics.commitlint,
+      -- nls.diagnostics.commitlint, -- NOTE: broken?
       nls.formatting.alejandra.with {
         condition = function(_)
           local executable = 1
