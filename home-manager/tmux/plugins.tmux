@@ -31,7 +31,7 @@ set -g @tpm-install 'no-key'                                # default I
 set -g @tpm-update 'no-key'                                 # default U
 set -g @tpm-clean 'no-key'                                  # default M-u
 
-set -g @locker-bind 'nothing'                               # defautl C-g
+set -g @keylocker-toggle-bind 'nothing'                     # defautl C-g
 
 set -g @sessionist-goto 'nah'                               # default g
 set -g @sessionist-alternate 'i-m-good'                     # default S
