@@ -41,7 +41,6 @@
     pavucontrol
     playerctl
     polkit-kde-agent
-    wallust
     ripgrep # prog
     rofi-wayland # prog
     skim # prog
@@ -54,6 +53,7 @@
     trash-cli
     vieb
     waybar # prog
+    wallust
     wl-clipboard
     xdg-utils
     zellij
@@ -223,20 +223,15 @@
         recursive = true;
       };
       wallust-toml = {
-        text = ''
-          backend = "fastresize"
-          color_space = "labmixed"
-          threshold = 20
-          filter = "dark16"
-
-          [[entry]]
-          template = "alacritty.yml"
-          target = "${config.xdg.cacheHome}/wallust/alacritty.yml"
-
-          [[entry]]
-          template = "tty.sh"
-          target = "${config.xdg.cacheHome}/wallust/tty.sh"
-        '';
+        text =
+          /*
+          toml
+          */
+          ''
+            [templates]
+            alacritty = { template = "alacritty.yml", target = "${config.xdg.cacheHome}/wallust/alacritty.yml" }
+            tty = { template = "tty.sh", target = "${config.xdg.cacheHome}/wallust/tty.sh" }
+          '';
         target = "wallust/wallust.toml";
       };
       waybar = {
