@@ -30,8 +30,7 @@
     eww-wayland
     fd
     fzf
-    gtklock
-    gtklock-powerbar-module # should be in gtklock config
+    hyprlock
     hyprpicker
     libnotify
     neovide
@@ -401,10 +400,6 @@
     enable = true; # adds starship to PATH thus polluitng it
     enableFishIntegration = true;
     enableTransience = true;
-  };
-  programs.swaylock = {
-    enable = true;
-    package = pkgs.swaylock-effects;
   };
   programs.zoxide = {
     enable = true;

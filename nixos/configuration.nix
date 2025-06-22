@@ -181,27 +181,9 @@
     nerdfonts
   ];
 
-  ## Security
-  environment.etc = {
-    gtklock = {
-      text = ''
-        auth include login
-        auth sufficient pam_unix.so try_first_pass likeauth nullok
-        auth sufficient pam_fprintd.so
-      '';
-      target = "pam.d/gtklock";
-    };
-    swaylock = {
-      text = ''
-        auth include login
-        auth sufficient pam_unix.so try_first_pass likeauth nullok
-        auth sufficient pam_fprintd.so
-      '';
-      target = "pam.d/swaylock";
-    };
-  };
   security = {
     polkit.enable = true;
+    pam.services.hyprlock = {};
     # sudo.enable = false;
     # sudo-rs.enable = true; # not stable yet, wait for audit
     # please.enable = true; # slow maintenance
