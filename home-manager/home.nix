@@ -20,6 +20,7 @@
     permittedInsecurePackages = pkgs.lib.optional (builtins.any (e: e == pkgs.obsidian.version) ["1.4.16" "1.5.3"]) "electron-25.9.0";
   };
   home.packages = with pkgs; [
+    alacritty
     babelfish
     bastet
     batsignal
@@ -148,29 +149,36 @@
       publicShare = null;
     };
     configFile = {
-      alacritty = {
-        text = ''
-          font:
-            normal:
-              family: FiraCode Nerd Font
-              style: Medium
-            bold:
-              family: FiraCode Nerd Font
-              style: Bold
-            italic:
-              family: FiraCode Nerd Font
-              style: MediumItalic
-            bold_italic:
-              family: FiraCode Nerd Font
-              style: BoldItalic
-            size: 12
+      ### NEW STUFF
+      alacritty-toml = {
+        text =
+          /*
+          toml
+          */
+          ''
+            [font]
+            size = 12
 
-          hide_when_typing: true
+            [font.bold]
+            family = "FiraCode Nerd Font"
+            style = "Bold"
 
-          import:
-            - ${config.xdg.cacheHome}/wallust/alacritty.yml
-        '';
-        target = "alacritty/alacritty.yml";
+            [font.bold_italic]
+            family = "FiraCode Nerd Font"
+            style = "BoldItalic"
+
+            [font.italic]
+            family = "FiraCode Nerd Font"
+            style = "MediumItalic"
+
+            [font.normal]
+            family = "FiraCode Nerd Font"
+            style = "Medium"
+
+            [general]
+            import = ["${config.xdg.cacheHome}/wallust/alacritty.toml"]
+          '';
+        target = "alacritty/alacritty.toml";
       };
       astronvim = {
         source = ./astronvim;
@@ -229,7 +237,7 @@
           */
           ''
             [templates]
-            alacritty = { template = "alacritty.yml", target = "${config.xdg.cacheHome}/wallust/alacritty.yml" }
+            alacritty = { template = "alacritty.toml", target = "${config.xdg.cacheHome}/wallust/alacritty.toml" }
             tty = { template = "tty.sh", target = "${config.xdg.cacheHome}/wallust/tty.sh" }
           '';
         target = "wallust/wallust.toml";
@@ -301,7 +309,6 @@
     wget = "wget --hsts-file=${config.xdg.configHome}/wget-hsts";
   };
 
-  programs.alacritty.enable = true;
   programs.bash = {
     enable = false; # on will create ~/.bashrc
     historyFile = "${config.xdg.stateHome}/bash/history";
