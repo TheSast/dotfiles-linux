@@ -44,6 +44,17 @@
       };
     };
     devShells = pkgsForAllSystems (pkgs: {
+      shell =
+        pkgs.mkShell.override {
+          stdenv = pkgs.stdenvNoCC;
+        } {
+          packages = with pkgs; [
+            shellcheck
+            nodePackages.bash-language-server
+            shellharden
+            shfmt
+          ];
+        };
       hypr =
         pkgs.mkShell.override {
           stdenv = pkgs.stdenvNoCC;
