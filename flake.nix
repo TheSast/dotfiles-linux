@@ -1,29 +1,32 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
-
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
-      url = "github:nix-community/home-manager/release-23.11";
+      url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = inputs @ {
-    self,
+  outputs = {
     nixpkgs,
+    nixpkgs-unstable,
+    home-manager,
     ...
   }: let
     system = "x86_64-linux";
+    pkgs = nixpkgs.legacyPackages."${system}";
+    pkgs-unstable = nixpkgs-unstable.legacyPackages."${system}";
+    pkgsForAllSystems = f:
+      nixpkgs.lib.genAttrs [
+        "x86_64-linux"
+        "aarch64-linux"
+        "x86_64-darwin"
+        "aarch64-darwin"
+      ] (system: f nixpkgs.legacyPackages.${system});
   in {
     nixosConfigurations = {
-      charlie = nixpkgs.lib.nixosSystem rec {
-        inherit system;
-
-        specialArgs = {
-          inherit (nixpkgs) lib;
-          inherit inputs nixpkgs system;
-        };
-
+      charlie = nixpkgs.lib.nixosSystem {
         modules = [
           ./nixos/configuration.nix
           ./nixos/hardware-configuration.nix
@@ -32,18 +35,12 @@
     };
 
     homeConfigurations = {
-      charlie = inputs.home-manager.lib.homeManagerConfiguration {
-        extraSpecialArgs = {
-          inherit inputs system;
-        };
-
-        pkgs = import inputs.nixpkgs {
-          inherit system;
-        };
-
+      u = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
         modules = [
           ./home-manager/home.nix
         ];
+        extraSpecialArgs = {inherit pkgs-unstable;};
       };
     };
   };
