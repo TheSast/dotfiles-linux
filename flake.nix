@@ -43,5 +43,15 @@
         extraSpecialArgs = {inherit pkgs-unstable;};
       };
     };
+    devShells = pkgsForAllSystems (pkgs: {
+      hypr =
+        pkgs.mkShell.override {
+          stdenv = pkgs.stdenvNoCC;
+        } {
+          packages = with pkgs; [
+            hyprls
+          ];
+        };
+    });
   };
 }

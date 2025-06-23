@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  pkgs-unstable,
   ...
 }: {
   home = {
@@ -33,7 +34,9 @@
     fzf
     hypridle
     hyprlock
+    pkgs-unstable.hyprnotify # heavy CPU usage issues
     hyprpicker
+    hyprpolkitagent
     libnotify
     neovide
     networkmanagerapplet
@@ -42,7 +45,6 @@
     ouch
     pavucontrol
     playerctl
-    polkit-kde-agent
     ripgrep # prog
     rofi-wayland # prog
     skim # prog
@@ -65,6 +67,7 @@
     wallust
     wl-clipboard
     xdg-utils
+    wob
     zellij
   ];
 

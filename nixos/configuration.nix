@@ -159,10 +159,14 @@
     helpLine = "";
   };
 
-  programs.hyprland = {
-    enable = true;
+  programs = {
+    hyprland = {
+      enable = true;
+      systemd.setPath.enable = true;
+      withUWSM = true;
+    };
+    xwayland.enable = false;
   };
-  # programs.xwayland.enable = config.programs.hyprland.xwayland.enable.true; # unneded ?
 
   hardware.opengl.enable = true;
 
@@ -170,8 +174,7 @@
     enable = true;
     xdgOpenUsePortal = true; # https://github.com/NixOS/nixpkgs/issues/160923
     extraPortals = with pkgs; [
-      # xdg-desktop-portal-gnome
-      # xdg-desktop-portal-kde
+      xdg-desktop-portal-gnome
       xdg-desktop-portal-gtk
       xdg-desktop-portal-hyprland
     ];
