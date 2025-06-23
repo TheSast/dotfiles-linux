@@ -31,6 +31,7 @@
     eww-wayland
     fd
     fzf
+    hypridle
     hyprlock
     hyprpicker
     libnotify
@@ -45,7 +46,6 @@
     ripgrep # prog
     rofi-wayland # prog
     skim # prog
-    swayidle
     swayimg
     swaynotificationcenter
     swww
