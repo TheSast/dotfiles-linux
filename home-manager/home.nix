@@ -54,6 +54,14 @@
     trash-cli
     vieb
     waybar # prog
+    (
+      pkgs.writeShellApplication
+      {
+        name = "better-hyprshot";
+        runtimeInputs = [coreutils jq slurp grim libnotify hyprpicker];
+        text = builtins.readFile ./scripts/better-hyprshot.sh;
+      }
+    )
     wallust
     wl-clipboard
     xdg-utils
