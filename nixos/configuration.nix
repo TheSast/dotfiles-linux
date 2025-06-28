@@ -1,5 +1,5 @@
 {
-  # config,
+  config,
   pkgs,
   lib,
   ...
@@ -7,7 +7,6 @@
   # WARNING: do not touchy
   system.stateVersion = "23.05";
 
-  ## Boot
   boot = {
     loader = {
       grub = {
@@ -16,10 +15,7 @@
         efiInstallAsRemovable = true;
         useOSProber = true;
         devices = ["nodev"];
-        fontSize = 20;
-        # font = font-stuff;
-        # splashImage = "/my/dynamic/background.png" # would be nice for it to be dynamic
-        # theme = pkgs.my-theme # would be nice for it to be dynamic
+        fontSize = 30;
       };
       efi = {
         canTouchEfiVariables = false;
@@ -101,7 +97,6 @@
     };
   };
 
-  ## Input devices
   services.xserver = {
     layout = "us";
     xkbVariant = "";
@@ -121,23 +116,6 @@
 
   services.gpm.enable = true;
 
-  # services.xserver.libinput.enable = true;
-
-  # console = {
-  # earlySetup = true;
-  # keyMap = "us"; # def
-  # useXkbConfig = true;
-  # packages = with pkgs; [ ]; # add font and gpm? here
-  # };
-
-  # services.kmscon = {
-  #   enable = true;
-  #   hwRender = true;
-  #   fonts = [ { font stuff }];
-  # };
-
-  ## Sound
-  sound.enable = true;
   hardware.pulseaudio.enable = false;
   services.pipewire = {
     enable = true;
@@ -148,7 +126,6 @@
     pulse.enable = false;
   };
 
-  ## GUI
   services.xserver = {
     enable = true;
     displayManager = {
@@ -163,7 +140,7 @@
     tty = null;
   };
   # programs.regreet.enable = false; # greetd
-  # environment.noXlibs = true;
+  # environment.noXlibs = true; # gdm relies on xlibs even with `wayland = true;`
 
   services.physlock.enable = false;
 
@@ -181,7 +158,7 @@
     xwayland.enable = false;
   };
 
-  hardware.opengl.enable = true;
+  hardware.graphics.enable = true;
 
   xdg.portal = {
     enable = true;
@@ -194,7 +171,7 @@
   };
 
   fonts.packages = with pkgs; [
-    nerdfonts
+    (nerdfonts.override {fonts = ["FiraCode" "JetBrainsMono" "Ubuntu"];})
   ];
 
   security = {
@@ -218,7 +195,8 @@
     u = {
       isNormalUser = true;
       extraGroups = ["networkmanager" "wheel" "code"];
-      shell = pkgs.fish;
+      shell =
+        config.programs.fish.package;
     };
     s = {
       isSystemUser = true;
@@ -231,19 +209,55 @@
     };
   };
 
-  ## Programs and Packages
+  system.tools = {
+    nixos-enter.enable = false;
+    nixos-option.enable = false;
+    nixos-install.enable = false;
+    nixos-rebuild.enable = false;
+    # nixos-version.enable = false;
+    nixos-build-vms.enable = false;
+    nixos-generate-config.enable = false;
+  };
+  boot.enableContainers = false;
   nixpkgs.config.allowUnfree = false;
   programs = {
     fish = {
       enable = true;
+      package =
+        pkgs
+        .fish
+        .overrideAttrs (oldAttrs: {
+          desktopItem = null;
+          postInstall =
+            oldAttrs.postInstall
+            or ""
+            + ''
+              rm -f $out/share/applications/fish.desktop
+            '';
+        });
       useBabelfish = true;
     };
-    # kdeconnect.enable = true;
     nano.enable = false;
+    command-not-found.enable = false;
   };
 
-  services.xserver.excludePackages = [pkgs.xterm];
-  documentation.doc.enable = false;
+  # remove every xorg package until `services.xserver.enable = false` and `environment.noXlibs = true`
+  services.xserver.excludePackages = with pkgs.xorg; [
+    xorgserver.out
+    xrandr
+    xrdb
+    setxkbmap
+    iceauth
+    xlsclients
+    xset
+    xsetroot
+    xinput
+    xprop
+    xauth
+    xf86inputevdev.out
+    pkgs.xterm
+  ];
+  documentation.doc.enable = false; # remove nixos documentation desktopItem
 
   environment = {
     binsh = "${pkgs.dash}/bin/dash";
@@ -263,7 +277,6 @@
     ];
   };
 
-  ## Services, timers and jobs
   services.fwupd.enable = true;
   services.udisks2.enable = true;
   services.blueman.enable = true;
