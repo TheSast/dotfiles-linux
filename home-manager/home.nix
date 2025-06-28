@@ -292,25 +292,27 @@
     platformTheme = "gtk";
   };
 
-  home.sessionVariables = {
-    HISTFILE = config.programs.bash.historyFile;
-    HISTCONTROL = builtins.concatStringsSep ":" config.programs.bash.historyControl;
-    CARGO_HOME = "${config.xdg.dataHome}/cargo";
-    VISUAL = "nvim";
-    EDITOR = config.home.sessionVariables.VISUAL;
-    GNUPGHOME = "${config.xdg.dataHome}/gnupg";
-    LESSHISTFILE = "${config.xdg.stateHome}/less/history";
-    MANPAGER = "sh -c 'bat -l man -p'";
-    NVIM_APPNAME = "astronvim";
-    NODE_REPL_HISTORY = "${config.xdg.dataHome}/node_repl_history";
-    NPM_CONFIG_USERCONFIG = "${config.xdg.configHome}/npm/npmrc";
-    INPUTRC = "${config.xdg.configHome}/readline/inputrc";
-    RUSTUP_HOME = "${config.xdg.dataHome}/rustup";
-    STARSHIP_CONFIG = "${config.xdg.configHome}/starship/starship.toml";
-    inherit (config.systemd.user.sessionVariables) VIEB_CONFIG_FILE VIEB_DATAFOLDER;
-  };
+  # Shell variables
+  home.sessionVariables =
+    config.systemd.user.sessionVariables
+    // {
+      HISTFILE = config.programs.bash.historyFile;
+      HISTCONTROL = builtins.concatStringsSep ":" config.programs.bash.historyControl;
+      CARGO_HOME = "${config.xdg.dataHome}/cargo";
+      GNUPGHOME = "${config.xdg.dataHome}/gnupg";
+      LESSHISTFILE = "${config.xdg.stateHome}/less/history";
+      MANPAGER = "less -R --use-color -Dd+r -Du+b";
+      MANROFFOPT = "-P -c";
+      NODE_REPL_HISTORY = "${config.xdg.dataHome}/node_repl_history";
+      NPM_CONFIG_USERCONFIG = "${config.xdg.configHome}/npm/npmrc";
+      INPUTRC = "${config.xdg.configHome}/readline/inputrc";
+      RUSTUP_HOME = "${config.xdg.dataHome}/rustup";
+      STARSHIP_CONFIG = "${config.xdg.configHome}/starship/starship.toml";
+      EDITOR = config.home.sessionVariables.VISUAL;
+    };
 
-  # These are picked up by GDM and KDE Plasma (apparently?) but not by SDDM (which straight up loads your shell config) or other DMs
+  # Session variables
+  # These are picked up by GDM and KDE Plasma (apparently) but not by SDDM (which loads your shell config) or other DMs
   systemd.user.sessionVariables = {
     XDG_DOCUMENTS_DIR = config.xdg.userDirs.documents;
     XDG_PICTURES_DIR = config.xdg.userDirs.pictures;
@@ -320,9 +322,9 @@
     XDG_MUSIC_DIR = config.xdg.userDirs.music;
     VIEB_CONFIG_FILE = "${config.xdg.configHome}/Vieb/viebrc";
     VIEB_DATAFOLDER = "${config.xdg.stateHome}/Vieb";
-    NVIM_APPNAME = config.home.sessionVariables.NVIM_APPNAME;
-    VISUAL = config.home.sessionVariables.VISUAL;
-    EDITOR = config.home.sessionVariables.EDITOR;
+    NVIM_APPNAME = "astronvim";
+    VISUAL = "nvim";
+    ELECTRON_OZONE_PLATFORM_HINT = "auto"; # enable wayland detection for some electron apps (notably: yes obsidian, yes vieb)
   };
 
   home.shellAliases = {
