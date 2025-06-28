@@ -1,8 +1,10 @@
+// TODO: consider https://github.com/JakeStanger/ironbar
 {
-    "layer": "top",
+    "layer": "bottom",
     "position": "top",
     "height": 35,
     "spacing": 4,
+    "reload_style_on_change": true,
     "modules-left": [
          "tray"
          // "tray",
@@ -128,6 +130,7 @@
         "tooltip-format-wifi": "{essid}"
         // "format-icons": ["?", "?" "󰖩"]
     },
+    // TODO: make plugging instantly refresh
     "battery": {
          "format": "err",
          "format-charging": "",
@@ -153,3 +156,5 @@
          "format": "{:%R}"
     }
 }
+
+// vim: ft=jsonc
