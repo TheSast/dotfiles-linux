@@ -30,6 +30,14 @@
         modules = [
           ./nixos/configuration.nix
           ./nixos/hardware-configuration.nix
+          {
+            nix = {
+              channel.enable = false;
+              settings.use-registries = false;
+              settings.flake-registry = "";
+              nixPath = [];
+            };
+          }
         ];
       };
     };
@@ -39,6 +47,14 @@
         inherit pkgs;
         modules = [
           ./home-manager/home.nix
+          {
+            nix = {
+              settings.use-registries = false;
+              settings.flake-registry = "";
+              keepOldNixPath = false;
+              nixPath = [];
+            };
+          }
         ];
         extraSpecialArgs = {inherit pkgs-unstable;};
       };

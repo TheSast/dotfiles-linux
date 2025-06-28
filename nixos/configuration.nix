@@ -267,4 +267,8 @@
 
   # uncategorised
   nix.settings.experimental-features = ["nix-command" "flakes"];
+  nixpkgs.flake = {
+    setNixPath = false;
+    setFlakeRegistry = false;
+  };
 }
