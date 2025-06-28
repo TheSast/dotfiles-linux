@@ -12,6 +12,18 @@
     stateVersion = "23.05";
   };
 
+  nix = {
+    gc = {
+      automatic = true;
+      frequency = "daily";
+      options = "--delete-older-than 7d";
+    };
+    settings = {
+      experimental-features = ["nix-command" "flakes"];
+    };
+    package = pkgs.nix; # should not be needed?
+  };
+
   nixpkgs.config = {
     allowUnfree = false;
     allowUnfreePredicate = pkg:

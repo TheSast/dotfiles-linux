@@ -255,20 +255,30 @@
   services.udisks2.enable = true;
   services.blueman.enable = true;
   hardware.bluetooth.enable = true; # find a better spot! "connectivity"?
-  nix.optimise = {
-    automatic = true;
-    dates = ["daily"];
-  };
-  # nix.gc = {
+  # nix.optimise = {
   #   automatic = true;
   #   dates = ["daily"];
-  #   options = "--delete-older-than 30d"
   # };
+  nix.gc = {
+    automatic = true;
+    dates = "daily";
+    options = "--delete-older-than 7d";
+  };
 
-  # uncategorised
-  nix.settings.experimental-features = ["nix-command" "flakes"];
   nixpkgs.flake = {
     setNixPath = false;
     setFlakeRegistry = false;
+  };
+  nix.settings = {
+    auto-optimise-store = true;
+    experimental-features = ["nix-command" "flakes"];
+    use-xdg-base-directories = true;
+    substituters = [
+      "https://cache.nixos.org"
+      "https://nix-community.cachix.org"
+    ];
+    trusted-public-keys = [
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+    ];
   };
 }
