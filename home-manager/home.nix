@@ -78,7 +78,7 @@
         name = "Discord";
         # actions = {};
         genericName = "Messaging Platform";
-        exec = "vieb --config-file=${config.xdg.configHome}/Vieb/Erwic/Discord/erwicrc --erwic=${config.xdg.configHome}/Vieb/Erwic/Discord/erwic.json --datafolder=${config.xdg.stateHome}/Erwic/Discord --ozone-platform-hint=auto";
+        exec = "vieb --config-file=${config.xdg.configHome}/Vieb/Erwic/Discord/erwicrc --datafolder=${config.xdg.stateHome}/Erwic/Discord https://discord.com/app";
         icon = "${config.xdg.configHome}/Vieb/Erwic/Discord/icon.png";
         terminal = false;
         type = "Application";
@@ -89,7 +89,7 @@
       Element = {
         name = "Element";
         genericName = "Messaging Platform";
-        exec = "vieb --config-file=${config.xdg.configHome}/Vieb/Erwic/Element/erwicrc --erwic=${config.xdg.configHome}/Vieb/Erwic/Element/erwic.json --datafolder=${config.xdg.stateHome}/Erwic/Element --ozone-platform-hint=auto";
+        exec = "vieb --config-file=${config.xdg.configHome}/Vieb/Erwic/Element/erwicrc --datafolder=${config.xdg.stateHome}/Erwic/Element https://app.element.io/";
         icon = "${config.xdg.configHome}/Vieb/Erwic/Element/icon.png";
         terminal = false;
         type = "Application";
@@ -98,7 +98,7 @@
       Bitwarden = {
         name = "Bitwarden";
         genericName = "Password Manager";
-        exec = "vieb --config-file=${config.xdg.configHome}/Vieb/Erwic/Bitwarden/erwicrc --erwic=${config.xdg.configHome}/Vieb/Erwic/Bitwarden/erwic.json --datafolder=${config.xdg.stateHome}/Erwic/Bitwarden --ozone-platform-hint=auto";
+        exec = "vieb --config-file=${config.xdg.configHome}/Vieb/Erwic/Bitwarden/erwicrc --datafolder=${config.xdg.stateHome}/Erwic/Bitwarden https://vault.bitwarden.com/";
         icon = "${config.xdg.configHome}/Vieb/Erwic/Bitwarden/icon.png";
         terminal = false;
         type = "Application";
@@ -107,7 +107,7 @@
       Protonmail = {
         name = "Proton Mail";
         genericName = "Electronic Mail Client";
-        exec = "vieb --config-file=${config.xdg.configHome}/Vieb/Erwic/Proton_Mail/erwicrc --erwic=${config.xdg.configHome}/Vieb/Erwic/Proton_Mail/erwic.json --datafolder=${config.xdg.stateHome}/Erwic/Proton_Mail --ozone-platform-hint=auto";
+        exec = "vieb --config-file=${config.xdg.configHome}/Vieb/Erwic/Proton_Mail/erwicrc --datafolder=${config.xdg.stateHome}/Erwic/Proton_Mail https://mail.proton.me/";
         icon = "${config.xdg.configHome}/Vieb/Erwic/Proton_Mail/icon.png";
         terminal = false;
         type = "Application";
@@ -116,15 +116,13 @@
       YouTube = {
         name = "YouTube";
         genericName = "Video Streaming Platform";
-        exec = "vieb --config-file=${config.xdg.configHome}/Vieb/Erwic/YouTube/erwicrc --erwic=${config.xdg.configHome}/Vieb/Erwic/YouTube/erwic.json --datafolder=${config.xdg.stateHome}/Erwic/YouTube --ozone-platform-hint=auto";
+        exec = "vieb --config-file=${config.xdg.configHome}/Vieb/Erwic/YouTube/erwicrc --datafolder=${config.xdg.stateHome}/Erwic/YouTube https://youtube.com/";
         icon = "${config.xdg.configHome}/Vieb/Erwic/YouTube/icon.png";
         terminal = false;
         type = "Application";
         categories = [
-          "Network"
-          /*
+          # "Network"
           "AudioVideo"
-          */
         ]; # only one main category
       };
     };
@@ -259,6 +257,7 @@
     };
   };
 
+  home.file.".vieb".source = ./Vieb;
   gtk = {
     enable = true;
     gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";

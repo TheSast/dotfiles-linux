@@ -1,8 +1,11 @@
 source ../viebrc
 set guinavbar=oninput
-set guitabbar=onupdate
+set guitabbar=never
+set guifullscreennavbar=oninput
+set guifullscreentabbar=never
 set guiscrollbar=never
 set containershowname=never
+set restoretabs=none
 set searchengine=
 nunmap w
 nunmap d

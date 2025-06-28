@@ -6,6 +6,7 @@ set containercolors+=temp\d+~#ff0
 set containercolors+=^discord$~#4D58CA
 set dialogconfirm=notifyshow
 set guiscrollbar=never
+set mapsuggestposition=bottomright
 set notificationposition=topright
 set permissionnotifications=ask
 set permissionpersistentstorage=ask
@@ -18,7 +19,7 @@ set searchengine=
 set searchengine+=https://duckduckgo.com/?q=%s
 set searchengine+=https://startpage.com/sp/search?query=%s
 set searchengine+=https://search.brave.com/search?q=%s
-set searchengine+=https://searx.tiekoetter.com/search?q=%s
+" set searchengine+=https://searx.tiekoetter.com/search?q=%s
 set splitbelow
 set splitright
 set sponsorblock
@@ -27,7 +28,19 @@ set suspendtimeout=600000
 set vimcommand=neovide
 
 " Mappings
+unmap <F1>
+unmap <F2>
+unmap <F3>
+unmap <F4>
+unmap <F6>
+unmap <F7>
+unmap <F8>
+unmap <F9>
+unmap <F10>
+unmap <F11>
+unmap <F12>
 map <S-F5> <refreshTabWithoutCache>
+unmap <C-I>
 cmap <C-J> <nextSuggestionSection>
 cmap <C-j> <nextSuggestion>
 cmap <C-k> <prevSuggestion>
@@ -38,10 +51,12 @@ nmap <C-Right> <increaseWidthSplitWindow>
 nmap <C-j> <toBottomSplitWindow>
 nmap <C-k> <toTopSplitWindow>
 nmap <C-l> <toRightSplitWindow>
+unmap <C-q>
 nmap <Esc> <:nohlsearch>
 nunmap F
 nmap S <startFollowNewTab>
 nunmap T
+nunmap ZZ
 nunmap b
 nunmap c
 nunmap d
@@ -51,6 +66,9 @@ nmap s <startFollowCurrentTab>
 nunmap t
 nunmap w
 nunmap x
+nunmap yf
+nmap ys <startFollowCopyLink>
+nmap yv <p.copyText>
 nmap <lt>b <moveTabBackward>
 nmap >b <moveTabForward>
 nmap <C-h> <toLeftSplitWindow>
@@ -61,6 +79,7 @@ nmap <Space>ff <:tabnew><toExploreMode>
 nmap <Bar> <:vsplit>
 nmap <Space>q <:hide>
 nmap <Space>c <:close>
+nmap <Space>z <:set guifullscreennavbar!always|oninput><:set guifullscreentabbar!always|onupdate>
 nmap <Bslash> <:split>
 nmap <Space>bn <:tabnew>
 nmap ]b <nextTab>
