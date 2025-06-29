@@ -8,14 +8,13 @@ set -o nounset
 THEME=$("$XDG_CONFIG_HOME/scripts/theme.sh")
 WHICH_LIGHT="paper"
 WHICH_DARK="default"
-[ "$THEME" = "dark" ] && VIEB_THEMED_COLORSCHEME_BASE="$WHICH_DARK" || VIEB_THEMED_COLORSCHEME_BASE="$WHICH_LIGHT"
 
 # get_running_vieb_colorscheme(Option<String>: datafolder) -> String
 get_running_vieb_colorscheme() {
 	if [ "$1" = "None" ]; then
-		vieb --execute="colorscheme" --execute-dur=10 | sed "s/colorscheme: //" || true
+		vieb --execute="colorscheme" --execute-dur=10 2>/dev/null | sed "s/colorscheme: //" || true
 	else
-		vieb --execute="colorscheme" --execute-dur=10 --datafolder="$1" | sed "s/colorscheme: //" || true
+		vieb --execute="colorscheme" --execute-dur=10 --datafolder="$1" 2>/dev/null | sed "s/colorscheme: //" || true
 	fi
 }
 
@@ -26,7 +25,8 @@ get_config_vieb_colorscheme() {
 
 # get_vieb_colorscheme_variant(colorscheme_with_variant: String) -> String
 get_vieb_colorscheme_variant() {
-	echo "$1" | sed -E "s/^.*-//" || true
+	# manually removing default, light and paper
+	echo "$1" | sed -E "s/^.*-//"  | sed -E "s/default$//" | sed -E "s/light$//" | sed -E "s/paper$//"  || true
 }
 
 # join_if_both(left: String, separator: String, right: String) -> String
@@ -35,36 +35,47 @@ join_if_both() {
 	if [ "$1" = "" ] || [ "$3" = "" ]; then
 		JOIN=""
 	fi
-	echo "$1""$JOIN""$3"
+	echo "$1""$JOIN""$3" | sed -E "s/^default-//" 
 }
 
 main() {
+	[ "$THEME" = "dark" ] && 
+		VIEB_THEMED_COLORSCHEME_BASE="$WHICH_DARK" || 
+		VIEB_THEMED_COLORSCHEME_BASE="$WHICH_LIGHT"
 	if command -v vieb >/dev/null 2>&1; then
 		VIEB_COLORSCHEME=default
 		# INFO: process is not named "vieb" it's an "electron" instance
 		if vieb --execute="echo variate-vieb.sh detected" --execute-dur=10 >/dev/null 2>&1; then
 			# TODO: add error handling
-			VIEB_COLORSCHEME=$(join_if_both "$VIEB_THEMED_COLORSCHEME_BASE" - "$(get_vieb_colorscheme_variant "$(get_running_vieb_colorscheme None)")" | sed -E "s/^default-//")
+			RUNNING_VIEB_COLORSCHEME=$(get_running_vieb_colorscheme None)
+			RUNNING_VIEB_COLORSCHEME_VARIANT=$(get_vieb_colorscheme_variant "$RUNNING_VIEB_COLORSCHEME")
+			VIEB_COLORSCHEME=$(join_if_both "$VIEB_THEMED_COLORSCHEME_BASE" - "$RUNNING_VIEB_COLORSCHEME_VARIANT")
 			{
 				# shellcheck disable=SC2015
-				vieb --execute="colorscheme $VIEB_COLORSCHEME" --execute-dur=10 &&
+				vieb --execute="echo $RUNNING_VIEB_COLORSCHEME -> $VIEB_COLORSCHEME" &&
+					vieb --execute="colorscheme $VIEB_COLORSCHEME" --execute-dur=10 &&
 					vieb --execute="set nativetheme=$THEME" --execute-dur=10 ||
 					true
-			} &
+			} >/dev/null 2>&1 &
 		else
-			VIEB_COLORSCHEME=$(join_if_both "$VIEB_THEMED_COLORSCHEME_BASE" - "$(get_vieb_colorscheme_variant "$(get_config_vieb_colorscheme)")" | sed -E "s/^default-//")
+			CONFIG_VIEB_COLORSCHEME=$(get_config_vieb_colorscheme)
+			CONFIG_VIEB_COLORSCHEME_VARIANT=$(get_vieb_colorscheme_variant "$CONFIG_VIEB_COLORSCHEME")
+			VIEB_COLORSCHEME=$(join_if_both "$VIEB_THEMED_COLORSCHEME_BASE" - "$CONFIG_VIEB_COLORSCHEME_VARIANT")
 		fi
 		echo "colorscheme $VIEB_COLORSCHEME" >"$XDG_CACHE_HOME"/colorscheme-dyn.vieb
 		echo "set nativetheme=$THEME" >>"$XDG_CACHE_HOME"/colorscheme-dyn.vieb
 		for DATAFOLDER in "$XDG_STATE_HOME"/Erwic/*; do
-			if vieb --execute="variate-vieb.sh is running" --execute-dur=10 --datafolder="$DATAFOLDER" >/dev/null 2>&1; then
-				VIEB_COLORSCHEME=$(join_if_both "$VIEB_THEMED_COLORSCHEME_BASE" - "$(get_vieb_colorscheme_variant "$(get_running_vieb_colorscheme "$DATAFOLDER")")" | sed -E "s/^default-//")
+			if vieb --execute="echo variate-vieb.sh detected" --execute-dur=10 --datafolder="$DATAFOLDER" >/dev/null 2>&1; then
+				RUNNING_VIEB_COLORSCHEME=$(get_running_vieb_colorscheme "$DATAFOLDER")
+				RUNNING_VIEB_COLORSCHEME_VARIANT=$(get_vieb_colorscheme_variant "$RUNNING_VIEB_COLORSCHEME")
+				VIEB_COLORSCHEME=$(join_if_both "$VIEB_THEMED_COLORSCHEME_BASE" - "$RUNNING_VIEB_COLORSCHEME_VARIANT")
 				{
 					# shellcheck disable=SC2015
-					vieb --execute="colorscheme $VIEB_COLORSCHEME" --execute-dur=10 --datafolder="$DATAFOLDER" &&
+					vieb --execute="echo $RUNNING_VIEB_COLORSCHEME -> $VIEB_COLORSCHEME" --datafolder="$DATAFOLDER" &&
+						vieb --execute="colorscheme $VIEB_COLORSCHEME" --execute-dur=10 --datafolder="$DATAFOLDER" &&
 						vieb --execute="set nativetheme=$THEME" --execute-dur=10 --datafolder="$DATAFOLDER" ||
 						true
-				} &
+				} >/dev/null 2>&1 &
 			fi
 		done
 	fi
