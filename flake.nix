@@ -59,6 +59,7 @@
         extraSpecialArgs = {inherit pkgs-unstable;};
       };
     };
+    formatter."${system}" = pkgs.alejandra;
     devShells = pkgsForAllSystems (pkgs: {
       shell =
         pkgs.mkShell.override {
