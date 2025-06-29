@@ -333,6 +333,26 @@
     wget = "wget --hsts-file=${config.xdg.configHome}/wget-hsts";
   };
 
+  programs.atuin = {
+    enable = true;
+    settings = {
+      dialect = "uk";
+      update_check = false;
+      auto_sync = false;
+      sync_address = "";
+      workspaces = true;
+      enter_accept = false;
+      keymap_mode = "vim-insert";
+      keymap_cursor = {
+        emacs = "blink-block";
+        vim_insert = "blink-block";
+        vim_normal = "steady-block";
+      };
+    };
+    flags = [
+      "--disable-up-arrow"
+    ];
+  };
   programs.bash = {
     enable = false; # on will create ~/.bashrc
     historyFile = "${config.xdg.stateHome}/bash/history";
