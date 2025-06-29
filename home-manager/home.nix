@@ -395,17 +395,28 @@
         end
         set -gx last_repository $current_repository
       '';
-    };
-    interactiveShellInit = ''
-      function starship_transient_prompt_func
-        echo "- "
-      end
+      starship_transient_prompt_func =
+        /*
+        fish
+        */
+        ''
+          echo -e -n "\n- \n"
+        '';
 
       functions -e l
       functions -e la
       functions -e ll
       sh ${config.xdg.cacheHome}/wallust/tty.sh
     '';
+    };
+    interactiveShellInit =
+      /*
+      fish
+      */
+      ''
+        eval (${lib.getExe pkgs.starship} init fish)
+        enable_transience
+      '';
   };
   programs.git = {
     enable = true;
@@ -469,11 +480,6 @@
         # xdg-utils?
         # wl-clipboard?
       ];
-  };
-  programs.starship = {
-    enable = true; # adds starship to PATH thus polluitng it
-    enableFishIntegration = true;
-    enableTransience = true;
   };
   programs.zoxide = {
     enable = true;
