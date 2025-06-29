@@ -286,6 +286,12 @@
       libsForQt5.qt5.qtwayland # xdg-open
     ];
   };
+  environment.etc."current-system-packages".text = let
+    packages = builtins.map (p: "${p.name}") config.environment.systemPackages;
+    sortedUnique = builtins.sort builtins.lessThan (lib.unique packages);
+    formatted = builtins.concatStringsSep "\n" sortedUnique;
+  in
+    formatted;
 
   services.fwupd.enable = true;
   services.udisks2.enable = true;
