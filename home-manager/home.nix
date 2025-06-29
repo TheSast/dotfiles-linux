@@ -274,9 +274,18 @@
         source = ./waybar;
       };
     };
+    dataFile = {
+      "current-user-packages".text = let
+        packages = builtins.map (p: "${p.name}") config.home.packages;
+        sortedUnique = builtins.sort builtins.lessThan (lib.unique packages);
+        formatted = builtins.concatStringsSep "\n" sortedUnique;
+      in
+        formatted;
+    };
   };
 
   home.file.".vieb".source = ./Vieb;
+
   gtk = {
     enable = true;
     gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
