@@ -419,19 +419,28 @@
   };
   programs.neovim = {
     enable = true;
-    extraPackages = with pkgs; [
-      alejandra
-      commitlint
-      deadnix
-      gcc # treesitter
-      gnumake # jsregexp for luasnip
-      lua-language-server
-      luajitPackages.luacheck
-      nil
-      nodePackages.vscode-json-languageserver # neoconf
-      statix
-      stylua
-    ];
+    extraPackages = with pkgs;
+      [
+        # lsp
+        alejandra
+        deadnix
+        lua-language-server
+        luajitPackages.luacheck
+        nil
+        nodePackages.vscode-json-languageserver # neoconf
+        statix
+        stylua
+      ]
+      ++ [
+        # build
+        gcc # nvim-treesitter
+        git # lazy.nvim
+        luarocks # lazy.nvim
+        gnumake # jsregexp for LuaSnip
+        ripgrep # telescope-fzf-native.nvim
+        # xdg-utils?
+        # wl-clipboard?
+      ];
   };
   programs.starship = {
     enable = true; # adds starship to PATH thus polluitng it
