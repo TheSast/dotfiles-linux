@@ -27,9 +27,22 @@
       enable = true;
       theme = "breeze";
     };
+    consoleLogLevel = 0; # reduce console logs
+    initrd.verbose = false; # reduce initrd output
+    initrd.systemd.enable = true; # use initrd, apparently spawning plymouth faster
+    kernelParams = [
+      "quiet" # ask quiet
+      "fbcon=nodefer" # do not use vendor logo
+      # "splash"
+      # "vga=current"
+      "loglevel=3" # only produce errors and worse
+      "udev.log_level=3" # same as above
+      "rd.udev.log_level=3" # same as above for initrd
+      "rd.systemd.show_status=false" # hide systemd messages
+      "vt.global_cursor_default=0" # remove cursor blink
+    ];
   };
 
-  ## Laptop
   powerManagement.enable = true;
   services.thermald.enable = true;
   services.auto-cpufreq = {
@@ -45,7 +58,6 @@
       };
     };
   };
-  # TODO: set each key
   systemd.sleep.extraConfig = ''
     HibernateDelaySec=10m
     HibernateMode=shutdown
@@ -64,7 +76,6 @@
     };
   };
 
-  ## Necessary
   networking = {
     hostName = "charlie";
     networkmanager = {
@@ -98,8 +109,8 @@
   };
 
   services.xserver = {
-    layout = "us";
-    xkbVariant = "";
+    xkb.layout = "us";
+    xkb.variant = "";
   };
 
   # services.upower.ignoreLid = true;
@@ -190,7 +201,6 @@
   # see https://nixos.wiki/wiki/Secure_Boot
   # boot.bootspec.enable = true;
 
-  ## Users
   users.users = {
     u = {
       isNormalUser = true;
