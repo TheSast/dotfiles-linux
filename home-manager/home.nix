@@ -409,7 +409,14 @@
       };
     };
   };
-  programs.lazygit.enable = true;
+  programs.lazygit = {
+    enable = true;
+    settings = {
+      commandLogSize = 5;
+      mainBranches = ["master" "main" "trunk"];
+      notARepository = "skip";
+    };
+  };
   programs.neovim = {
     enable = true;
     extraPackages = with pkgs; [
