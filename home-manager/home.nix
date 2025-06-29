@@ -36,8 +36,11 @@
     alacritty
     babelfish
     bastet
+    bat
     batsignal
     brightnessctl
+    broot
+    btop
     cliphist
     du-dust
     erdtree
@@ -204,6 +207,10 @@
       astronvim = {
         source = ./astronvim;
       };
+      bat = {
+        target = "bat/config";
+        text = "--theme=ansi";
+      };
       erdtree = {
         source = ./erdtree;
       };
@@ -358,14 +365,6 @@
     historyFile = "${config.xdg.stateHome}/bash/history";
     historyControl = ["erasedups"];
   };
-  programs.bat = {
-    enable = true;
-    config = {
-      theme = "ansi";
-    };
-  };
-  programs.btop.enable = true;
-  programs.broot.enable = true;
   programs.eza = {
     enable = true;
     git = true;
