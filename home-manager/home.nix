@@ -34,7 +34,6 @@ in {
       builtins.elem (lib.getName pkg) [
         "obsidian"
       ];
-    permittedInsecurePackages = pkgs.lib.optional (builtins.any (e: e == pkgs.obsidian.version) ["1.4.16" "1.5.3"]) "electron-25.9.0";
   };
   home.packages = with pkgs; [
     alacritty
