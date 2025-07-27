@@ -38,7 +38,6 @@ in {
   home.packages = with pkgs; [
     alacritty
     babelfish
-    bastet
     bat
     batsignal
     brightnessctl
@@ -47,7 +46,6 @@ in {
     cliphist
     du-dust
     erdtree
-    eww-wayland
     fd
     fzf
     hypridle
@@ -62,16 +60,12 @@ in {
     pkgs-unstable.nh
     onefetch
     ouch
-    pavucontrol
     playerctl
     ripgrep # prog
     rofi-wayland # prog
-    skim # prog
     swayimg
-    swaynotificationcenter
     swww
     tmux # prog
-    tor-browser-bundle-bin
     trash-cli
     vieb
     waybar # prog
@@ -376,6 +370,7 @@ in {
     historyFile = "${config.xdg.stateHome}/bash/history";
     historyControl = ["erasedups"];
   };
+  programs.command-not-found.enable = false;
   programs.eza = {
     enable = true;
     git = true;
@@ -383,6 +378,18 @@ in {
   };
   programs.fish = {
     enable = true;
+    package =
+      pkgs
+      .fish
+      .overrideAttrs (oldAttrs: {
+        desktopItem = null;
+        postInstall =
+          oldAttrs.postInstall
+          or ""
+          + ''
+            rm -f $out/share/applications/fish.desktop
+          '';
+      });
     shellInit = ''
       set fish_greeting
     '';
