@@ -3,7 +3,10 @@
   pkgs,
   pkgs-unstable,
   ...
-}: {
+}: let
+  flakeLoc = "${config.xdg.configHome}/etc";
+  symlinkDirectly = p: config.lib.file.mkOutOfStoreSymlink ("${flakeLoc}/home-manager/" + p);
+in {
   home = {
     username = "u";
     homeDirectory = "/home/u";
@@ -205,7 +208,7 @@
         target = "alacritty/alacritty.toml";
       };
       astronvim = {
-        source = ./astronvim;
+        source = symlinkDirectly "astronvim";
       };
       bat = {
         target = "bat/config";
@@ -224,7 +227,7 @@
         source = ./readline;
       };
       scripts = {
-        source = ./scripts;
+        source = symlinkDirectly "scripts";
       };
       starship = {
         source = ./starship;
