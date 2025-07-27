@@ -59,6 +59,7 @@ in {
     neovide
     networkmanagerapplet
     obsidian # flat
+    pkgs-unstable.nh
     onefetch
     ouch
     pavucontrol
@@ -350,6 +351,7 @@ in {
     mv = "mv -i";
     clear = "clear -x";
     wget = "wget --hsts-file=${config.xdg.configHome}/wget-hsts";
+    nh = "FLAKE=${flakeLoc} command nh";
   };
 
   programs.atuin = {
@@ -398,6 +400,19 @@ in {
         end
         set -gx last_repository $current_repository
       '';
+      home-manager =
+        /*
+        fish
+        */
+        ''
+          if contains -- "$argv[1]" switch build
+              echo "Error: 'home-manager $argv[1]' is deprecated. Please use 'nh home' instead."
+          end
+          if test "$argv[1]" = uninstall
+              echo "Error: 'home-manager' is installed decleratively."
+          end
+          command home-manager $argv
+        '';
       starship_transient_prompt_func =
         /*
         fish
