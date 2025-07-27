@@ -387,16 +387,52 @@ in {
       set fish_greeting
     '';
     functions = {
-      bathelp = "$argv --help 2>&1 | bat --plain --language=help";
-      cd = ''
-        builtin cd $argv || return
-        set current_repository (git rev-parse --show-toplevel 2> /dev/null)
-        if [ "$current_repository" ] && \
-          [ "$current_repository" != "$last_repository" ]
-          onefetch --include-hidden
-        end
-        set -gx last_repository $current_repository
-      '';
+      boy =
+        /*
+        fish
+        */
+        ''
+          if test $argv[1] = --help
+              echo boy - a prettier way to read program help pages
+              return
+          end
+          $argv --help 2>&1 | bat --plain --language=help
+        '';
+      cd =
+        /*
+        fish
+        */
+        ''
+          builtin cd $argv || return
+          set -l current_repository (git rev-parse --show-toplevel 2> /dev/null)
+          if string length -q -- $current_repository && not string match -q -- $current_repository $__last_repository
+            functions -c fish_prompt fish_prompt_bak
+            functions -e fish_prompt
+            function fish_prompt
+              functions -e fish_prompt
+              functions -c fish_prompt_bak fish_prompt
+              functions -e fish_prompt_bak
+              ! ${lib.getExe pkgs.onefetch} --include-hidden --no-bots 2> /dev/null
+              set -g TRANSIENT $status
+              fish_prompt
+              set -e TRANSIENT
+            end
+            set -gx __last_repository $current_repository
+          end
+        '';
+      # IDEA:
+      # from https://github.com/oh-my-fish/plugin-cd
+      # cd .../foo           # <=> cd ../../foo
+      # cd ...               # <=> cd ../..
+      # cd .../foo/.../bar   # <=> cd ../../foo/../../bar
+      # pwd                  # ~/a
+      # cd ~/b               # ~/b    ( dirstack: a )
+      # cd ~/c               # ~/c    ( dirstack: b a )
+      # cd ~/d               # ~/d    ( dirstack: c b a )
+      # cd -2                # ~/b    ( dirstack: d c a )
+      # cd +1                # ~/c    ( dirstack: b d a )
+      # cd +0                # ~/a    ( dirstack: c b d )
+      # cd -0                # ~/a    ( dirstack: c b d )
       nix-build = ''echo "Error: 'nix-build' is deprecated. Please use 'nix build' instead."'';
       nix-channel = ''echo "Error: 'nix-channel' is deprecated. Please use flakes instead."'';
       nix-collect-garbage = ''echo "Error: 'nix-collect-garbage' is deprecated. Please use 'nix gc' instead."'';
@@ -446,6 +482,32 @@ in {
           end
           command nix $argv
         '';
+      _multicd =
+        /*
+        fish
+        */
+        ''
+          if string match -q -r -- / $argv[1]
+              echo (string repeat -n (math (string length -- (string replace -a / "" $argv[1])) - 1) ../)
+          else
+              echo (string join "" (string repeat -n (math (string length -- $argv[1]) - 2) ../) ..)
+          end
+        '';
+      _multicd_expr =
+        /*
+        fish
+        */
+        ''
+          set acc
+          for str in (string split -- "/" $argv)
+              if string match -q --regex "\.{3,}\/*" -- $str
+                  set acc (string join "/" $acc (_multicd $str))
+              else
+                  set acc (string join "/" $acc $str)
+              end
+          end
+          echo $acc
+        '';
       starship_transient_prompt_func =
         /*
         fish
@@ -465,6 +527,19 @@ in {
       fish
       */
       ''
+        fish_hybrid_key_bindings
+        set -g fish_sequence_key_delay_ms 150
+        abbr --add dotdotdot --regex '^\.{3,}\/*$' --function _multicd # can't go in fish.shellAbbrs because of `--regex` # TODO: add support for ls, eza, cd, etc
+        set fish_cursor_default block
+        set fish_cursor_visual block
+        set fish_cursor_insert line
+        set fish_cursor_replace_one underscore
+        set fish_cursor_replace underscore
+        set fish_cursor_external line blink
+        functions -e la
+        functions -e ll
+        functions -e ls
+        sh ${config.xdg.cacheHome}/wallust/tty.sh
         eval (${lib.getExe pkgs.starship} init fish)
         enable_transience
       '';
