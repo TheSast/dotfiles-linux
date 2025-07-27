@@ -397,6 +397,13 @@ in {
         end
         set -gx last_repository $current_repository
       '';
+      nix-build = ''echo "Error: 'nix-build' is deprecated. Please use 'nix build' instead."'';
+      nix-channel = ''echo "Error: 'nix-channel' is deprecated. Please use flakes instead."'';
+      nix-collect-garbage = ''echo "Error: 'nix-collect-garbage' is deprecated. Please use 'nix gc' instead."'';
+      nix-daemon = ''echo "Error: 'nix-daemon' is deprecated. Please use 'nix daemon' instead."'';
+      nix-env = ''echo "Error: 'nix-env' is deprecated. Please use 'nix profile' instead."'';
+      nix-hash = ''echo "Error: 'nix-hash' is deprecated. Please use 'nix hash' instead."'';
+      nix-shell = ''echo "Error: 'nix-shell' is deprecated. Please use 'nix develop' instead."'';
       home-manager =
         /*
         fish
@@ -409,6 +416,35 @@ in {
               echo "Error: 'home-manager' is installed decleratively."
           end
           command home-manager $argv
+        '';
+      nix =
+        /*
+        fish
+        */
+        ''
+          if test "$argv[1]" = profile
+              echo "Error: 'nix profile' is not declarative. Aborting."
+              return 1
+          end
+          if contains -- "$argv[1]" build shell develop
+              if contains -- "$argv[1]" shell develop && not string match -q -- --command $argv && not string match -q -- -c $argv && not string match -q -- --help $argv
+                  command ${lib.getExe pkgs.nix-output-monitor} $argv --command $SHELL
+                  return $status
+              else
+                  command ${lib.getExe pkgs.nix-output-monitor} $argv
+                  return $status
+              end
+          end
+          if test "$argv[1]" = gc
+            command nix profile wipe-history $argv[2..]
+            set -l retv $status
+            if test $retv -eq 0 && not string match -q -- --help $argv
+              command nix store gc
+              return $status
+            end
+            return $retv
+          end
+          command nix $argv
         '';
       starship_transient_prompt_func =
         /*
