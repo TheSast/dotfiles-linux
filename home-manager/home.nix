@@ -234,9 +234,6 @@ in {
       starship = {
         source = ./starship;
       };
-      swaylock = {
-        source = ./swaylock;
-      };
       tmux = {
         source = ./tmux;
       };
