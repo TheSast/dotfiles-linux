@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   pkgs-unstable,
   ...
 }: let
@@ -30,7 +31,7 @@ in {
   nixpkgs.config = {
     allowUnfree = false;
     allowUnfreePredicate = pkg:
-      builtins.elem (pkgs.lib.getName pkg) [
+      builtins.elem (lib.getName pkg) [
         "obsidian"
       ];
     permittedInsecurePackages = pkgs.lib.optional (builtins.any (e: e == pkgs.obsidian.version) ["1.4.16" "1.5.3"]) "electron-25.9.0";
