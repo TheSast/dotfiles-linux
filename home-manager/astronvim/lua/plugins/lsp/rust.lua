@@ -1,6 +1,8 @@
+---@type LazySpec
 return {
   {
     "astrolsp",
+    ---@type AstroLSPOpts
     opts = {
       config = {
         rust_analyzer = {

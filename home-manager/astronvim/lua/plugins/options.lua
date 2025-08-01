@@ -1,5 +1,7 @@
+---@type LazySpec
 return {
   "astrocore",
+  ---@type AstroCoreOpts
   opts = {
     options = {
       g = {

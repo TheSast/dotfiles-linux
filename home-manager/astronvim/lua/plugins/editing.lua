@@ -1,3 +1,4 @@
+---@type LazySpec
 return {
   {
     "todo-comments.nvim",
@@ -18,6 +19,7 @@ return {
     },
     dependencies = {
       "astrocore",
+      ---@type AstroCoreOpts
       opts = {
         mappings = {
           n = {
@@ -31,6 +33,7 @@ return {
     "zen-mode.nvim",
     dependencies = {
       "astrocore",
+      ---@type AstroCoreOpts
       opts = {
         mappings = {
           n = {

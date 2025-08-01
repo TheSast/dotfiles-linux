@@ -12,6 +12,7 @@ local function handle_nls_avail(srcs)
   return srcs
 end
 
+---@type LazySpec
 return {
   "none-ls.nvim",
   opts = function(_, opts)

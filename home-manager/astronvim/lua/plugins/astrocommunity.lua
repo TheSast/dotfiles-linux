@@ -1,5 +1,6 @@
 -- reminder that files imported by lazy.nvim are processed in alphabetical order
 -- default mappings from astrocommunity will be negated here for a cleaner config
+---@type LazySpec
 return {
   -- core
   -- { import = "astrocommunity.recipes.heirline-mode-text-statusline" },

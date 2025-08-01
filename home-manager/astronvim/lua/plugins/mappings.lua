@@ -1,7 +1,9 @@
 -- this mappings file is supposed to be usable regardless of the presence of additional plugins
+---@type LazySpec
 return {
   {
     "astrocore",
+    ---@type AstroCoreOpts
     opts = {
       -- ISSUE: mappings set to "<NOP>" still have their `desc`
       mappings = {

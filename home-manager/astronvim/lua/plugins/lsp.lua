@@ -52,6 +52,7 @@ local function handle_partial_cmd_over(config)
   return config
 end
 
+---@type LazySpec
 return {
   {
     "astrolsp",
