@@ -13,14 +13,18 @@ require("lazy").setup {
   },
   change_detection = { notify = false },
   defaults = { lazy = true },
-  install = { colorscheme = { "habamax" } },
+  install = { colorscheme = { "astrotheme", "habamax" } },
+  ui = { backdrop = 100 },
   performance = {
     rtp = {
       disabled_plugins = {
         "gzip",
-        "matchit",
+        "matchit", -- see `:h cpo-%`
         "matchparen",
         "netrwPlugin",
+        -- "rplugin",
+        -- "shada",
+        -- "spellfile",
         "tarPlugin",
         "tohtml",
         "tutor",
