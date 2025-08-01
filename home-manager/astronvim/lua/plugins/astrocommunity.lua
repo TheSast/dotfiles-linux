@@ -28,6 +28,8 @@ return {
   --   },
   -- },
   { import = "astrocommunity.editing-support.zen-mode-nvim" },
+  -- since this is only mappings, it's mappings won't be negated
+  { import = "astrocommunity.recipes.neovide" },
   -- https://github.com/chikko80/error-lens.nvim
   -- https://github.com/NvChad/nvcommunity/tree/main/lua/nvcommunity/editor/beacon
   -- https://github.com/NvChad/nvcommunity/tree/main/lua/nvcommunity/editor/biscuits

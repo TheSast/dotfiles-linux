@@ -136,32 +136,6 @@ return {
     },
   },
   {
-    "astrocore",
-    opts = function(_, opts)
-      if vim.g.neovide == true then
-        opts.mappings = require("astrocore").extend_tbl(opts.mappings, {
-          n = {
-            ["<C-=>"] = {
-              function()
-                vim.g.neovide_scale_factor =
-                  math.min(vim.g.neovide_scale_factor + (0.08 * (vim.v.count > 0 and vim.v.count or 1)), 1.24)
-              end,
-              desc = "Increase zoom level",
-            },
-            ["<C-->"] = {
-              function()
-                vim.g.neovide_scale_factor =
-                  math.max(vim.g.neovide_scale_factor - (0.08 * (vim.v.count > 0 and vim.v.count or 1)), 0.76)
-              end,
-              desc = "Decrease zoom level",
-            },
-            ["<C-0>"] = {
-              function() vim.g.neovide_scale_factor = 1 end,
-              desc = "Reset zoom level",
-            },
-          },
-        })
-      end
     end,
   },
 }
