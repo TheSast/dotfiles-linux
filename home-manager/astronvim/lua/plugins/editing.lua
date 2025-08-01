@@ -1,6 +1,9 @@
 ---@type LazySpec
 return {
   {
+    "monkoose/matchparen.nvim",
+    lazy = false,
+    opts = {},
   },
   {
     "zen-mode.nvim",
