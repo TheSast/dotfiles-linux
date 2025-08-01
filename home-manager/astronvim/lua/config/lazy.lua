@@ -1,15 +1,14 @@
 require("lazy").setup {
   spec = {
-    -- TODO: change `branch="v4"` to `version="^4"` and `version=^6` respectively on release
     {
       "AstroNvim/AstroNvim",
-      branch = "v4",
+      version = "*",
       import = "astronvim.plugins",
       opts = {
         maplocalleader = vim.utils.termcodes "<C-Space>",
       },
     },
-    { "AstroNvim/astrocommunity", branch = "v4" },
+    { "AstroNvim/astrocommunity", version = "*" },
     { import = "plugins" },
   },
   change_detection = { notify = false },

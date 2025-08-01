@@ -29,35 +29,42 @@ return {
     },
   },
   {
-    "leap.nvim",
+    "ggandor/leap.nvim",
     event = "User AstroFile",
     opts = {
-      safe_labels = {}, -- ISSUE: doesn't turn off autojump if there is only one valid target
+      safe_labels = {},
       case_sensitive = true,
-      special_keys = {
+      keys = {
         next_target = ";", -- does not overrwite the mapping
         prev_target = ",", -- outside this "LEAP" mode
+        next_group = "<NOP>",
+        prev_group = "<NOP>",
       },
     },
     init = function() vim.api.nvim_set_hl(0, "LeapBackdrop", { link = "Comment" }) end,
     dependencies = {
-      "astrocore",
-      opts = {
-        mappings = {
-          n = {
-            ["s"] = { "<Plug>(leap-forward-to)", desc = "Leap forward to" },
-            ["S"] = { "<Plug>(leap-backward-to)", desc = "Leap backward to" },
-            ["gs"] = { "<Plug>(leap-from-window)", desc = "Leap from window" },
-          },
-          x = {
-            ["s"] = { "<Plug>(leap-forward-to)", desc = "Leap forward to" },
-            ["S"] = { "<Plug>(leap-backward-to)", desc = "Leap backward to" },
-            ["gs"] = { "<Plug>(leap-from-window)", desc = "Leap from window" },
-          },
-          o = {
-            ["s"] = { "<Plug>(leap-forward-to)", desc = "Leap forward to" },
-            ["S"] = { "<Plug>(leap-backward-to)", desc = "Leap backward to" },
-            ["gs"] = { "<Plug>(leap-from-window)", desc = "Leap from window" },
+      {
+        "vim-repeat",
+        enable = false, -- the issues with the plugin are not worth the benefits
+        -- ISSUE: maps `.`, `u`, `U`, `<C-r>` at the time of loading
+      },
+      {
+        "astrocore",
+        ---@type AstroCoreOpts
+        opts = {
+          mappings = {
+            [""] = {
+              ["s"] = { "<Plug>(leap-forward)", desc = "Leap forward to" },
+              ["S"] = { "<Plug>(leap-backward)", desc = "Leap backward to" },
+            },
+            n = {
+              ["s"] = false,
+              ["S"] = false,
+            },
+            x = {
+              ["s"] = false,
+              ["S"] = false,
+            },
           },
         },
       },

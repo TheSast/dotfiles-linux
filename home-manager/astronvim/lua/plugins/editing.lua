@@ -1,33 +1,6 @@
 ---@type LazySpec
 return {
   {
-    "todo-comments.nvim",
-    opts = {
-      keywords = {
-        TODO = { alt = { "todo", "unimplemented", "IDEA" } }, -- todo and unimplemented should be limited to ft=rust files
-      },
-      highlight = {
-        pattern = {
-          [[.*<(KEYWORDS)\s*:]],
-          [[.*<(KEYWORDS)\s*!\(]],
-        },
-        comments_only = false,
-      },
-      search = {
-        pattern = [[\b(KEYWORDS)(:|!\()]],
-      },
-    },
-    dependencies = {
-      "astrocore",
-      ---@type AstroCoreOpts
-      opts = {
-        mappings = {
-          n = {
-            ["<Leader>fT"] = { function() vim.cmd "TodoTelescope" end, desc = "Find TODO, WARN, FIXME, and others" },
-          },
-        },
-      },
-    },
   },
   {
     "zen-mode.nvim",

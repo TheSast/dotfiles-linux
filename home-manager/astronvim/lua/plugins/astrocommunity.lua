@@ -34,32 +34,7 @@ return {
     },
   },
   {
-    { import = "astrocommunity.motion.leap-nvim" },
     {
-      "astrocore",
-      opts = {
-        mappings = {
-          n = {
-            ["s"] = false,
-            ["S"] = false,
-            ["gs"] = false,
-          },
-          x = {
-            ["s"] = false,
-            ["S"] = false,
-            ["x"] = false,
-            ["X"] = false,
-            ["gs"] = false,
-          },
-          o = {
-            ["s"] = false,
-            ["S"] = false,
-            ["x"] = false,
-            ["X"] = false,
-            ["gs"] = false,
-          },
-        },
-      },
     },
   },
   { import = "astrocommunity.motion.mini-surround" }, -- don't know how to handle manually
@@ -72,7 +47,6 @@ return {
   -- editing
   -- { import = "astrocommunity.fuzzy-finder.telescope-zoxide" },
   -- { import = "astrocommunity.editing-support.telescope-undo-nvim" }, -- WARN: DO NOT UNCOMMET, IS BROKEN, WILL CRIPPLE EDITOR
-  { import = "astrocommunity.editing-support.todo-comments-nvim" },
   { import = "astrocommunity.editing-support.zen-mode-nvim" },
   -- { import = "astrocommunity.editing-support.dial-nvim" },
   -- utility

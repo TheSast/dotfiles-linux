@@ -16,4 +16,8 @@ return { -- ISSUE: https://discord.com/channels/939594913560031363/1155519593008
     "mason-nvim-dap.nvim",
     enabled = false,
   },
+  {
+    "mason-tool-installer.nvim",
+    enabled = false,
+  },
 }
