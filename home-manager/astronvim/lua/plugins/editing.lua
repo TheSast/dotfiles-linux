@@ -20,29 +20,6 @@ return {
     },
   },
 }
--- TODO: setup
--- {
---   "dial.nvim",
---   dependencies = {
---     "astrocore",
---     opts = {
---       mappings = {
---         n = {
---           { "+", require("dial.map").manipulate("increment", "normal"), desc = "Increment" },
---           { "-", require("dial.map").manipulate("decrement", "normal"), desc = "Decrement" },
---           { "g+", require("dial.map").manipulate("increment", "gnormal"), desc = "Increment" },
---           { "g-", require("dial.map").manipulate("decrement", "gnormal"), desc = "Decrement" },
---         },
---         x = {
---           { "+", require("dial.map").manipulate("increment", "visual"), desc = "Increment" },
---           { "-", require("dial.map").manipulate("decrement", "visual"), desc = "Decrement" },
---           { "g+", require("dial.map").manipulate("increment", "gvisual"), desc = "Increment" },
---           { "g-", require("dial.map").manipulate("decrement", "gvisual"), desc = "Decrement" },
---         },
---       },
---     },
---   },
--- },
 -- TODO: consider nvim-lightbulb
 -- TODO: consider vim-radical or more maintained alternatives
 -- TODO: consider vim-case-changer or more maintained alternatives
@@ -51,3 +28,13 @@ return {
 -- TODO: consider undotree
 -- TODO: consider https://github.com/luckasRanarison/nvim-devdocs (maybe-lang?)
 -- TODO: consider https://github.com/nanotee/zoxide.vim
+-- TODO: consider https://github.com/ecthelionvi/NeoComposer.nvim
+-- TODO: consider https://github.com/chrisgrieser/nvim-rip-substitute
+-- TODO: consider https://github.com/chrisgrieser/ THERE ARE SO MANY
+-- e.g.
+--https://github.com/chrisgrieser/nvim-scissors
+--https://github.com/chrisgrieser/nvim-tinygit
+-- TODO: consider https://github.com/gbprod/yanky.nvim
+-- TODO: consider https://github.com/MagicDuck/grug-far.nvim
+--https://github.com/backdround/improved-search.nvim
+--https://github.com/andrep/vimacs

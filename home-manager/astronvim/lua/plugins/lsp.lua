@@ -118,4 +118,10 @@ return {
     },
   },
   { import = "plugins.lsp" },
+  -- TODO: consider https://github.com/udayvir-singh/tangerine.nvim
+  -- TODO: consider https://github.com/Olical/nfnl
+  -- TODO: consider https://github.com/Olical/aniseed
+  -- TODO: consider https://github.com/Olical/conjure
+  -- TODO: consider https://github.com/adigitoleo/overview.nvim
+  -- TODO: consider https://github.com/jmbuhr/otter.nvim
 }

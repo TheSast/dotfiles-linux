@@ -32,3 +32,8 @@ return {
     },
   },
 }
+-- TODO: consider https://github.com/HakonHarnes/img-clip.nvim
+-- TODO: consider https://github.com/3rd/image.nvim
+-- TODO: consider https://github.com/gelguy/wilder.nvim
+-- TODO: consider https://github.com/notomo/cmdbuf.nvim
+-- TODO: https://github.com/Axlefublr/harp-nvim
