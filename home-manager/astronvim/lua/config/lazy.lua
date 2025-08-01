@@ -6,7 +6,7 @@ require("lazy").setup {
       branch = "v4",
       import = "astronvim.plugins",
       opts = {
-        maplocalleader = vim.api.nvim_replace_termcodes("<C-Space>", true, true, true),
+        maplocalleader = vim.utils.termcodes "<C-Space>",
       },
     },
     { "AstroNvim/astrocommunity", branch = "v4" },
