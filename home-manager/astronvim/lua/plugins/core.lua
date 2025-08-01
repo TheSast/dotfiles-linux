@@ -104,5 +104,15 @@ return {
     "nvim-treesitter-textobjects",
     enabled = false,
   },
+  {
+    "vim-illuminate",
+    opts = { delay = 100, disable_keymaps = true },
+  },
+  {
+    "Comment.nvim",
+    opts = {
+      toggler = { line = "", block = "" }, -- ISSUE: not unmappable
+    },
+  },
 }
 -- TODO: add a cmp source for buffer names, current git branch, filetype and attached language servers
