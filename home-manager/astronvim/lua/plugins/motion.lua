@@ -1,28 +1,35 @@
 ---@type LazySpec
 return {
   {
-    "nvim-spider",
-    dependencies = { -- TODO: add utf8 support
-      "astrocore",
-      opts = {
-        mappings = {
-          n = {
-            ["w"] = { "<Cmd>lua require('spider').motion('w')<CR>", desc = "Next word" },
-            ["e"] = { "<Cmd>lua require('spider').motion('e')<CR>", desc = "Next end of word" },
-            ["b"] = { "<Cmd>lua require('spider').motion('b')<CR>", desc = "Previous word" },
-            ["x"] = { "<Cmd>lua require('spider').motion('ge')<CR>", desc = "Previous end of word" },
-          },
-          x = {
-            ["w"] = { "<Cmd>lua require('spider').motion('w')<CR>", desc = "Next word" },
-            ["e"] = { "<Cmd>lua require('spider').motion('e')<CR>", desc = "Next end of word" },
-            ["b"] = { "<Cmd>lua require('spider').motion('b')<CR>", desc = "Previous word" },
-            ["x"] = { "<Cmd>lua require('spider').motion('ge')<CR>", desc = "Previous end of word" },
-          },
-          o = {
-            ["w"] = { "<Cmd>lua require('spider').motion('w')<CR>", desc = "Next word" },
-            ["e"] = { "<Cmd>lua require('spider').motion('e')<CR>", desc = "Next end of word" },
-            ["b"] = { "<Cmd>lua require('spider').motion('b')<CR>", desc = "Previous word" },
-            ["x"] = { "<Cmd>lua require('spider').motion('ge')<CR>", desc = "Previous end of word" },
+    -- TODO: open an issue to make it possible to configure whether a motion is current and/or target inclusive/exclusive
+    "chrisgrieser/nvim-spider",
+    opts = {
+      consistentOperatorPending = true,
+    },
+    dependencies = {
+      {
+        "vhyrro/luarocks.nvim",
+        priority = 1000,
+        opts = {
+          rocks = { "luautf8" },
+        },
+      },
+      {
+        "astrocore",
+        ---@type AstroCoreOpts
+        opts = {
+          -- IDEA: add a `w` version that counts kebab-cased and pascalCased delimited words as one
+          mappings = {
+            [""] = {
+              ["<Plug>(spider-w)"] = { function() require("spider").motion "w" end, desc = "Next word" },
+              ["<Plug>(spider-e)"] = { function() require("spider").motion "e" end, desc = "Next end of word" },
+              ["<Plug>(spider-b)"] = { function() require("spider").motion "b" end, desc = "Previous word" },
+              ["<Plug>(spider-ge)"] = { function() require("spider").motion "ge" end, desc = "Previous end of word" },
+              ["w"] = { "<Plug>(spider-w)", desc = "Next word" },
+              ["e"] = { "<Plug>(spider-e)", desc = "Next end of word" },
+              ["b"] = { "<Plug>(spider-b)", desc = "Previous word" },
+              ["x"] = { "<Plug>(spider-ge)", desc = "Previous end of word" },
+            },
           },
         },
       },

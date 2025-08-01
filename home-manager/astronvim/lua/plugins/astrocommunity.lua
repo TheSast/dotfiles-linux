@@ -28,7 +28,6 @@ return {
   --   },
   -- },
   { import = "astrocommunity.editing-support.zen-mode-nvim" },
-  -- utf8 support to nvim-spider
   -- https://github.com/chikko80/error-lens.nvim
   -- https://github.com/NvChad/nvcommunity/tree/main/lua/nvcommunity/editor/beacon
   -- https://github.com/NvChad/nvcommunity/tree/main/lua/nvcommunity/editor/biscuits
