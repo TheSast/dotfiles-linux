@@ -102,18 +102,78 @@ return {
     },
   },
   {
+    -- ISSUE: f{diagraph} and `:lmap` is unsupported
     "backdround/improved-ft.nvim",
     event = "User AstroFile",
     opts = {
-      use_default_mappings = true, -- should be set by astrocore for better lazyness?
       use_relative_repetition = true,
       use_relative_repetition_offsets = true,
+    },
+    dependencies = {
+      "astrocore",
+      ---@type AstroCoreOpts
+      opts = {
+        mappings = {
+          [""] = {
+            -- TODO: add desc?
+            ["f"] = { function() return require("improved-ft").hop_forward_to_char() end, expr = true },
+            ["F"] = { function() return require("improved-ft").hop_backward_to_char() end, expr = true },
+            ["t"] = { function() return require("improved-ft").hop_forward_to_pre_char() end, expr = true },
+            ["T"] = { function() return require("improved-ft").hop_backward_to_pre_char() end, expr = true },
+            [";"] = { function() return require("improved-ft").repeat_forward() end, expr = true },
+            [","] = { function() return require("improved-ft").repeat_backward() end, expr = true },
+          },
+        },
+      },
     },
   },
   {
     "chrisgrieser/nvim-various-textobjs",
-    lazy = false,
-    opts = { useDefaultKeymaps = true },
+    opts = {
+      forwardLooking = {
+        small = math.huge, -- infinite
+        big = math.huge, -- seeking
+      },
+    },
+    dependencies = {
+      "astrocore",
+      ---@type AstroCoreOpts
+      opts = {
+        mappings = {
+          -- ISSUE: count is unsupported
+          o = {
+            ["iw"] = { "<Cmd>lua require('various-textobjs').subword('inner')<CR>", desc = "inner Subword" },
+            ["aw"] = { "<Cmd>lua require('various-textobjs').subword('outer')<CR>", desc = "outer Subword" },
+            ["i<C-Space>"] = {
+              "<Cmd>lua require('various-textobjs').lineCharacterwise('inner')<CR>",
+              desc = "inner line",
+            },
+            ["a<C-Space>"] = {
+              "<Cmd>lua require('various-textobjs').lineCharacterwise('outer')<CR>",
+              desc = "outer line",
+            },
+            ["in"] = { "<Cmd>lua require('various-textobjs').number('inner')<CR>", desc = "inner number" },
+            ["an"] = { "<Cmd>lua require('various-textobjs').number('outer')<CR>", desc = "outer number" },
+            ["gG"] = { "<Cmd>lua require('various-textobjs').entireBuffer()<CR>", desc = "Entire buffer" },
+          },
+          x = {
+            ["iw"] = { "<Cmd>lua require('various-textobjs').subword('inner')<CR>", desc = "inner Subword" },
+            ["aw"] = { "<Cmd>lua require('various-textobjs').subword('outer')<CR>", desc = "outer Subword" },
+            ["i<C-Space>"] = {
+              "<Cmd>lua require('various-textobjs').lineCharacterwise('inner')<CR>",
+              desc = "inner line",
+            },
+            ["a<C-Space>"] = {
+              "<Cmd>lua require('various-textobjs').lineCharacterwise('outer')<CR>",
+              desc = "outer line",
+            },
+            ["in"] = { "<Cmd>lua require('various-textobjs').number('inner')<CR>", desc = "inner number" },
+            ["an"] = { "<Cmd>lua require('various-textobjs').number('outer')<CR>", desc = "outer number" },
+            ["gG"] = { "<Cmd>lua require('various-textobjs').entireBuffer()<CR>", desc = "Entire buffer" },
+          },
+        },
+      },
+    },
   },
   -- TODO: https://medium.com/@schtoeffel/you-don-t-need-more-than-one-cursor-in-vim-2c44117d51db
   -- after tyring *all* of the available multiple cursor plugins, it is clear none can match helix's implementation
