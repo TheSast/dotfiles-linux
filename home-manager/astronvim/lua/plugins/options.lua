@@ -13,12 +13,18 @@ return {
         neovide_underline_automatic_scaling = true,
       },
       opt = {
-        cpoptions = string.gsub(vim.o.cpoptions, "_", ""),
+        cedit = vim.utils.termcodes "<Esc>",
+        cpoptions = vim.o.cpoptions:gsub("_", "") .. "%",
         guifont = "FiraCode_Nerd_Font_Med:h12", -- TODO: move to neovide toml file
+        -- iskeyword = "", -- ISSUE: breaks todo-comments
+        matchpairs = vim.o.matchpairs .. ",<:>",
+        maxmapdepth = 3,
         pumblend = 30,
         showcmdloc = "statusline",
         title = true,
         titlestring = vim.g.neovide and "Neovide" or "NeoVim",
+        whichwrap = "",
+        wildchar = 0,
         winblend = 30,
       },
     },
