@@ -72,7 +72,10 @@ return {
           -- TODO: check setup doc
           "yamlls",
           "taplo",
+          "tinymist",
           "awk_ls",
+          "lemminx",
+          "phpactor",
         },
         always = {
           "lua_ls",
