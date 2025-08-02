@@ -3,60 +3,58 @@
 --- NOTE: This mutates opts!
 ---@param opts table # Options table with `servers.when_available` table of sources to filter
 ---@return table avail # The options table with a filtered source list
-local function handle_lspconfig_avail(opts)
-  local executable = 1
-  opts = opts or {}
-  local srcs = opts.servers.when_available or {}
-  for i = #srcs, 1, -1 do
-    local src = srcs[i]
-    if
-      vim.fn.executable(
-        vim.tbl_get(opts, "config", src, "cmd", 1) or require("lspconfig")[src].document_config.default_config.cmd[1]
-      ) ~= executable
-    then
-      table.remove(srcs, i)
-    end
-  end
-  opts.servers = vim.list_extend(opts.servers.always, srcs)
-  return opts
+local f = function(opts)
+  return vim.tbl_extend("force", opts or {}, {
+    servers = vim.list_extend(
+      vim.tbl_get(opts, "servers", "always") or {},
+      vim.tbl_filter(
+        function(src_name)
+          return vim.utils.executable(
+            vim.tbl_get(opts, "config", src_name, "cmd", 1)
+              or vim.tbl_get(require("lspconfig.configs." .. src_name).default_config, "cmd", 1)
+          )
+        end,
+        vim.tbl_get(opts, "servers", "when_available") or {}
+      )
+    ),
+  })
 end
 
----Mutate a config table by enabling partial overriding of cmd in source configuration, defaulting to full override
+---Eval functions given default configs in config table
 ---
---- NOTE: This mutates config!
----@param config table # The configs table with `cmd.override = "partial"` where partial overriding is desired
----@return table over # The configs table, with each source having a correctly overriden cmd
-local function handle_partial_cmd_over(config)
-  for src_name, src_config in pairs(config) do
-    local default_cmd = require("lspconfig")[src_name].document_config.default_config.cmd
-    src_config.cmd = src_config.cmd or default_cmd
-    if
-      (function()
-        local x = src_config.cmd.override
-        src_config.cmd.override = nil
-        return x
-      end)() == "partial"
-    then
-      for i, _ in ipairs(default_cmd) do
-        if
-          not (type(src_config.cmd[i]) == "string" or (type(src_config.cmd[i]) == "boolean" and not src_config.cmd[i]))
-        then
-          src_config.cmd[i] = default_cmd[i]
-        end
-      end
-      for i = #src_config.cmd, 1, -1 do
-        if type(src_config.cmd[i]) == "boolean" and not src_config.cmd[i] then table.remove(src_config.cmd, i) end
-      end
+--- NOTE: This mutates configs!
+---@param configs table # The configs table with functions where defaults want to be modified
+---@return table ret # The configs table, with the functions evaluated
+local config_via_fn = function(configs)
+  for src_name, src_config in pairs(configs) do
+    if type(src_config) == "function" then
+      local default_config = require("lspconfig.configs." .. src_name).default_config
+      configs[src_name] = src_config(default_config)
     end
   end
-  return config
+  return configs
+end
+
+local override_bin = function(bin)
+  return function(default)
+    default = default or {}
+    default.cmd = default.cmd or {}
+    default.cmd[1] = bin
+    return default
+  end
 end
 
 ---@type LazySpec
 return {
   {
     "astrolsp",
-    opts = handle_lspconfig_avail {
+    ---@type AstroLSPOpts
+    opts = f {
+      features = {
+        codelens = true,
+        inlay_hints = true,
+        semantic_tokens = true,
+      },
       -- :h lspconfig-server-configurations
       servers = {
         when_available = {
@@ -78,6 +76,7 @@ return {
         },
         always = {
           "lua_ls",
+          -- "nixd",
           "nil_ls",
         },
       },
@@ -90,19 +89,35 @@ return {
         virtual_text = true,
         underline = true,
       },
-      config = handle_partial_cmd_over {
-        cssls = {
-          cmd = { override = "partial", "css-languageserver" },
+      config = config_via_fn {
+        nixd = {
+          settings = {
+            nixd = {
+              options = {
+                nixos = {
+                  expr = '(builtins.getFlake ("git+file://" + toString ./.)).nixosConfigurations.charlie.options',
+                },
+                home_manager = {
+                  expr = '(builtins.getFlake ("git+file://" + toString ./.)).homeConfigurations.charlie.options',
+                },
+              },
+            },
+          },
         },
-        jsonls = {
-          cmd = { override = "partial", "vscode-json-languageserver" },
-        },
-        jdtls = {
-          cmd = { override = "partial", "jdt-language-server" },
-        },
+        cssls = override_bin "css-languageserver",
+        jsonls = override_bin "vscode-json-languageserver",
         clangd = {
           capabilities = {
             offsetEncoding = "utf-8",
+          },
+        },
+        bashls = {
+          settings = {
+            bashIde = {
+              shfmt = {
+                ignoreEditorconfig = true,
+              },
+            },
           },
         },
       },
@@ -112,6 +127,7 @@ return {
           ["gh"] = {
             function() vim.lsp.buf.hover() end,
             desc = "Hover symbol details",
+          },
           },
         },
       },
