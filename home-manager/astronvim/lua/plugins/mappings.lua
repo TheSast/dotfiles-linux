@@ -335,6 +335,141 @@ return {
     },
   },
   {
+    "which-key.nvim",
+    init = function(_)
+      -- ISSUE: issues adding/overwriting other register/mark based mappings
+      -- table.insert(require("which-key.plugins.registers").mappings, { "q", mode = { "n", "x" }, desc = "play macro" })
+      table.remove(require("which-key.plugins.marks").mappings, 3) -- remove g`
+      table.remove(require("which-key.plugins.marks").mappings, 1) -- remove `
     end,
+    opts = {
+      plugins = { presets = { text_objects = false } },
+      spec = (function(t)
+        for _, st in pairs(t) do
+          for _, sst in ipairs(st) do
+            sst.preset = true
+          end
+        end
+        return t
+      end) {
+        {
+          mode = { "n", "x", "o" },
+          { "g$", desc = "End of screen line" },
+          { "g0", desc = "Start of screen line" },
+          { "g^", desc = "Start of screen text line" },
+          { "gm", desc = "Middle of screen line" },
+          { "gM", desc = "Middle of line" }, -- if count then percentage of line
+          { "gj", desc = "Move cursor down a display line" },
+          { "gk", desc = "Move cursor up a display line" },
+          { "|", desc = "First column" },
+          { "#", desc = "Search word forward" },
+          { "%", desc = "Matching ()[]{}<>" }, -- if count then percentage of buffer
+          { "*", desc = "Search word backward" },
+          { "B", desc = "Previous WORD" },
+        },
+        {
+          mode = { "x", "o" },
+          { "a", group = "around" },
+          { 'a"', desc = 'outer " string' },
+          { "a'", desc = "outer ' string" },
+          { "a(", desc = "outer () block" },
+          { "a)", desc = "outer () block" },
+          { "a<", desc = "outer <> block" },
+          { "a>", desc = "outer <> block" },
+          { "aW", desc = "outer WORD" },
+          { "a[", desc = "outer [] block" },
+          { "a]", desc = "outer [] block" },
+          { "a`", desc = "outer ` string" },
+          { "ap", desc = "outer paragraph" },
+          { "as", desc = "outer sentence" },
+          { "at", desc = "outer tag block" },
+          { "aw", desc = "outer word" },
+          { "a{", desc = "outer {} block" },
+          { "a}", desc = "outer {} block" },
+          { "i", group = "inside" },
+          { 'i"', desc = 'inner " string' },
+          { "i'", desc = "inner ' string" },
+          { "i(", desc = "inner () block" },
+          { "i)", desc = "inner () block" },
+          { "i<", desc = "inner <> block" },
+          { "i>", desc = "inner <> block" },
+          { "iW", desc = "inner WORD" },
+          { "i[", desc = "inner [] block" },
+          { "i]", desc = "inner [] block" },
+          { "i`", desc = "inner ` string" },
+          { "ip", desc = "inner paragraph" },
+          { "is", desc = "inner sentence" },
+          { "it", desc = "inner tag block" },
+          { "iw", desc = "inner word" },
+          { "i{", desc = "inner {} block" },
+          { "i}", desc = "inner {} block" },
+        },
+        {
+          mode = { "n", "x" },
+          { "&", desc = "Repeat substitute" },
+          { ":", desc = "Command" },
+          { "=", desc = "Run 'equalprg'" },
+          -- { "H", desc = "Highest line of the window" }, --
+          { "I", desc = "Insert at start of text line" },
+          -- { "L", desc = "Lowest line of the window" }, --
+          -- { "M", desc = "Middle line of the window" }, --
+          -- { "Q", desc = "Play last macro" }, --
+          -- { "Z", desc = "ZE UNGKNOUN" }, --
+          -- { "g", desc = "Girthy" }, --
+          { "g&", desc = "Repeat substitute on all lines" },
+          { "gI", desc = "Insert at start of line" },
+          { "gi", desc = "Insert at last insert" },
+          { "gr", desc = "Virtual replace charater" },
+          { "m", desc = "Set mark" },
+          { "p", desc = "Paste" },
+          { "q", desc = "Record macro" },
+          { "r", desc = "Replace charater" },
+          -- { "z", desc = "Zesty" }, -- TODO: add `z` mappings
+        },
+        {
+          mode = { "n" },
+          { "O", desc = "Insert line above" },
+          { "P", desc = "Paste before cursor" },
+          { "R", desc = "Replace" },
+          { "a", desc = "Append" },
+          { "g,", desc = "Move to next change position" },
+          { "g;", desc = "Move to previous change position" },
+          { "gF", desc = "Go to file and line under cursor" },
+          { "gR", desc = "Virtual replace" },
+          { "i", desc = "Insert" },
+          { "o", desc = "Insert line below" },
+          { "u", desc = "Undo" },
+        },
+        {
+          mode = { "x" },
+          { "P", desc = "Paste without yanking" },
+          { "g#", desc = "Search word forward extending selection" },
+          { "g*", desc = "Search word backward (extend in visual)" },
+        },
+        {
+          mode = { "o" },
+          { "<C-v>", desc = "Force blockwise" },
+          { "V", desc = "Force linewise" },
+          { "v", desc = "Force characterwise" },
+        },
+      },
+      preset = "helix",
+      defer = function(_) return false end,
+      -- make keys mapped to <Nop> (and with no callback) not be shown ignoring preset
+      filter = function(keymap)
+        return (keymap.preset and vim.tbl_filter(
+          function(k) return k.lhs == keymap.lhs end,
+          vim.api.nvim_get_keymap(keymap.mode)
+        )[1] or keymap).rhs ~= ""
+      end,
+      triggers = {
+        { "<auto>", mode = "nxot" }, -- doesn't work for i_<C-o>
+        { "a", mode = "x" },
+        { "i", mode = "x" },
+      },
+      win = {
+        height = { max = math.huge },
+      },
+    },
   },
 }
