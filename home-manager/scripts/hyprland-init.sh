@@ -18,6 +18,9 @@ mkdir -p "$STATE"
 	nohup hyprnotify -s -f 20 >/dev/null 2>&1 &
 
 	batsignal -b -w "35" -c "15" -d "5" -W "Battery level low" -C "Battery level minimal" -D "Battery level critical" -M "notify-send" -a "Battery" # daemon by default
+
+	rm -f /tmp/wobpipe
+	touch /tmp/wobpipe
 	nohup tail -f /tmp/wobpipe | wob >/dev/null 2>&1 &
 
 	nohup "$XDG_STATE_HOME"/nix/profile/libexec/hyprpolkitagent >/dev/null 2>&1 &
