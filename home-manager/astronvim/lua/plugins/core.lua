@@ -114,5 +114,25 @@ return {
       toggler = { line = "", block = "" }, -- ISSUE: not unmappable
     },
   },
+  {
+    "aerial.nvim",
+    opts = {
+      keymaps = {
+        ["]Y"] = false,
+        ["[Y"] = false,
+      },
+      on_attach = function(bufnr)
+        local astrocore = require "astrocore"
+        astrocore.set_mappings({
+          n = {
+            ["]y"] = { function() require("aerial").next(vim.v.count1) end, desc = "Next symbol" },
+            ["[y"] = { function() require("aerial").prev(vim.v.count1) end, desc = "Previous symbol" },
+            -- ["]Y"]
+            -- ["[Y"]
+          },
+        }, { buffer = bufnr })
+      end,
+    },
+  },
 }
 -- TODO: add a cmp source for buffer names, current git branch, filetype and attached language servers
