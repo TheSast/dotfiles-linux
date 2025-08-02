@@ -126,10 +126,36 @@ return {
       mappings = {
         n = {
           ["K"] = false,
-          ["gh"] = {
+          ["gh"] = false,
+          ["gK"] = false,
+          ["<Leader>lH"] = {
             function() vim.lsp.buf.hover() end,
             desc = "Hover symbol details",
+            cond = "textDocument/hover",
           },
+          ["gy"] = false,
+          ["<Leader>lgy"] = {
+            function() vim.lsp.buf.type_definition() end,
+            desc = "Definition of current type",
+            cond = "textDocument/typeDefinition",
+          },
+          ["gD"] = false,
+          ["<Leader>lgD"] = {
+            function() vim.lsp.buf.declaration() end,
+            desc = "Declaration of current symbol",
+            cond = "textDocument/declaration",
+          },
+          ["gd"] = false,
+          ["<Leader>lgd"] = {
+            function() vim.lsp.buf.definition() end,
+            desc = "Definition of current symbol",
+            cond = "textDocument/definition",
+          },
+          ["gI"] = false,
+          ["<Leader>lgI"] = {
+            function() vim.lsp.buf.implementation() end,
+            desc = "Implementation of current symbol",
+            cond = "textDocument/implementation",
           },
         },
       },
