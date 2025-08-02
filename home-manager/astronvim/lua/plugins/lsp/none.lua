@@ -13,6 +13,7 @@ return {
         builtins.diagnostics.markdownlint,
 
         builtins.formatting.cmake_format,
+        builtins.formatting.uncrustify,
         builtins.formatting.leptosfmt,
         builtins.formatting.nixfmt,
         builtins.formatting.yamlfix,
@@ -20,6 +21,7 @@ return {
         builtins.formatting.shellharden,
         builtins.formatting.shfmt, -- FIXME: should be ran by bashls
         builtins.formatting.fish_indent,
+        builtins.formatting.mdformat,
         builtins.formatting.cbfmt,
         builtins.formatting.prettierd,
       }),
