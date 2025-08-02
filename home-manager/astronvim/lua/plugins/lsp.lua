@@ -60,7 +60,6 @@ return {
         when_available = {
           "bashls",
           "clangd",
-          "jdtls",
           "rust_analyzer", -- only seems to properly load in once InsertLeave is sent, and takes a while for `vim.lsp.buf.hover()` to work
           "marksman",
           "html",
@@ -68,7 +67,7 @@ return {
           -- TODO: check setup doc
           "cssls",
           -- TODO: check setup doc
-          "jsonls",
+          -- "jsonls",
           -- TODO: check setup doc
           "yamlls",
           "taplo",
