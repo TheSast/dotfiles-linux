@@ -19,6 +19,49 @@ return {
       },
     },
   },
+  {
+    "epwalsh/obsidian.nvim",
+    enabled = false,
+    version = "*",
+    event = {
+      -- refer to `:h file-pattern` for more examples
+      "BufReadPre "
+        .. vim.fn.expand "~"
+        .. "/Documents/Obsidian/main/*.md",
+      "BufEnter " .. vim.fn.expand "~" .. "/Documents/Obsidian/main/*.md",
+      "BufNewFile " .. vim.fn.expand "~" .. "/Documents/Obsidian/main/*.md",
+    },
+    dependencies = {
+      "plenary.nvim",
+    },
+    init = function(_) vim.opt_local.conceallevel = 1 end,
+    opts = {
+      disable_frontmatter = true,
+      workspaces = {
+        {
+          name = "main",
+          path = "~/Documents/Obsidian/main",
+        },
+      },
+      mappings = {
+        -- Overrides the 'gf' mapping to work on markdown/wiki links within your vault.
+        ["gf"] = {
+          action = function() return require("obsidian").util.gf_passthrough() end,
+          opts = { noremap = false, expr = true, buffer = true },
+        },
+        -- Toggle check-boxes.
+        ["<leader>oc"] = {
+          action = function() return require("obsidian").util.toggle_checkbox() end,
+          opts = { buffer = true },
+        },
+        -- Smart action depending on context, either follow link or toggle checkbox.
+        ["<cr>"] = {
+          action = function() return require("obsidian").util.smart_action() end,
+          opts = { buffer = true, expr = true },
+        },
+      },
+    },
+  },
 }
 -- TODO: consider nvim-lightbulb
 -- TODO: consider vim-radical or more maintained alternatives
