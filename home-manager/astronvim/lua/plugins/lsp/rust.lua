@@ -21,12 +21,13 @@ return {
           settings = {
             ["rust-analyzer"] = {
               cargo = {
+                allFeatures = true,
                 loadOutDirsFromCheck = true,
-                features = "all",
+                runBuildScripts = true,
               },
-              checkOnSave = true,
               check = {
                 command = "clippy",
+                extraArgs = { "--no-deps" },
               },
               procMacro = {
                 enable = true,
@@ -39,6 +40,7 @@ return {
                 discriminatingHints = { enable = true },
                 expressionAdjustmentHints = { always = true },
                 closureReturnTypeHints = { enable = "always" },
+                lifetimeElisionHints = { enable = "always" },
               },
             },
           },
@@ -60,7 +62,7 @@ return {
       })
     end,
     opts = {
-      src = {
+      completion = {
         cmp = { enabled = true },
       },
       null_ls = {
