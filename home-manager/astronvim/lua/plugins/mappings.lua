@@ -213,36 +213,37 @@ return {
           ["s"] = "<NOP>",
           ["q:"] = "<NOP>",
           ["g:"] = { "q:", desc = "Command window" },
-          ["Q"] = {
-            function()
-              vim.cmd.normal {
-                "q"
-                  .. (
-                    vim.fn.reg_recording() ~= "" and ""
-                    or (vim.v.register == "+" or vim.v.register == '"' or vim.v.register == "*") and "q"
-                    or vim.v.register
-                  ),
-                bang = true,
-              }
-            end,
-            desc = "Record macro",
-          },
-          ["q"] = {
-            function()
-              vim.cmd.normal {
-                "@"
-                  .. (
-                    (vim.v.register == "+" or vim.v.register == '"' or vim.v.register == "*") and "q"
-                    or vim.v.register
-                  ),
-                bang = true,
-              }
-            end,
-            desc = "Play macro",
-          },
+          ["Q"] = "<NOP>"
+          -- ["Q"] = {
+          --   function()
+          --     vim.cmd.normal {
+          --       "q"
+          --         .. (
+          --           vim.fn.reg_recording() ~= "" and ""
+          --           or (vim.v.register == "+" or vim.v.register == '"' or vim.v.register == "*") and "q"
+          --           or vim.v.register
+          --         ),
+          --       bang = true,
+          --     }
+          --   end,
+          --   desc = "Record macro",
+          -- },
+          -- ["q"] = {
+          --   function()
+          --     vim.cmd.normal {
+          --       "@"
+          --         .. (
+          --           (vim.v.register == "+" or vim.v.register == '"' or vim.v.register == "*") and "q"
+          --           or vim.v.register
+          --         ),
+          --       bang = true,
+          --     }
+          --   end,
+          --   desc = "Play macro",
+          -- },
           ["QQ"] = "<NOP>",
           ["Q@"] = "<NOP>",
-          ["@"] = "<NOP>",
+          -- ["@"] = "<NOP>",
           -- text-object
           ["aB"] = "<NOP>",
           ["ab"] = "<NOP>",
