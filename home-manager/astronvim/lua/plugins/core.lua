@@ -134,5 +134,17 @@ return {
       end,
     },
   },
+  {
+    "blink.cmp",
+    opts = {
+      sources = {
+        providers = {
+          snippets = {
+            should_show_items = function(ctx) return ctx.trigger.initial_kind ~= "trigger_character" end, -- not working
+          },
+        },
+      },
+    },
+  },
 }
 -- TODO: add a cmp source for buffer names, current git branch, filetype and attached language servers
