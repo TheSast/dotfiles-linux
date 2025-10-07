@@ -73,7 +73,7 @@ end
 return {
   {
     "monkoose/matchparen.nvim",
-    lazy = false,
+    event = "User AstroFile",
     opts = {},
   },
   {
