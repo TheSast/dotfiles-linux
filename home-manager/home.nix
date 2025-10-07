@@ -312,6 +312,8 @@ in {
       RUSTUP_HOME = "${config.xdg.dataHome}/rustup";
       STARSHIP_CONFIG = "${config.xdg.configHome}/starship/starship.toml";
       EDITOR = config.home.sessionVariables.VISUAL;
+      GRADLE_USER_HOME = "${config.xdg.configHome}/gradle";
+      _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=${config.xdg.configHome}/java";
     };
 
   # Session variables
@@ -625,6 +627,8 @@ in {
         deadnix
         lua-language-server
         luajitPackages.luacheck
+        selene
+        tinymist
         nil
         nodePackages.vscode-json-languageserver # neoconf
         statix

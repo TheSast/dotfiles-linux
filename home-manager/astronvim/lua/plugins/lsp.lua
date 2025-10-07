@@ -75,6 +75,7 @@ return {
           "awk_ls",
           "lemminx",
           "phpactor",
+          "jdtls",
         },
         always = {
           "lua_ls",
@@ -92,20 +93,6 @@ return {
         underline = true,
       },
       config = config_via_fn {
-        nixd = {
-          settings = {
-            nixd = {
-              options = {
-                nixos = {
-                  expr = '(builtins.getFlake ("git+file://" + toString ./.)).nixosConfigurations.charlie.options',
-                },
-                home_manager = {
-                  expr = '(builtins.getFlake ("git+file://" + toString ./.)).homeConfigurations.charlie.options',
-                },
-              },
-            },
-          },
-        },
         cssls = override_bin "css-languageserver",
         jsonls = override_bin "vscode-json-languageserver",
         clangd = {
