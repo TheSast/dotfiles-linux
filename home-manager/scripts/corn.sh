@@ -1,9 +1,11 @@
 #!/bin/sh
 set -o errexit
+set -o nounset
 
 # expects proper XDG base dirs variables to be set up
 # runtimeInputs = [ coreutils gnugrep procps ] ++ ./variate-rice.sh.runtimeInputs ++ ./init-rice.sh.runtimeInputs;
 
+PROGNAME="${0##*/}"
 STATE="$XDG_STATE_HOME/corn"
 mkdir -p "$STATE"
 
@@ -47,50 +49,30 @@ init_rice() {
 	log_cmd "$XDG_CONFIG_HOME/scripts/init-rice.sh"
 }
 
-## if the device just woke up then replace any running instances and if
-## the theme has to change do it instantly, otherwise check every 60s
+## check every 1s
 ## if it's day or night and change the theming accordingly and if it
 ## is not the time yet but the device just booted up then just pick up
 ## from how the theming was last time
 # main() -> !
 main() {
 	SYSTEM_STARTUP=false
-	if [ "$1" = "--startup" ]; then
+	if [ "${1-}" = "--startup" ]; then
 		SYSTEM_STARTUP=true
 	fi
 
-	WAKEUP=false
-	if [ "$1" = "--wakeup" ]; then
-		WAKEUP=true
-	fi
-
 	CURRENT_PID="$$"
-	# OTHER_RUNNING_INSTANCES="$(pgrep -x corn.sh | grep -v "$CURRENT_PID" || true)"
-	# bash creates a `pgrep` detectable subprocess when there is a pipe or an AND/OR
+	# bash creates a `pgrep` detectable subprocess when there is a pipe or an AND/OR therefore disable errexit instead of adding `|| true`
 	set +o errexit
-	echo A
-	RUNNING_INSTANCES="$(pgrep -x corn.sh)"
-	# make sure to not wordsplit stuff with echo
-	OTHER_RUNNING_INSTANCES="$(echo "$RUNNING_INSTANCES" | grep -v "$CURRENT_PID")"
-	echo B
+	RUNNING_INSTANCES="$(pgrep -x "$PROGNAME")"
 	set -o errexit
+	OTHER_RUNNING_INSTANCES="$(echo "$RUNNING_INSTANCES" | grep -v "$CURRENT_PID" || true)"
 
-	echo C
-	if "$SYSTEM_STARTUP" || "$WAKEUP"; then
-		if  [ "$OTHER_RUNNING_INSTANCES" != "" ]; then
-			# bash ignores the default -15 aka SIGTERM , using -9 aka SINGKILL will properly kill
-			# MUST be unquoted, to expand to multiple arguments
-			kill -9 "$OTHER_RUNNING_INSTANCES" || log "expect: failed condition check before running kill on wakeup"
-			log "REPLACE instance $OTHER_RUNNING_INSTANCES with $1 instance $CURRENT_PID"
-		fi
-		log "corn START $1 PID: $CURRENT_PID"
-	else
-		if [ "$OTHER_RUNNING_INSTANCES" != "" ]; then
-			log "attempted to run corn ""$CURRENT_PID while $OTHER_RUNNING_INSTANCES was running"
-			exit 17
-		fi
-		log "corn START PID: $CURRENT_PID"
+	if [ "$OTHER_RUNNING_INSTANCES" != "" ]; then
+		log "attempted to run $PROGNAME $CURRENT_PID while $OTHER_RUNNING_INSTANCES was running"
+		echo "check $STATE/corn.log"
+		exit 1
 	fi
+	log "$PROGNAME START PID: $CURRENT_PID"
 
 	while true; do
 		if ! [ -f "$STATE/variate-rice.time" ]; then
@@ -105,9 +87,8 @@ main() {
 				init_rice #()
 			fi
 		fi
-		WAKEUP=false
 		SYSTEM_STARTUP=false
-		sleep 60 || log "expect: sleep killed"
+		sleep 1 || log "expect: sleep killed"
 	done
 }
 main "$@"
