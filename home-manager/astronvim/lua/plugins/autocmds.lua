@@ -19,10 +19,10 @@ return {
         {
           event = "FileType",
           pattern = "help",
-          callback = function() vim.api.nvim_buf_set_keymap(0, "n", "<CR>", "<C-]>", { noremap = true }) end,
+          callback = function() vim.keymap.set("n", "<CR>", "<C-]>", { buffer = true }) end,
         },
       },
-      -- TODO: add auto opt.background! possibly using https://github.com/f-person/auto-dark-mode.nvim and https://askubuntu.com/questions/22313/what-is-dconf-what-is-its-function-and-how-do-i-use-it
+      -- TODO: add auto opt.background! possibly using https://github.com/luxus/colorful-times-nvim or https://github.com/f-person/auto-dark-mode.nvim and https://askubuntu.com/questions/22313/what-is-dconf-what-is-its-function-and-how-do-i-use-it
       time_based_colorscheme = {
         {
           event = "FocusGained",
