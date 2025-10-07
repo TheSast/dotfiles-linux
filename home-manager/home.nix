@@ -40,6 +40,14 @@ in {
     babelfish
     bat
     batsignal
+    (
+      pkgs.writeShellApplication
+      {
+        name = "better-hyprshot";
+        runtimeInputs = [coreutils jq slurp grim libnotify hyprpicker];
+        text = builtins.readFile ./scripts/better-hyprshot.sh;
+      }
+    )
     brightnessctl
     broot
     btop
@@ -56,31 +64,23 @@ in {
     libnotify
     neovide
     networkmanagerapplet
-    obsidian # flat
     nh
+    obsidian
     onefetch
     ouch
     playerctl
-    ripgrep # prog
+    ripgrep
     rofi-wayland # prog
     swayimg
     swww
-    tmux # prog
+    tmux
     trash-cli
     vieb
-    waybar # prog
-    (
-      pkgs.writeShellApplication
-      {
-        name = "better-hyprshot";
-        runtimeInputs = [coreutils jq slurp grim libnotify hyprpicker];
-        text = builtins.readFile ./scripts/better-hyprshot.sh;
-      }
-    )
     wallust
+    waybar
     wl-clipboard
-    xdg-utils
     wob
+    xdg-utils
     zellij
   ];
 
