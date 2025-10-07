@@ -10,6 +10,7 @@ return {
       -- IDEA: `o_´` text-object
       -- IDEA: , . ; : + - = ~ _ * # / | \ & $ separator text-objects
       -- IDEA: having `n` or `p` modifiers to text-objects and making them only work while covering them with the cursor by default
+      -- gI gA haven't beeen implemented, they are not I and A
       mappings = {
         [""] = {
           ["'"] = "`",
@@ -51,6 +52,15 @@ return {
         n = {
           -- ISSUE: `:h motion-count-multiplied` operators don't respect the count order,
           -- `3c2wtest<Esc>` should be make `f*o bar baz` -> `fhihih*baz`
+          ["<A-1>"] = { function() require("astrocore.buffer").nav_to(1) end },
+          ["<A-2>"] = { function() require("astrocore.buffer").nav_to(2) end },
+          ["<A-3>"] = { function() require("astrocore.buffer").nav_to(3) end },
+          ["<A-4>"] = { function() require("astrocore.buffer").nav_to(4) end },
+          ["<A-5>"] = { function() require("astrocore.buffer").nav_to(5) end },
+          ["<A-6>"] = { function() require("astrocore.buffer").nav_to(6) end },
+          ["<A-7>"] = { function() require("astrocore.buffer").nav_to(7) end },
+          ["<A-8>"] = { function() require("astrocore.buffer").nav_to(8) end },
+          ["<A-9>"] = { function() require("astrocore.buffer").nav_to(9) end },
           ["<Leader>bf"] = { function() vim.cmd.enew() end, desc = "New File" },
           ["<Leader>bt"] = {
             function()
@@ -68,6 +78,7 @@ return {
           ["<Leader>Q"] = false,
           ["<Leader>/"] = false,
           ["<BS>"] = { "<DEL>", desc = "Delete character or count" },
+          ["<CR>"] = "<NOP>",
           ["<C-a>"] = "<NOP>",
           ["<C-c>"] = "<NOP>",
           ["<C-g>"] = "<NOP>", -- TODO: turn {count}<C-g> into an ex command `:ffile`
@@ -213,7 +224,7 @@ return {
           ["s"] = "<NOP>",
           ["q:"] = "<NOP>",
           ["g:"] = { "q:", desc = "Command window" },
-          ["Q"] = "<NOP>"
+          ["Q"] = "<NOP>",
           -- ["Q"] = {
           --   function()
           --     vim.cmd.normal {
