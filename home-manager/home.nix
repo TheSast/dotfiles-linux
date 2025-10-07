@@ -52,10 +52,13 @@ in {
     broot
     btop
     cliphist
+    difftastic
     du-dust
     erdtree
     fd
     fzf
+    gh
+    git
     glow
     hypridle
     hyprlock
@@ -210,6 +213,9 @@ in {
       };
       erdtree = {
         source = ./erdtree;
+      };
+      git = {
+        source = symlinkDirectly "git";
       };
       neofetch = {
         source = ./neofetch;
@@ -587,26 +593,6 @@ in {
         eval (${lib.getExe pkgs.starship} init fish)
         enable_transience
       '';
-  };
-  programs.git = {
-    enable = true;
-    lfs.enable = true;
-    userName = "TheSast";
-    userEmail = "27977196+TheSast@users.noreply.github.com";
-    aliases = {
-      track = "add --intent-to-add";
-      unstage = "restore --staged";
-      amend = "commit --amend";
-    };
-    extraConfig = {
-      user.signingKey = "~/.ssh/id_ed25519.pub";
-      advice.addEmptyPathspec = true;
-      commit.gpgsign = true;
-      core.pager = "bat"; # git log and similar should not use this
-      gpg.format = "ssh";
-      merge.conflictstyle = "diff3";
-      init.defaultBranch = "main";
-    };
   };
   programs.hyfetch = {
     enable = true;
