@@ -77,7 +77,7 @@
   };
 
   networking = {
-    hostName = "charlie";
+    hostName = "kafka";
     networkmanager = {
       enable = true;
       ethernet = {

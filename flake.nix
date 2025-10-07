@@ -26,7 +26,7 @@
       ] (system: f nixpkgs.legacyPackages.${system});
   in {
     nixosConfigurations = {
-      charlie = nixpkgs.lib.nixosSystem {
+      kafka = nixpkgs.lib.nixosSystem {
         modules = [
           ./nixos/configuration.nix
           ./nixos/hardware-configuration.nix
