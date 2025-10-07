@@ -270,7 +270,7 @@
   # documentation.nixos.enable = false; # perl present
 
   environment = {
-    binsh = "${pkgs.dash}/bin/dash";
+    binsh = lib.getExe pkgs.dash;
     defaultPackages = []; # should be set to exclude instead of overwrite
     variables = {
       EDITOR = "kak";

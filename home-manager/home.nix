@@ -408,7 +408,7 @@ in {
         */
         ''
           builtin cd $argv || return
-          set -l current_repository (git rev-parse --show-toplevel 2> /dev/null)
+          set -l current_repository (${lib.getExe pkgs.git} rev-parse --show-toplevel 2> /dev/null)
           if string length -q -- $current_repository && not string match -q -- $current_repository $__last_repository
             functions -c fish_prompt fish_prompt_bak
             functions -e fish_prompt
