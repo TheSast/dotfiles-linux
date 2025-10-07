@@ -304,6 +304,7 @@
     dates = "daily";
     options = "--delete-older-than 7d";
   };
+  nix.channel.enable = false;
   nixpkgs.flake = {
     setNixPath = false;
     setFlakeRegistry = false;

@@ -429,7 +429,6 @@ in {
       # cd +0                # ~/a    ( dirstack: c b d )
       # cd -0                # ~/a    ( dirstack: c b d )
       nix-build = ''echo "Error: 'nix-build' is deprecated. Please use 'nix build' instead."'';
-      nix-channel = ''echo "Error: 'nix-channel' is deprecated. Please use flakes instead."'';
       nix-collect-garbage = ''echo "Error: 'nix-collect-garbage' is deprecated. Please use 'nix gc' instead."'';
       nix-daemon = ''echo "Error: 'nix-daemon' is deprecated. Please use 'nix daemon' instead."'';
       nix-env = ''echo "Error: 'nix-env' is deprecated. Please use 'nix profile' instead."'';
