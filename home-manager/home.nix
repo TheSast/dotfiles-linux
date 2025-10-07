@@ -298,7 +298,6 @@ in {
 
   qt = {
     enable = true;
-    platformTheme = "gtk";
   };
 
   # Shell variables
@@ -338,9 +337,6 @@ in {
 
   home.shellAliases = {
     mv = "mv -i";
-    clear = "clear -x";
-    wget = "wget --hsts-file=${config.xdg.configHome}/wget-hsts";
-    nh = "FLAKE=${flakeLoc} command nh";
   };
 
   programs.atuin = {
@@ -373,7 +369,7 @@ in {
   programs.eza = {
     enable = true;
     git = true;
-    icons = true;
+    icons = "auto";
   };
   programs.fish = {
     enable = true;
@@ -527,10 +523,7 @@ in {
           bind --erase --all --preset
 
           if test "$fish_key_bindings" != fish_hybrid_key_bindings
-              set -q fish_key_bindings
-              or set -g fish_key_bindings
-              set fish_key_bindings fish_hybrid_key_bindings # trigger handler
-              return
+            __fish_change_key_bindings fish_hybrid_key_bindings || return
           end
 
           for mode in insert replace
@@ -539,7 +532,7 @@ in {
           fish_vi_key_bindings --no-erase
 
           for mode in default visual insert replace
-            bind -e --preset -M $mode -k enter
+            bind -e --preset -M $mode \r # -k enter is broken
             bind -e --preset -M $mode \cl
             bind -e --preset -M $mode \cy
             bind -e --preset -M $mode \e.
@@ -549,12 +542,8 @@ in {
             bind -e --preset -M $mode \ew
             bind -e --preset -M $mode \ey
             bind -e --preset -M $mode \n
-            bind -e --preset -M $mode \r
           end
           for mode in default visual
-            bind --preset -M $mode -k enter ""
-            bind --preset -M $mode \n ""
-            bind --preset -M $mode \r ""
             bind -e --preset -M $mode -k backspace
             bind -e --preset -M $mode \cd
             bind -e --preset -M $mode \cu
@@ -562,17 +551,14 @@ in {
             bind -e --preset -M $mode \t
             bind -e --preset -M $mode \x7F
           end
+          bind -e --preset -M default \cc
+          bind -e --preset -M replace \cc
           bind -e --user -M default \r # remove transient_execute by starship
           bind --preset -M default \e 'if commandline -P; commandline -f cancel; else; edit_command_buffer; end'
           for mode in insert replace
-            bind --preset -M $mode -m default \cc cancel repaint-mode
-            bind --preset -M $mode -m default jk cancel repaint-mode
-            bind --preset -M $mode -m default kj cancel repaint-mode
             bind --preset -M $mode \cd delete-char
             bind --preset -M $mode \cd delete-char
-            bind --preset -M $mode \n ""
           end
-          bind --preset -M replace -k enter insert-line-over
           bind --preset -M replace \r insert-line-over
           # prevent escape sequences from triggering the escape key bind
           for mode in default visual insert replace
@@ -581,9 +567,9 @@ in {
                 bind --preset -M $mode (string join "" \e $map) self-insert
               end
             end
-            for map in \'"-k "(bind -K)\'
-              if not bind --preset -M $mode $map &> /dev/null
-                bind --preset -M $mode $map self-insert
+            for map in (bind -K)
+              if not bind --preset -M $mode -k $map &> /dev/null
+                bind --preset -M $mode -k $map self-insert
               end
             end
           end
