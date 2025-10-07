@@ -50,14 +50,14 @@ in {
     fzf
     hypridle
     hyprlock
-    pkgs-unstable.hyprnotify # heavy CPU usage issues
+    hyprnotify
     hyprpicker
     hyprpolkitagent
     libnotify
     neovide
     networkmanagerapplet
     obsidian # flat
-    pkgs-unstable.nh
+    nh
     onefetch
     ouch
     playerctl
