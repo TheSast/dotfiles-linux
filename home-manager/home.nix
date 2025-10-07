@@ -37,6 +37,7 @@ in {
   };
   home.packages = with pkgs; [
     alacritty
+    asciinema
     babelfish
     bat
     (
@@ -55,6 +56,7 @@ in {
     erdtree
     fd
     fzf
+    glow
     hypridle
     hyprlock
     hyprnotify
@@ -65,7 +67,10 @@ in {
         cp ${pkgs.hyprpolkitagent}/libexec/hyprpolkitagent $out/libexec/
       ''
     )
+    inlyne
     libnotify
+    losslesscut-bin
+    mpv
     neovide
     (
       pkgs.writeShellApplication
@@ -89,15 +94,18 @@ in {
     ripgrep
     swayimg
     swww
+    tabiew
     tmux
     tofi
     trash-cli
     vieb
     wallust
     waybar
+    wf-recorder
     wl-clipboard
     wob
     xdg-utils
+    zathura
     zellij
   ];
 
