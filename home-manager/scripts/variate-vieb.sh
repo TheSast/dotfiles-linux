@@ -26,7 +26,7 @@ get_config_vieb_colorscheme() {
 # get_vieb_colorscheme_variant(colorscheme_with_variant: String) -> String
 get_vieb_colorscheme_variant() {
 	# manually removing default, light and paper
-	echo "$1" | sed -E "s/^.*-//"  | sed -E "s/default$//" | sed -E "s/light$//" | sed -E "s/paper$//"  || true
+	echo "$1" | sed -E "s/^.*-//" | sed -E "s/default$//" | sed -E "s/light$//" | sed -E "s/paper$//" || true
 }
 
 # join_if_both(left: String, separator: String, right: String) -> String
@@ -35,12 +35,12 @@ join_if_both() {
 	if [ "$1" = "" ] || [ "$3" = "" ]; then
 		JOIN=""
 	fi
-	echo "$1""$JOIN""$3" | sed -E "s/^default-//" 
+	echo "$1""$JOIN""$3" | sed -E "s/^default-//"
 }
 
 main() {
-	[ "$THEME" = "dark" ] && 
-		VIEB_THEMED_COLORSCHEME_BASE="$WHICH_DARK" || 
+	[ "$THEME" = "dark" ] &&
+		VIEB_THEMED_COLORSCHEME_BASE="$WHICH_DARK" ||
 		VIEB_THEMED_COLORSCHEME_BASE="$WHICH_LIGHT"
 	if command -v vieb >/dev/null 2>&1; then
 		VIEB_COLORSCHEME=default
