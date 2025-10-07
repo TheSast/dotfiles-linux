@@ -88,10 +88,10 @@ in {
     ouch
     playerctl
     ripgrep
-    rofi-wayland # prog
     swayimg
     swww
     tmux
+    tofi
     trash-cli
     vieb
     wallust
