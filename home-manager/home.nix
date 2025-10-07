@@ -60,10 +60,28 @@ in {
     hyprlock
     hyprnotify
     hyprpicker
-    hyprpolkitagent
+    (
+      pkgs.runCommand "hyprpolkitagent-fixed" {} ''
+        mkdir -p $out/libexec
+        cp ${pkgs.hyprpolkitagent}/libexec/hyprpolkitagent $out/libexec/
+      ''
+    )
     libnotify
     neovide
+    (
+      pkgs.writeShellApplication
+      {
+        name = "nvim";
+        runtimeInputs = [pkgs.neovim-unwrapped] ++ config.programs.neovim.extraPackages;
+        text = ''exec nvim "$@"'';
+      }
+    )
     networkmanagerapplet
+    (lib.hiPrio (pkgs.runCommand "nm-applet.desktop-hide" {} ''
+      mkdir -p "$out/share/applications"
+      cat "${networkmanagerapplet}/share/applications/nm-connection-editor.desktop" > "$out/share/applications/nm-connection-editor.desktop"
+      echo "Hidden=1" >> "$out/share/applications/nm-connection-editor.desktop"
+    ''))
     nh
     obsidian
     onefetch
@@ -138,28 +156,6 @@ in {
     };
     mimeApps = {
       enable = true;
-      defaultApplications = {
-        "image/png" = ["swayimg.desktop"];
-        "image/jpg" = ["swayimg.desktop"];
-        "image/jpeg" = ["swayimg.desktop"];
-        "text/plain" = ["neovide.desktop"];
-        "text/markdown" = ["neovide.desktop"];
-        "text/x-log" = ["neovide.desktop"];
-        "text/x-lua" = ["neovide.desktop"];
-        "text/rust" = ["neovide.desktop"];
-        "text/x-csrs" = ["neovide.desktop"];
-        "text/x-chdr" = ["neovide.desktop"];
-        "text/x-c++srs" = ["neovide.desktop"];
-        "text/x-c++hdr" = ["neovide.desktop"];
-        "text/x-matlab" = ["neovide.desktop"];
-        "text/x-css" = ["neovide.desktop"];
-        "text/x-scss" = ["neovide.desktop"];
-        "application/x-shellscript" = ["neovide.desktop"];
-        "application/xml" = ["neovide.desktop"];
-        "application/json" = ["neovide.desktop"];
-        "application/octet-stream" = ["neovide.desktop"];
-        "application/x-desktop" = ["neovide.desktop"];
-      };
     };
     userDirs = {
       enable = true;
@@ -636,7 +632,7 @@ in {
     };
   };
   programs.neovim = {
-    enable = true;
+    enable = false;
     extraPackages = with pkgs;
       [
         # lsp
