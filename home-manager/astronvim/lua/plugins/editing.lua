@@ -90,6 +90,29 @@ return {
       },
     },
   },
+  {
+    "luckasRanarison/nvim-devdocs",
+    enabled = false,
+    lazy = false,
+    dependencies = {
+      "plenary.nvim",
+      "telescope.nvim",
+      {
+        "nvim-treesitter/nvim-treesitter",
+        opts = { -- ISSUE: https://discord.com/channels/939594913560031363/1155519593008341095/1207783682434408470
+          ensure_installed = {
+            "html",
+          },
+        },
+      },
+    },
+    opts = {
+      previewer_cmd = "glow", -- TODO: add as dep in home.nix
+      cmd_args = { "-w", "80" },
+      picker_cmd = "glow",
+      picker_cmd_args = { "-w", "50" },
+    },
+  },
   -- {
   --   "obsidian-nvim/obsidian.nvim",
   --   version = "4cd1789e0cf3e82e0eec1472df21069b647218ba",
@@ -149,7 +172,6 @@ return {
 -- TODO: consider https://github.com/iamcco/markdown-preview.nvim (maybe-lang?)
 -- TODO: consider neogen
 -- TODO: consider undotree
--- TODO: consider https://github.com/luckasRanarison/nvim-devdocs (maybe-lang?)
 -- TODO: consider https://github.com/nanotee/zoxide.vim
 -- TODO: consider https://github.com/ecthelionvi/NeoComposer.nvim
 -- TODO: consider https://github.com/chrisgrieser/nvim-rip-substitute
