@@ -62,7 +62,7 @@ in {
     glow
     hypridle
     hyprlock
-    hyprnotify
+    pkgs-unstable.hyprnotify # should fix cpu issues?
     hyprpicker
     (
       pkgs.runCommand "hyprpolkitagent-fixed" {} ''
