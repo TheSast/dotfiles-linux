@@ -1,3 +1,74 @@
+local obsidian_note_callback = function(_)
+  -- HACK: require("obsidian").get_client():path_is_note(..., nil) seems to always return true for md files, manually check for .obsidian in parent dirs of buffer
+  if not vim.fs.root(0, ".obsidian") then return end
+  vim.opt_local.conceallevel = 1
+
+  if require("astrocore").is_available "which-key.nvim" then
+    require("which-key").add {
+      { "<Leader>o", desc = "󱓧 Obsidian", buffer = true },
+      {
+        "gf",
+        function() return require("obsidian").util.gf_passthrough() end,
+        noremap = false,
+        expr = true,
+        buffer = true,
+        desc = "Go to file under cursor",
+      },
+      {
+        "<leader>oc",
+        function() return require("obsidian").util.toggle_checkbox() end,
+        buffer = true,
+        desc = "toggle checkbox",
+      },
+      {
+        "<leader>of",
+        -- function() return vim.cmd "Obsidian quick_switch" end,
+        function() return vim.cmd "ObsidianQuickSwitch" end,
+        buffer = true,
+        desc = "find documents",
+      },
+      {
+        "<leader>oo",
+        -- function() return vim.cmd "Obsidian open" end,
+        function() return vim.cmd "ObsidianOpen" end,
+        buffer = true,
+        desc = "open current document in obsidian",
+      },
+      {
+        "<leader>ot",
+        function()
+          vim.g.obsidian_note_autosave = ({
+            InsertLeave = "off",
+            TextChanged = "InsertLeave",
+            off = "TextChanged",
+          })[vim.g.obsidian_note_autosave] or "off"
+          vim.notify("obsidian note autosave " .. vim.g.obsidian_note_autosave)
+        end,
+        buffer = true,
+        desc = "toggle obsidian note autosave",
+      },
+    }
+  end
+
+  vim.api.nvim_create_autocmd({
+    "TextChanged",
+    "TextChangedI",
+  }, {
+    buffer = 0,
+    callback = function()
+      if vim.g.obsidian_note_autosave == "TextChanged" then vim.cmd "silent! write" end
+    end,
+  })
+
+  vim.api.nvim_create_autocmd({
+    "InsertLeave",
+  }, {
+    buffer = 0,
+    callback = function()
+      if vim.g.obsidian_note_autosave == "InsertLeave" then vim.cmd "silent! write" end
+    end,
+  })
+end
 ---@type LazySpec
 return {
   {
@@ -19,46 +90,55 @@ return {
       },
     },
   },
+  -- {
+  --   "obsidian-nvim/obsidian.nvim",
+  --   version = "4cd1789e0cf3e82e0eec1472df21069b647218ba",
+  --   ft = "markdown",
+  --   dependencies = { "plenary.nvim" },
+  --   init = function() vim.g.obsidian_nvim_save_textchanged = "InsertLeave" end,
+  --   opts = {
+  --     legacy_commands = false,
+  --     disable_frontmatter = true,
+  --     workspaces = {
+  --       {
+  --         name = "auto",
+  --         path = function()
+  --           return vim.fs.root(0, ".obsidian")
+  --         end,
+  --       },
+  --       {
+  --         name = "default",
+  --         path = "~/Desktop/",
+  --       },
+  --     },
+  --     callbacks = {
+  --       enter_note = obsidian_note_callback,
+  --       post_set_workspace = obsidian_note_callback,
+  --     },
+  --     picker = {
+  --       name = "snacks.pick",
+  --       note_mappings = {},
+  --       tag_mappings = {},
+  --     },
+  --   },
+  -- },
   {
     "epwalsh/obsidian.nvim",
-    enabled = false,
-    version = "*",
-    event = {
-      -- refer to `:h file-pattern` for more examples
-      "BufReadPre "
-        .. vim.fn.expand "~"
-        .. "/Documents/Obsidian/main/*.md",
-      "BufEnter " .. vim.fn.expand "~" .. "/Documents/Obsidian/main/*.md",
-      "BufNewFile " .. vim.fn.expand "~" .. "/Documents/Obsidian/main/*.md",
-    },
-    dependencies = {
-      "plenary.nvim",
-    },
-    init = function(_) vim.opt_local.conceallevel = 1 end,
+    ft = "markdown",
+    dependencies = { "plenary.nvim", "nvim-telescope/telescope.nvim" },
+    init = function() vim.g.obsidian_note_autosave = "InsertLeave" end,
     opts = {
       disable_frontmatter = true,
       workspaces = {
         {
-          name = "main",
-          path = "~/Documents/Obsidian/main",
+          name = "auto",
+          path = function() return vim.fs.root(0, ".obsidian") or "~/Desktop/" end,
         },
       },
-      mappings = {
-        -- Overrides the 'gf' mapping to work on markdown/wiki links within your vault.
-        ["gf"] = {
-          action = function() return require("obsidian").util.gf_passthrough() end,
-          opts = { noremap = false, expr = true, buffer = true },
-        },
-        -- Toggle check-boxes.
-        ["<leader>oc"] = {
-          action = function() return require("obsidian").util.toggle_checkbox() end,
-          opts = { buffer = true },
-        },
-        -- Smart action depending on context, either follow link or toggle checkbox.
-        ["<cr>"] = {
-          action = function() return require("obsidian").util.smart_action() end,
-          opts = { buffer = true, expr = true },
-        },
+      mappings = {},
+      callbacks = {
+        enter_note = obsidian_note_callback,
+        post_set_workspace = obsidian_note_callback,
       },
     },
   },
