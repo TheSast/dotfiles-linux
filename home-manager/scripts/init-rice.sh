@@ -15,10 +15,12 @@ THEME=$("$XDG_CONFIG_HOME/scripts/theme.sh")
 	echo "START"
 	if command -v swww >/dev/null 2>&1; then
 		if ! swww query >/dev/null 2>&1; then
-			swww-daemon & # --no-cache
+			swww-daemon & # INFO: daemon
 		fi
 		# transition to same image in case cache got wiped
-		swww img -t none --transition-duration=1 --transition-fps 255 -- "$XDG_CACHE_HOME/wallpaper" # detaches
+		if ! [ -d "$XDG_CACHE_HOME/swww" ]; then
+			swww img -t none -- "$XDG_CACHE_HOME/wallpaper" # detaches
+		fi
 	fi
 	echo "END"
 } 2>&1 | log swww &

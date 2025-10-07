@@ -44,9 +44,11 @@ WALLPAPER="$XDG_CACHE_HOME/wallpaper"
   	outer" | shuf | head -n 1 | tr -d '[:blank:]')
 
 		if ! swww query >/dev/null 2>&1; then
-			swww-daemon --no-cache &
+			swww-daemon --no-cache & # INFO: daemon
+			swww img -t none -- "$XDG_CACHE_HOME/wallpaper"
+		else
+			swww img -t "$TRANSITION" --transition-fps 255 -- "$XDG_CACHE_HOME/wallpaper"
 		fi
-		swww img -t "$TRANSITION" --transition-fps 255 -- "$XDG_CACHE_HOME/wallpaper"
 	fi
 	echo "END"
 } 2>&1 | log swww &
