@@ -6,7 +6,6 @@ return {
   { import = "astrocommunity.motion.mini-surround" }, -- don't know how to handle manually
   -- lsp?/editing?
   { import = "astrocommunity.lsp.inc-rename-nvim" },
-  { import = "astrocommunity.lsp.lsp-inlayhints-nvim" },
   -- IDEA: make a pr to make it possible to know how long until LSPs get killed,
   -- add a timer on the statusline that appears after 5 minutes of inactivity
   -- {
