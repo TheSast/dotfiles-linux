@@ -565,7 +565,7 @@ in {
       ''
         fish_hybrid_key_bindings
         set -g fish_sequence_key_delay_ms 150
-        abbr --add dotdotdot --regex '^\.{3,}\/*$' --function _multicd # can't go in fish.shellAbbrs because of `--regex` # TODO: add support for ls, eza, cd, etc
+        abbr --add dotdotdot --position anywhere --regex '^\.{3,}\/*$' --function _multicd # can't go in fish.shellAbbrs because of `--regex`
         set fish_cursor_default block
         set fish_cursor_visual block
         set fish_cursor_insert line
