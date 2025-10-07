@@ -5,19 +5,17 @@ set -o nounset
 # expects proper XDG base dirs variables to be set up
 # runtimeInputs = [findutils coreutils swww wallust waybar procps]
 # ++ ./log.sh.runtimeInputs
-# ++ ./colorscheme.sh.runtimeInputs
 # ++ ./theme.sh.runtimeInputs;
 
 # shellcheck source=./log.sh
 . "$XDG_CONFIG_HOME/scripts/log.sh"
-COLORSCHEME=$("$XDG_CONFIG_HOME/scripts/colorscheme.sh")
 THEME=$("$XDG_CONFIG_HOME/scripts/theme.sh")
 
 {
 	echo "START"
 	WALLPAPER_DIR="$XDG_PICTURES_DIR/wallpapers"
 	find_wallpaper() {
-		find "$WALLPAPER_DIR/$COLORSCHEME/$THEME" -maxdepth 1 -not -type d | shuf | head -n 1
+		find "$WALLPAPER_DIR" -type f -not -path "*/.*" | shuf -n 1
 	}
 	WALLPAPER="$(find_wallpaper)"
 	echo "$WALLPAPER"
