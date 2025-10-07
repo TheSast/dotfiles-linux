@@ -649,4 +649,5 @@ in {
     enable = true;
     enableFishIntegration = true;
   };
+  news.display = "silent";
 }
