@@ -619,6 +619,7 @@ in {
       commandLogSize = 5;
       mainBranches = ["master" "main" "trunk"];
       notARepository = "skip";
+      git.overrideGpg = true;
     };
   };
   programs.neovim = {
