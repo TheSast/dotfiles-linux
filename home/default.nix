@@ -6,7 +6,7 @@
   ...
 }: let
   flakeLoc = "${config.xdg.configHome}/etc";
-  symlinkDirectly = p: config.lib.file.mkOutOfStoreSymlink ("${flakeLoc}/home-manager/" + p);
+  symlinkDirectly = p: config.lib.file.mkOutOfStoreSymlink ("${flakeLoc}/home/" + p);
 in {
   home = {
     username = "u";

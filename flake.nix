@@ -28,8 +28,8 @@
     nixosConfigurations = {
       kafka = nixpkgs.lib.nixosSystem {
         modules = [
-          ./nixos/configuration.nix
-          ./nixos/hardware-configuration.nix
+          ./os
+          ./os/hardware.nix
           {
             nix = {
               channel.enable = false;
@@ -46,7 +46,7 @@
       u = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules = [
-          ./home-manager/home.nix
+          ./home
           {
             nix = {
               settings.use-registries = false;
