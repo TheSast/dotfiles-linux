@@ -217,6 +217,9 @@ in {
       git = {
         source = symlinkDirectly "git";
       };
+      hypr = {
+        source = symlinkDirectly "hypr";
+      };
       neofetch = {
         source = ./neofetch;
       };
