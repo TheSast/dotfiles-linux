@@ -39,7 +39,6 @@ in {
     alacritty
     babelfish
     bat
-    batsignal
     (
       pkgs.writeShellApplication
       {
@@ -434,19 +433,6 @@ in {
       nix-env = ''echo "Error: 'nix-env' is deprecated. Please use 'nix profile' instead."'';
       nix-hash = ''echo "Error: 'nix-hash' is deprecated. Please use 'nix hash' instead."'';
       nix-shell = ''echo "Error: 'nix-shell' is deprecated. Please use 'nix develop' instead."'';
-      home-manager =
-        /*
-        fish
-        */
-        ''
-          if contains -- "$argv[1]" switch build
-              echo "Error: 'home-manager $argv[1]' is deprecated. Please use 'nh home' instead."
-          end
-          if test "$argv[1]" = uninstall
-              echo "Error: 'home-manager' is installed decleratively."
-          end
-          command home-manager $argv
-        '';
       nix =
         /*
         fish
@@ -659,5 +645,4 @@ in {
     enable = true;
     enableFishIntegration = true;
   };
-  programs.home-manager.enable = true;
 }
