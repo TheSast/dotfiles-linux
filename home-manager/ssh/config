@@ -1,0 +1,17 @@
+Host gh-joker
+    User git
+    HostName github.com
+    IdentityFile ~/.ssh/joker/id_ed25519
+    IdentitiesOnly yes
+Host gh-ren
+    User git
+    HostName github.com
+    IdentityFile ~/.ssh/ren/id_ed25519
+    IdentitiesOnly yes
+Host gl-ren
+    User git
+    HostName gitlab.com
+    IdentityFile ~/.ssh/ren/id_ed25519
+    IdentitiesOnly yes
+
+# vim: ft=sshconfig

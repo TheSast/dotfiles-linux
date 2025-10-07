@@ -285,8 +285,14 @@ in {
     };
   };
 
-  home.file.".vieb".source = ./Vieb;
-  # add ~/.ssh/config and ~/.ssh/ren + ~/.ssh/joker via sops
+  home.file = {
+    ".vieb" = {
+      source = ./Vieb;
+    };
+    ".ssh" = {
+      source = symlinkDirectly "ssh";
+    };
+  };
 
   gtk = {
     enable = true;
