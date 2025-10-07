@@ -235,24 +235,20 @@
   programs = {
     fish = {
       enable = true;
-      package =
-        pkgs
+      package = pkgs
         .fish
         .overrideAttrs (oldAttrs: {
-          desktopItem = null;
-          postInstall =
-            oldAttrs.postInstall
+        desktopItem = null;
+        postInstall =
+          oldAttrs.postInstall
             or ""
-            + ''
-              rm -f $out/share/applications/fish.desktop
-            '';
-        });
+          + "rm -f $out/share/applications/fish.desktop";
+      });
       useBabelfish = true;
     };
     nano.enable = false;
     command-not-found.enable = false;
   };
-
   # remove every xorg package until `services.xserver.enable = false` and `environment.noXlibs = true`
   services.xserver.excludePackages = with pkgs.xorg; [
     xorgserver.out
@@ -270,6 +266,8 @@
     pkgs.xterm
   ];
   documentation.doc.enable = false; # remove nixos documentation desktopItem
+  # documentation.info.enable = false; # perl present
+  # documentation.nixos.enable = false; # perl present
 
   environment = {
     binsh = "${pkgs.dash}/bin/dash";
@@ -288,6 +286,7 @@
       libsForQt5.qt5.qtwayland # xdg-open
     ];
   };
+  # list executables via `ls -1  /run/current-system/sw/bin/ | sed -E 's%.*-> .{43}-%%g' | sort`
   environment.etc."current-system-packages".text = let
     packages = builtins.map (p: "${p.name}") config.environment.systemPackages;
     sortedUnique = builtins.sort builtins.lessThan (lib.unique packages);
@@ -299,16 +298,12 @@
   services.udisks2.enable = true;
   services.blueman.enable = true;
   hardware.bluetooth.enable = true; # find a better spot! "connectivity"?
-  # nix.optimise = {
-  #   automatic = true;
-  #   dates = ["daily"];
-  # };
+
   nix.gc = {
     automatic = true;
     dates = "daily";
     options = "--delete-older-than 7d";
   };
-
   nixpkgs.flake = {
     setNixPath = false;
     setFlakeRegistry = false;

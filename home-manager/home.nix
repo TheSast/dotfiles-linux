@@ -25,7 +25,7 @@ in {
     settings = {
       experimental-features = ["nix-command" "flakes"];
     };
-    package = pkgs.nix; # should not be needed?
+    package = pkgs.nix;
   };
 
   nixpkgs.config = {
@@ -89,14 +89,11 @@ in {
     desktopEntries = {
       Discord = {
         name = "Discord";
-        # actions = {};
         genericName = "Messaging Platform";
         exec = "vieb --config-file=${config.xdg.configHome}/Vieb/Erwic/Discord/erwicrc --datafolder=${config.xdg.stateHome}/Erwic/Discord https://discord.com/app";
         icon = "${config.xdg.configHome}/Vieb/Erwic/Discord/icon.png";
         terminal = false;
         type = "Application";
-        # mimeType = [ "" ];
-        # comment = "comment here";
         categories = ["Network" "Chat" "InstantMessaging"];
       };
       Element = {
@@ -171,7 +168,6 @@ in {
       publicShare = null;
     };
     configFile = {
-      ### NEW STUFF
       alacritty-toml = {
         text =
           /*
@@ -269,6 +265,7 @@ in {
         source = ./waybar;
       };
     };
+    # list executables via `ls -1  $XDG_STATE_DIR/nix/profile/bin/ | sed -E 's%.*-> .{43}-%%g' | sort`
     dataFile = {
       "current-user-packages".text = let
         packages = builtins.map (p: "${p.name}") config.home.packages;
@@ -280,6 +277,7 @@ in {
   };
 
   home.file.".vieb".source = ./Vieb;
+  # add ~/.ssh/config and ~/.ssh/ren + ~/.ssh/joker via sops
 
   gtk = {
     enable = true;
@@ -366,6 +364,7 @@ in {
     ];
   };
   programs.bash = {
+    # TODO: make wrapper
     enable = false; # on will create ~/.bashrc
     historyFile = "${config.xdg.stateHome}/bash/history";
     historyControl = ["erasedups"];
@@ -378,18 +377,15 @@ in {
   };
   programs.fish = {
     enable = true;
-    package =
-      pkgs
+    package = pkgs
       .fish
       .overrideAttrs (oldAttrs: {
-        desktopItem = null;
-        postInstall =
-          oldAttrs.postInstall
+      desktopItem = null;
+      postInstall =
+        oldAttrs.postInstall
           or ""
-          + ''
-            rm -f $out/share/applications/fish.desktop
-          '';
-      });
+        + "rm -f $out/share/applications/fish.desktop";
+    });
     shellInit = ''
       set fish_greeting
     '';
