@@ -45,11 +45,7 @@ THEME=$("$XDG_CONFIG_HOME/scripts/theme.sh")
 {
 	echo "START"
 	if command -v waybar >/dev/null 2>&1; then
-		THEME_ARG=""
-		if [ "$THEME" = "dark" ]; then
-			THEME_ARG="--style $XDG_CONFIG_HOME/waybar/style-dark.css"
-		fi
-		nohup waybar "$THEME_ARG" >/dev/null 2>&1 &
+		nohup waybar "--style $XDG_CACHE_HOME/waybar.css" >/dev/null 2>&1 & # INFO: daemon
 	fi
 	echo "END"
 } 2>&1 | log waybar &

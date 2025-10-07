@@ -73,12 +73,16 @@ WALLPAPER="$XDG_CACHE_HOME/wallpaper"
 {
 	echo "START"
 	if command -v waybar >/dev/null 2>&1; then
-		THEME_ARG=""
+		STYLE="style.css"
 		if [ "$THEME" = "dark" ]; then
-			THEME_ARG="--style $XDG_CONFIG_HOME/waybar/style-dark.css"
+			STYLE="style-dark.css"
 		fi
-		pkill waybar || echo "expect: failed to kill existing proc $(pgrep waybar)"
-		nohup waybar "$THEME_ARG" >/dev/null 2>&1 &
+		ln -sf $XDG_CONFIG_HOME/waybar/$STYLE $XDG_CACHE_HOME/waybar.css
+		if pgrep waybar >/dev/null 2>&1; then
+			pkill -SIGUSR2 waybar
+		else
+			nohup waybar "--style $XDG_CACHE_HOME/waybar.css" >/dev/null 2>&1 & # INFO: daemon
+		fi
 	fi
 	echo "END"
 } 2>&1 | log waybar &
