@@ -13,7 +13,6 @@ set -o nounset
 COLORSCHEME=$("$XDG_CONFIG_HOME/scripts/colorscheme.sh")
 THEME=$("$XDG_CONFIG_HOME/scripts/theme.sh")
 
-WALLPAPER="$XDG_CACHE_HOME/wallpaper"
 {
 	echo "START"
 	WALLPAPER_DIR="$XDG_PICTURES_DIR/wallpapers"
@@ -29,25 +28,17 @@ WALLPAPER="$XDG_CACHE_HOME/wallpaper"
 {
 	echo "START"
 	if command -v swww >/dev/null 2>&1; then
-		# TODO: randomise `--transition-angle`, `--transition-pos`, `--transition-bezier`, `--transition-wave`
-		TRANSITION=$(echo "left
-  	right
-  	top
-  	bottom
-  	wipe
-  	wipe
-  	wave
-  	wave
-  	grow
-  	grow
-  	outer
-  	outer" | shuf | head -n 1 | tr -d '[:blank:]')
-
 		if ! swww query >/dev/null 2>&1; then
 			swww-daemon --no-cache & # INFO: daemon
 			swww img -t none -- "$XDG_CACHE_HOME/wallpaper"
 		else
-			swww img -t "$TRANSITION" --transition-fps 255 -- "$XDG_CACHE_HOME/wallpaper"
+			export SWWW_TRANSITION=$(shuf -e -n 1 "wave" "grow" "outer")
+			export SWWW_TRANSITION_ANGLE=$(shuf -e -n 1 "45" "90" "135" "180" "225" "270" "315" "360")
+			export SWWW_TRANSITION_POS=$(shuf -e -n 1 "center" "top" "left" "right" "bottom" "top-left" "top-right" "bottom-left" "bottom-right")
+			export SWWW_TRANSITION_WAVE=$(shuf -e -n 1 "100,1" "10,10" "20,20" "30,30" "40,40" "40,10" "30,20")
+			export SWWW_TRANSITION_FPS=255
+			export SWWW_TRANSITION_STEP=255
+			swww img -- "$XDG_CACHE_HOME/wallpaper"
 		fi
 	fi
 	echo "END"
@@ -56,7 +47,7 @@ WALLPAPER="$XDG_CACHE_HOME/wallpaper"
 {
 	echo "START"
 	if command -v wallust >/dev/null 2>&1; then
-		REAL_WALLPAPER_LOCATION="$(readlink "$XDG_CACHE_HOME/wallpaper")"
+		REAL_WALLPAPER_LOCATION="$(realpath "$XDG_CACHE_HOME/wallpaper")"
 		{
 			wallust run -p "$THEME"16 --dynamic-threshold -- "$REAL_WALLPAPER_LOCATION"
 			echo "END"
