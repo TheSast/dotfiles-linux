@@ -15,7 +15,7 @@ THEME=$("$XDG_CONFIG_HOME/scripts/theme.sh")
 	echo "START"
 	WALLPAPER_DIR="$XDG_PICTURES_DIR/wallpapers"
 	find_wallpaper() {
-		find "$WALLPAPER_DIR" -type f -not -path "*/.*" | shuf -n 1
+		find "$WALLPAPER_DIR" -type f -path "*/$THEME/*" -not -path "*/.*" | shuf -n 1
 	}
 	WALLPAPER="$(find_wallpaper)"
 	echo "$WALLPAPER"
