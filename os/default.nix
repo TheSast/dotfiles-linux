@@ -210,15 +210,6 @@
       shell =
         config.programs.fish.package;
     };
-    s = {
-      isSystemUser = true;
-      group = "users";
-      createHome = true;
-      home = "/home/s";
-      useDefaultShell = true;
-      homeMode = "710";
-      extraGroups = ["code"];
-    };
   };
 
   system.tools = {
