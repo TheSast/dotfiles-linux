@@ -4,14 +4,16 @@ set -o nounset
 
 # runtimeInputs = [coreutils xdg-utils wl-clipboard];
 
-LOCKFILE="${XDG_RUNTIME_DIR:-/tmp}/editclip.lock"
+PROGNAME="${0##*/}"
 TMPF="${XDG_RUNTIME_DIR:-/tmp}/editclip.txt"
-exec 9>"$LOCKFILE"
-flock -n 9 || {
-  echo "Another instance is already running." >&2
-  exit 1
-}
+LOCKFILE="${XDG_RUNTIME_DIR:-/tmp}/$PROGNAME.lock"
+if [ -f "$LOCKFILE" ] && kill -0 "$(cat "$LOCKFILE")" 2>/dev/null; then
+    echo "$PROGNAME is already running." >&2
+    return 1
+fi
+echo $$ >"$LOCKFILE"
+trap 'rm -f "$LOCKFILE"' EXIT INT TERM HUP
 wl-paste -n > $TMPF
 chmod o-r $TMPF
-${1-"xdg-open"} $TMPF && cat $TMPF | wl-copy
+neovide $TMPF && cat $TMPF | wl-copy
 rm $TMPF
