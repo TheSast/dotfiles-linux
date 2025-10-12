@@ -38,6 +38,7 @@ in {
   home.packages = with pkgs; [
     alacritty
     asciinema
+    atuin
     babelfish
     bat
     (
@@ -209,6 +210,9 @@ in {
       astronvim = {
         source = symlinkDirectly "astronvim";
       };
+      atuin = {
+        source = ./atuin;
+      };
       bat = {
         target = "bat/config";
         text = "--theme=ansi";
@@ -368,26 +372,6 @@ in {
     mv = "mv -i";
   };
 
-  programs.atuin = {
-    enable = true;
-    settings = {
-      dialect = "uk";
-      update_check = false;
-      auto_sync = false;
-      sync_address = "";
-      workspaces = true;
-      enter_accept = false;
-      keymap_mode = "vim-insert";
-      keymap_cursor = {
-        emacs = "blink-block";
-        vim_insert = "blink-block";
-        vim_normal = "steady-block";
-      };
-    };
-    flags = [
-      "--disable-up-arrow"
-    ];
-  };
   programs.bash = {
     # TODO: make wrapper
     enable = false; # on will create ~/.bashrc
@@ -610,6 +594,7 @@ in {
         sh ${config.xdg.cacheHome}/wallust/tty.sh
         eval (${lib.getExe pkgs.starship} init fish)
         enable_transience
+        ${lib.getExe pkgs.atuin} init fish --disable-up-arrow | source
       '';
   };
   programs.neovim = {
