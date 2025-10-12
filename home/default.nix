@@ -56,6 +56,7 @@ in {
     difftastic
     du-dust
     erdtree
+    eza
     fd
     fzf
     gh
@@ -371,6 +372,7 @@ in {
 
   home.shellAliases = {
     mv = "mv -i";
+    eza = "${lib.getExe pkgs.eza} --icons auto --git";
   };
 
   programs.bash = {
@@ -380,11 +382,6 @@ in {
     historyControl = ["erasedups"];
   };
   programs.command-not-found.enable = false;
-  programs.eza = {
-    enable = true;
-    git = true;
-    icons = "auto";
-  };
   programs.fish = {
     enable = true;
     package = pkgs
