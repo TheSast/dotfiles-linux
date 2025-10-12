@@ -5,9 +5,18 @@ set -o nounset
 # expects proper XDG base dirs variables to be set up
 # runtimeInputs = [findutils coreutils ggrep sed vieb]
 
+PROGNAME="${0##*/}"
+LOCKFILE="${XDG_RUNTIME_DIR:-/tmp}/$PROGNAME.lock"
+if [ -f "$LOCKFILE" ] && kill -0 "$(cat "$LOCKFILE")" 2>/dev/null; then
+    echo "$PROGNAME is already running." >&2
+    return 1
+fi
+echo $$ >"$LOCKFILE"
+trap 'rm -f "$LOCKFILE"' EXIT INT TERM HUP
 THEME=$("$XDG_CONFIG_HOME/scripts/theme.sh")
 WHICH_LIGHT="paper"
 WHICH_DARK="default"
+
 
 # get_running_vieb_colorscheme(Option<String>: datafolder) -> String
 get_running_vieb_colorscheme() {
