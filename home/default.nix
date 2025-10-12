@@ -113,6 +113,7 @@ in {
     xdg-utils
     zathura
     zellij
+    zoxide
   ];
 
   xdg = {
@@ -594,6 +595,7 @@ in {
         sh ${config.xdg.cacheHome}/wallust/tty.sh
         eval (${lib.getExe pkgs.starship} init fish)
         enable_transience
+        ${lib.getExe pkgs.zoxide} init fish | source
         ${lib.getExe pkgs.atuin} init fish --disable-up-arrow | source
       '';
   };
@@ -623,10 +625,6 @@ in {
         # xdg-utils?
         # wl-clipboard?
       ];
-  };
-  programs.zoxide = {
-    enable = true;
-    enableFishIntegration = true;
   };
   news.display = "silent";
 }
