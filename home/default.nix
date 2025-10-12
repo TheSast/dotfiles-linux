@@ -83,7 +83,31 @@ in {
       pkgs.writeShellApplication
       {
         name = "nvim";
-        runtimeInputs = [pkgs.neovim-unwrapped] ++ config.programs.neovim.extraPackages;
+        runtimeInputs = with pkgs;
+          [pkgs.neovim-unwrapped]
+          ++ [
+            # lsp
+            alejandra
+            deadnix
+            lua-language-server
+            luajitPackages.luacheck
+            selene
+            tinymist
+            nil
+            nodePackages.vscode-json-languageserver # neoconf
+            statix
+            stylua
+          ]
+          ++ [
+            # build
+            gcc # nvim-treesitter
+            git # lazy.nvim
+            luarocks # lazy.nvim
+            gnumake # jsregexp for LuaSnip
+            ripgrep # telescope-fzf-native.nvim
+            # xdg-utils?
+            # wl-clipboard?
+          ];
         text = ''exec nvim "$@"'';
       }
     )
@@ -595,33 +619,6 @@ in {
         ${lib.getExe pkgs.zoxide} init fish | source
         ${lib.getExe pkgs.atuin} init fish --disable-up-arrow | source
       '';
-  };
-  programs.neovim = {
-    enable = false;
-    extraPackages = with pkgs;
-      [
-        # lsp
-        alejandra
-        deadnix
-        lua-language-server
-        luajitPackages.luacheck
-        selene
-        tinymist
-        nil
-        nodePackages.vscode-json-languageserver # neoconf
-        statix
-        stylua
-      ]
-      ++ [
-        # build
-        gcc # nvim-treesitter
-        git # lazy.nvim
-        luarocks # lazy.nvim
-        gnumake # jsregexp for LuaSnip
-        ripgrep # telescope-fzf-native.nvim
-        # xdg-utils?
-        # wl-clipboard?
-      ];
   };
   news.display = "silent";
 }
