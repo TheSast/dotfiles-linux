@@ -72,6 +72,7 @@ in {
       ''
     )
     inlyne
+    lazygit
     libnotify
     losslesscut-bin
     mpv
@@ -224,6 +225,9 @@ in {
       };
       hypr = {
         source = symlinkDirectly "hypr";
+      };
+      lazygit = {
+        source = ./lazygit;
       };
       neofetch = {
         source = ./neofetch;
@@ -607,15 +611,6 @@ in {
         eval (${lib.getExe pkgs.starship} init fish)
         enable_transience
       '';
-  };
-  programs.lazygit = {
-    enable = true;
-    settings = {
-      commandLogSize = 5;
-      mainBranches = ["master" "main" "trunk"];
-      notARepository = "skip";
-      git.overrideGpg = true;
-    };
   };
   programs.neovim = {
     enable = false;

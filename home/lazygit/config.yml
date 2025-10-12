@@ -1,0 +1,8 @@
+commandLogSize: 5
+git:
+  overrideGpg: true
+mainBranches:
+- master
+- main
+- trunk
+notARepository: skip
