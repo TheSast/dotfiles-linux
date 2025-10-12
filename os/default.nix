@@ -164,7 +164,7 @@
     hyprland = {
       enable = true;
       systemd.setPath.enable = true;
-      withUWSM = true;
+      withUWSM = false;
     };
     xwayland.enable = false;
   };
