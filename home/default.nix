@@ -60,6 +60,7 @@ in {
     gh
     git
     glow
+    hyfetch
     hypridle
     hyprlock
     pkgs-unstable.hyprnotify # should fix cpu issues?
@@ -216,6 +217,10 @@ in {
       };
       git = {
         source = symlinkDirectly "git";
+      };
+      hyfetch = {
+        target = "hyfetch.json";
+        source = ./hyfetch.json;
       };
       hypr = {
         source = symlinkDirectly "hypr";
@@ -602,16 +607,6 @@ in {
         eval (${lib.getExe pkgs.starship} init fish)
         enable_transience
       '';
-  };
-  programs.hyfetch = {
-    enable = true;
-    settings = {
-      preset = "rainbow";
-      mode = "rgb";
-      color_align = {
-        mode = "horizontal";
-      };
-    };
   };
   programs.lazygit = {
     enable = true;
