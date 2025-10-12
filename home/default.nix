@@ -361,7 +361,6 @@ in {
   home.sessionVariables =
     config.systemd.user.sessionVariables
     // {
-      HISTFILE = config.programs.bash.historyFile;
       HISTCONTROL = builtins.concatStringsSep ":" config.programs.bash.historyControl;
       CARGO_HOME = "${config.xdg.dataHome}/cargo";
       GNUPGHOME = "${config.xdg.dataHome}/gnupg";
@@ -399,12 +398,6 @@ in {
     eza = "${lib.getExe pkgs.eza} --icons auto --git";
   };
 
-  programs.bash = {
-    # TODO: make wrapper
-    enable = false; # on will create ~/.bashrc
-    historyFile = "${config.xdg.stateHome}/bash/history";
-    historyControl = ["erasedups"];
-  };
   programs.command-not-found.enable = false;
   programs.fish = {
     enable = true;
