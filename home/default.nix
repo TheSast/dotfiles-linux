@@ -431,6 +431,26 @@ in {
         */
         ''
           builtin cd $argv || return
+          _cd_git_info
+        '';
+      # IDEA:
+      # from https://github.com/oh-my-fish/plugin-cd
+      # cd .../foo           # <=> cd ../../foo
+      # cd ...               # <=> cd ../..
+      # cd .../foo/.../bar   # <=> cd ../../foo/../../bar
+      # pwd                  # ~/a
+      # cd ~/b               # ~/b    ( dirstack: a )
+      # cd ~/c               # ~/c    ( dirstack: b a )
+      # cd ~/d               # ~/d    ( dirstack: c b a )
+      # cd -2                # ~/b    ( dirstack: d c a )
+      # cd +1                # ~/c    ( dirstack: b d a )
+      # cd +0                # ~/a    ( dirstack: c b d )
+      # cd -0                # ~/a    ( dirstack: c b d )
+      _cd_git_info =
+        /*
+        fish
+        */
+        ''
           set -l current_repository (${lib.getExe pkgs.git} rev-parse --show-toplevel 2> /dev/null)
           if string length -q -- $current_repository && not string match -q -- $current_repository $__last_repository
             functions -c fish_prompt fish_prompt_bak
@@ -447,19 +467,6 @@ in {
             set -gx __last_repository $current_repository
           end
         '';
-      # IDEA:
-      # from https://github.com/oh-my-fish/plugin-cd
-      # cd .../foo           # <=> cd ../../foo
-      # cd ...               # <=> cd ../..
-      # cd .../foo/.../bar   # <=> cd ../../foo/../../bar
-      # pwd                  # ~/a
-      # cd ~/b               # ~/b    ( dirstack: a )
-      # cd ~/c               # ~/c    ( dirstack: b a )
-      # cd ~/d               # ~/d    ( dirstack: c b a )
-      # cd -2                # ~/b    ( dirstack: d c a )
-      # cd +1                # ~/c    ( dirstack: b d a )
-      # cd +0                # ~/a    ( dirstack: c b d )
-      # cd -0                # ~/a    ( dirstack: c b d )
       nix-build = ''echo "Error: 'nix-build' is deprecated. Please use 'nix build' instead."'';
       nix-collect-garbage = ''echo "Error: 'nix-collect-garbage' is deprecated. Please use 'nix gc' instead."'';
       nix-daemon = ''echo "Error: 'nix-daemon' is deprecated. Please use 'nix daemon' instead."'';
@@ -588,6 +595,14 @@ in {
             end
           end
         '';
+      z =
+        /*
+        fish
+        */
+        ''
+          __zoxide_z $argv || return
+          _cd_git_info
+        '';
     };
     interactiveShellInit =
       /*
@@ -610,6 +625,7 @@ in {
         eval (${lib.getExe pkgs.starship} init fish)
         enable_transience
         ${lib.getExe pkgs.zoxide} init fish | source
+        source ${config.xdg.configHome}/fish/functions/z.fish
         ${lib.getExe pkgs.atuin} init fish --disable-up-arrow | source
       '';
   };
