@@ -217,7 +217,7 @@
     nixos-option.enable = false;
     nixos-install.enable = false;
     nixos-rebuild.enable = false;
-    # nixos-version.enable = false;
+    nixos-version.enable = false;
     nixos-build-vms.enable = false;
     nixos-generate-config.enable = false;
   };
