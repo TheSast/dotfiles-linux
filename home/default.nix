@@ -57,12 +57,19 @@ in {
     du-dust
     erdtree
     eza
+    (
+      pkgs.writeShellApplication
+      {
+        name = "fetch";
+        runtimeInputs = [hyfetch fastfetch];
+        text = ''exec hyfetch -b fastfetch "$@"'';
+      }
+    )
     fd
     fzf
     gh
     git
     glow
-    hyfetch
     hypridle
     hyprlock
     pkgs-unstable.hyprnotify # should fix cpu issues?
@@ -245,6 +252,10 @@ in {
       };
       erdtree = {
         source = ./erdtree;
+      };
+      fastfetch = {
+        target = "fastfetch/config.jsonc";
+        text = import ./fastfetch.nix {inherit config pkgs lib flakeLoc;};
       };
       git = {
         source = symlinkDirectly "git";
