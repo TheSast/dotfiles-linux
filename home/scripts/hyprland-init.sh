@@ -13,9 +13,11 @@ STATE="$XDG_STATE_HOME/hyprland-init"
 mkdir -p "$STATE"
 
 {
-	nohup udiskie --smart-tray >/dev/null 2>&1 & # INFO: daemon
+	nohup udiskie --tray >/dev/null 2>&1 & # INFO: daemon
 
 	nohup hyprnotify -s -f 20 >/dev/null 2>&1 & # INFO: daemon
+
+	nohup kanshi >/dev/null 2>&1 & # INFO: daemon
 
 	rm -f /tmp/wobpipe
 	touch /tmp/wobpipe

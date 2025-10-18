@@ -13,21 +13,25 @@ STATE="$XDG_STATE_HOME/niri-init"
 mkdir -p "$STATE"
 
 {
-	nohup udiskie --smart-tray >/dev/null 2>&1 &
+	nohup nfsm >/dev/null 2>&1 & # INFO: daemon
 
-	# mako / dunst / fnott
+	nohup udiskie --tray >/dev/null 2>&1 & # INFO: daemon
 
-	batsignal -b -w "35" -c "15" -d "5" -W "Battery level low" -C "Battery level minimal" -D "Battery level critical" -M "notify-send" -a "Battery" # daemon by default
-	nohup tail -f /tmp/wobpipe | wob >/dev/null 2>&1 &
+	nohup mako >/dev/null 2>&1 & # INFO: daemon
 
-	# nohup ~/.nix-profile/libexec/polkit-kde-authentication-agent-1 >/dev/null 2>&1 &
-	nohup "$XDG_STATE_HOME"/nix/profile/libexec/hyprpolkitagent >/dev/null 2>&1 &
+	nohup kanshi >/dev/null 2>&1 & # INFO: daemon
 
-	nohup hypridle >/dev/null 2>&1 &
+	rm -f /tmp/wobpipe
+	touch /tmp/wobpipe
+	nohup tail -f /tmp/wobpipe | wob >/dev/null 2>&1 & # INFO: daemon
+
+	nohup "$XDG_STATE_HOME"/nix/profile/libexec/hyprpolkitagent >/dev/null 2>&1 & # INFO: daemon
+
+	nohup hypridle >/dev/null 2>&1 & # INFO: daemon
 
 	trash "$XDG_CACHE_HOME"/cliphist
-	nohup wl-paste --type text --watch cliphist store >/dev/null 2>&1 &
-	nohup wl-paste --type image --watch cliphist store >/dev/null 2>&1 &
+	nohup wl-paste --type text --watch cliphist store >/dev/null 2>&1 &  # INFO: daemon
+	nohup wl-paste --type image --watch cliphist store >/dev/null 2>&1 & # INFO: daemon
 
-	nohup "$XDG_CONFIG_HOME"/scripts/corn.sh --startup >/dev/null 2>&1 &
+	nohup "$XDG_CONFIG_HOME"/scripts/corn.sh --startup >/dev/null 2>&1 & # INFO: daemon
 } | log niri-init.sh >>"$STATE/niri-init.log" 2>&1

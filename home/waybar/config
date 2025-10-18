@@ -1,6 +1,6 @@
 // TODO: consider https://github.com/JakeStanger/ironbar
 {
-    "layer": "bottom",
+    "layer": "top",
     "position": "top",
     "height": 35,
     "spacing": 4,
@@ -11,7 +11,7 @@
          // "idle_inhibitor",
          // "wlr/taskbar"
     ],
-    "modules-center": ["hyprland/workspaces"],
+    "modules-center": ["hyprland/workspaces", "niri/workspaces"],
     "modules-right": [
         // "privacy", 
         "group/toolbar", 
@@ -47,6 +47,12 @@
          "active-only": false,
          "all-outputs": true,
          "format": " "
+    },
+    "niri/workspaces" : {
+        "on-click": "activate",
+        "active-only": false,
+        "all-outputs": true,
+        "format": " "
     },
     "privacy": {
 	    "modules": [

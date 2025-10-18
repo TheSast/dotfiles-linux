@@ -15,11 +15,15 @@ THEME=$("$XDG_CONFIG_HOME/scripts/theme.sh")
 	echo "START"
 	if command -v swww >/dev/null 2>&1; then
 		if ! swww query >/dev/null 2>&1; then
-			swww-daemon & # INFO: daemon
+			swww-daemon -l bottom --no-cache & # INFO: daemon
 		fi
-		# transition to same image in case cache got wiped
-		if ! [ -d "$XDG_CACHE_HOME/swww" ]; then
-			swww img -t none -- "$XDG_CACHE_HOME/wallpaper" # detaches
+		if [ "$XDG_CURRENT_DESKTOP" = "niri" ] && ! swww query -n overview-bg >/dev/null 2>&1; then
+			swww-daemon -n overview-bg --no-cache & # INFO: daemon
+		fi
+		# transition to same image cache is unusable in multi-namespace usage
+		swww img -t none -- "$XDG_CACHE_HOME/wallpaper" # detaches
+		if [ "$XDG_CURRENT_DESKTOP" = "niri" ]; then
+			swww img -n overview-bg -t none -- "$XDG_CACHE_HOME/wallpaper-blurred"
 		fi
 	fi
 	echo "END"

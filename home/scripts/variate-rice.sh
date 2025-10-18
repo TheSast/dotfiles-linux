@@ -3,7 +3,7 @@ set -o errexit
 set -o nounset
 
 # expects proper XDG base dirs variables to be set up
-# runtimeInputs = [findutils coreutils swww wallust waybar procps]
+# runtimeInputs = [findutils coreutils swww wallust waybar procps imagemagick]
 # ++ ./log.sh.runtimeInputs
 # ++ ./theme.sh.runtimeInputs;
 
@@ -20,15 +20,24 @@ THEME=$("$XDG_CONFIG_HOME/scripts/theme.sh")
 	WALLPAPER="$(find_wallpaper)"
 	echo "$WALLPAPER"
 	ln -sf "$WALLPAPER" "$XDG_CACHE_HOME/wallpaper"
+	timeout 10s magick "$(realpath "$XDG_CACHE_HOME/wallpaper")" -resize 50% -blur 0x3 -resize 200% "$XDG_CACHE_HOME/wallpaper-blurred" || ln -sf "$WALLPAPER" "$XDG_CACHE_HOME/wallpaper-blurred"
 	echo "END"
 } 2>&1 | log wallpaper
 
 {
 	echo "START"
 	if command -v swww >/dev/null 2>&1; then
-		if ! swww query >/dev/null 2>&1; then
-			swww-daemon --no-cache & # INFO: daemon
+		if ! swww query >/dev/null 2>&1 || [ "$XDG_CURRENT_DESKTOP" = "niri" ] && ! swww query -n overview-bg >/dev/null 2>&1; then
+			if ! swww query >/dev/null 2>&1; then
+				swww-daemon -l bottom --no-cache & # INFO: daemon
+			fi
+			if [ "$XDG_CURRENT_DESKTOP" = "niri" ] && ! swww query -n overview-bg >/dev/null 2>&1; then
+				swww-daemon -n overview-bg --no-cache & # INFO: daemon
+			fi
 			swww img -t none -- "$XDG_CACHE_HOME/wallpaper"
+			if [ "$XDG_CURRENT_DESKTOP" = "niri" ]; then
+				swww img -n overview-bg -t none -- "$XDG_CACHE_HOME/wallpaper-blurred"
+			fi
 		else
 			export SWWW_TRANSITION=$(shuf -e -n 1 "wave" "grow" "outer")
 			export SWWW_TRANSITION_ANGLE=$(shuf -e -n 1 "45" "90" "135" "180" "225" "270" "315" "360")
@@ -37,6 +46,11 @@ THEME=$("$XDG_CONFIG_HOME/scripts/theme.sh")
 			export SWWW_TRANSITION_FPS=255
 			export SWWW_TRANSITION_STEP=255
 			swww img -- "$XDG_CACHE_HOME/wallpaper"
+			if [ "$XDG_CURRENT_DESKTOP" = "niri" ]; then
+				swww img -n overview-bg -- "$XDG_CACHE_HOME/wallpaper-blurred"
+				sleep 3
+				niri msg action load-config-file
+			fi
 		fi
 	fi
 	echo "END"

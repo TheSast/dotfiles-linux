@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }: {
   # WARNING: do not touchy
@@ -166,6 +167,8 @@
       systemd.setPath.enable = true;
       withUWSM = false;
     };
+    niri.enable = true;
+    niri.package = inputs.niri-blur.packages.${pkgs.system}.default;
     xwayland.enable = false;
   };
 

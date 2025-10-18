@@ -1,0 +1,185 @@
+spawn-sh-at-startup "$XDG_CONFIG_HOME/scripts/niri-init.sh"
+screenshot-path "~/Pictures/Screenshots/%Y/%m/%d/%H-%M-%S.png"
+prefer-no-csd
+
+xwayland-satellite {
+    off
+}
+
+hotkey-overlay {
+    skip-at-startup
+}
+
+clipboard {
+    disable-primary
+}
+
+input {
+    disable-power-key-handling
+
+    keyboard {
+        xkb {
+            layout "us"
+            options "caps:backspace,compose:ralt"
+        }
+    }
+
+    focus-follows-mouse
+    warp-mouse-to-focus
+
+    touchpad {
+        tap
+        dwt
+        natural-scroll
+        drag-lock
+    }
+}
+
+cursor {
+    hide-after-inactive-ms 10000
+}
+
+gestures {
+    hot-corners {
+        off
+    }
+}
+
+output "eDP-1" {
+    mode "1920x1080"
+    scale 1.2
+}
+
+output "ASUSTek COMPUTER INC VG279 L6LMQS002042" {
+    mode "1920x1080@143.999"
+}
+
+layout {
+    empty-workspace-above-first
+    gaps 10
+    border {
+        off
+    }
+    focus-ring {
+        off
+    }
+    background-color "transparent"
+    blur {
+        on
+        passes 2
+        radius 4.0
+        noise 0.0
+    }
+}
+
+window-rule {
+    geometry-corner-radius 8
+    clip-to-geometry true
+}
+
+window-rule {
+    match is-focused=true
+    opacity 0.95
+}
+
+window-rule {
+    match is-focused=false
+    opacity 0.8
+}
+
+layer-rule {
+    match namespace="^swww-daemonoverview-bg$"
+    place-within-backdrop true
+}
+
+animations {
+    slowdown 1.5
+    // 0.05, 0.9, 0.1, 1.05
+}
+
+binds {
+    Mod+Escape { toggle-keyboard-shortcuts-inhibit; }
+    Mod+N { spawn "alacritty"; }
+    Mod+F { spawn-sh "tofi-drun | /bin/sh"; }
+    Mod+Q { close-window; }
+    Mod+V { spawn-sh "cliphist list | tofi | cliphist decode | wl-copy"; }
+    Mod+Shift+V { spawn-sh "$XDG_CONFIG_HOME/scripts/editclip.sh"; }
+    Mod+Shift+Z { maximize-column; }
+    Mod+Z { spawn "nfsm-cli"; }
+    // Mod+Z { fullscreen-window; }
+    Mod+B { toggle-window-floating; }
+    Mod+Tab { toggle-overview; }
+
+    XF86AudioRaiseVolume {
+        spawn-sh r#"wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 2%+;
+        wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2 * 100) ($3 == "[MUTED]" ? " muted" : "")}' >> /tmp/wobpipe"#;
+    }
+    XF86AudioLowerVolume {
+        spawn-sh r#"wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 2%-;
+        wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2 * 100) ($3 == "[MUTED]" ? " muted" : "")}' >> /tmp/wobpipe"#;
+    }
+    XF86AudioMute {
+        spawn-sh r#"wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle;
+        wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2 * 100) ($3 == "[MUTED]" ? " muted" : "")}' >> /tmp/wobpipe"#;
+    }
+    Shift+XF86AudioRaiseVolume {
+        spawn-sh r#"wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SOURCE@ 2%+;
+        wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | awk '{print int($2 * 100) ($3 == "[MUTED]" ? " muted" : "")}' >> /tmp/wobpipe"#;
+    }
+    Shift+XF86AudioLowerVolume {
+        spawn-sh r#"wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SOURCE@ 2%-;
+        wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | awk '{print int($2 * 100) ($3 == "[MUTED]" ? " muted" : "")}' >> /tmp/wobpipe"#;
+    }
+    Shift+XF86AudioMute {
+        spawn-sh r#"wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle;
+        wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | awk '{print int($2 * 100) ($3 == "[MUTED]" ? " muted" : "")}' >> /tmp/wobpipe"#;
+    }
+    XF86MonBrightnessUp {
+        spawn-sh r#"brightnessctl set 2%+;
+        brightnessctl get | awk -v max=$(brightnessctl max) '{print int(($1 / max) * 100)}' >> /tmp/wobpipe"#;
+    }
+    XF86MonBrightnessDown {
+        spawn-sh r#"brightnessctl set 2%-;
+        brightnessctl get | awk -v max=$(brightnessctl max) '{print int(($1 / max) * 100)}' >> /tmp/wobpipe"#;
+    }
+    XF86AudioPlay { spawn "playerctl" "play-pause"; }
+    XF86AudioPrev { spawn "playerctl" "previous"; }
+    XF86AudioNext { spawn "playerctl" "next"; }
+    XF86AudioStop { spawn "playerctl" "stop"; }
+    Print { screenshot; }
+    XF86PowerOff { spawn-sh "$XDG_CONFIG_HOME/scripts/power_off.sh"; }
+
+    Mod+H { focus-column-or-monitor-left; }
+    Mod+J { focus-window-or-workspace-down; }
+    Mod+K { focus-window-or-workspace-up; }
+    Mod+L { focus-column-or-monitor-right; }
+    Mod+Shift+H { move-column-left-or-to-monitor-left; }
+    Mod+Shift+J { move-window-down-or-to-workspace-down; }
+    Mod+Shift+K { move-window-up-or-to-workspace-up; }
+    Mod+Shift+L { move-column-right-or-to-monitor-right; }
+    Mod+Control+H { consume-or-expel-window-left; }
+    Mod+Control+L { consume-or-expel-window-right; }
+    Mod+Backslash { consume-window-into-column; }
+    Mod+Shift+Backslash { expel-window-from-column; }
+
+    Mod+1 { focus-workspace 1; }
+    Mod+2 { focus-workspace 2; }
+    Mod+3 { focus-workspace 3; }
+    Mod+4 { focus-workspace 4; }
+    Mod+5 { focus-workspace 5; }
+    Mod+6 { focus-workspace 6; }
+    Mod+7 { focus-workspace 7; }
+    Mod+8 { focus-workspace 8; }
+    Mod+9 { focus-workspace 9; }
+}
+
+switch-events {
+    lid-close { spawn "loginctl lock-session"; }
+}
+
+window-rule {
+    match app-id="at.yrlf.wl_mirror"
+    open-fullscreen true
+    open-focused false
+    block-out-from "screencast"
+}

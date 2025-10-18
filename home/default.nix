@@ -8,6 +8,9 @@
   flakeLoc = "${config.xdg.configHome}/etc";
   symlinkDirectly = p: config.lib.file.mkOutOfStoreSymlink ("${flakeLoc}/home/" + p);
 in {
+  imports = [
+    ./niri.nix
+  ];
   home = {
     username = "u";
     homeDirectory = "/home/u";
@@ -131,7 +134,7 @@ in {
     playerctl
     ripgrep
     swayimg
-    swww
+    pkgs-unstable.swww
     tabiew
     tmux
     tofi

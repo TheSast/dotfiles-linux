@@ -6,6 +6,14 @@
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    niri-blur = {
+      url = "github:visualglitch91/niri/2bc06170c36d613dad88ccf26cec8ca5e379d76e";
+      inputs.rust-overlay.follows = "";
+    };
+    nfsm = {
+      url = "github:gvolpe/nfsm";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -13,7 +21,7 @@
     nixpkgs-unstable,
     home-manager,
     ...
-  }: let
+  } @ inputs: let
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages."${system}";
     pkgs-unstable = nixpkgs-unstable.legacyPackages."${system}";
@@ -39,6 +47,7 @@
             };
           }
         ];
+        specialArgs = {inherit inputs;};
       };
     };
 
@@ -56,7 +65,7 @@
             };
           }
         ];
-        extraSpecialArgs = {inherit pkgs-unstable;};
+        extraSpecialArgs = {inherit inputs pkgs-unstable;};
       };
     };
     formatter."${system}" = pkgs.alejandra;
