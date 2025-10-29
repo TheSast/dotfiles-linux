@@ -72,6 +72,7 @@ in {
     fzf
     gh
     git
+    glib
     glow
     hypridle
     hyprlock
@@ -211,6 +212,9 @@ in {
       createDirectories = true;
       templates = null;
       publicShare = null;
+    };
+    systemDirs = {
+      data = ["${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.pname}-${pkgs.gsettings-desktop-schemas.version}"];
     };
     configFile = {
       alacritty-toml = {

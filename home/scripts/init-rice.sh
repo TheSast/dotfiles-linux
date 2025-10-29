@@ -31,6 +31,16 @@ THEME=$("$XDG_CONFIG_HOME/scripts/theme.sh")
 
 {
 	echo "START"
+	GTK_THEME="adw-gtk3"
+	if [ "$THEME" = "dark" ]; then
+		GTK_THEME="adw-gtk3-dark"
+	fi
+	gsettings set org.gnome.desktop.interface gtk-theme $GTK_THEME
+	echo "END"
+} 2>&1 | log gsettings &
+
+{
+	echo "START"
 	if command -v wallust >/dev/null 2>&1; then
 		REAL_WALLPAPER_LOCATION="$(readlink "$XDG_CACHE_HOME/wallpaper")"
 		{

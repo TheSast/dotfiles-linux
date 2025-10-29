@@ -3,7 +3,7 @@ set -o errexit
 set -o nounset
 
 # expects proper XDG base dirs variables to be set up
-# runtimeInputs = [findutils coreutils swww wallust waybar procps imagemagick]
+# runtimeInputs = [findutils coreutils swww wallust waybar procps imagemagick glib gsettings-desktop-schemas]
 # ++ ./log.sh.runtimeInputs
 # ++ ./theme.sh.runtimeInputs;
 
@@ -55,6 +55,16 @@ THEME=$("$XDG_CONFIG_HOME/scripts/theme.sh")
 	fi
 	echo "END"
 } 2>&1 | log swww &
+
+{
+	echo "START"
+	GTK_THEME="adw-gtk3"
+	if [ "$THEME" = "dark" ]; then
+		GTK_THEME="adw-gtk3-dark"
+	fi
+	gsettings set org.gnome.desktop.interface gtk-theme $GTK_THEME
+	echo "END"
+} 2>&1 | log gsettings &
 
 {
 	echo "START"
