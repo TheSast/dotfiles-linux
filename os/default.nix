@@ -165,7 +165,7 @@
     hyprland = {
       enable = true;
       systemd.setPath.enable = true;
-      withUWSM = false;
+      withUWSM = true;
     };
     niri.enable = true;
     niri.package = inputs.niri-blur.packages.${pkgs.system}.default;
