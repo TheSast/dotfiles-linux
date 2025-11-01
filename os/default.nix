@@ -2,7 +2,6 @@
   config,
   pkgs,
   lib,
-  inputs,
   ...
 }: {
   imports = [
@@ -149,28 +148,7 @@
     helpLine = "";
   };
 
-  programs = {
-    hyprland = {
-      enable = true;
-      systemd.setPath.enable = true;
-      withUWSM = true;
-    };
-    niri.enable = true;
-    niri.package = inputs.niri-blur.packages.${pkgs.system}.default;
-    xwayland.enable = false;
-  };
-
   hardware.graphics.enable = true;
-
-  xdg.portal = {
-    enable = true;
-    xdgOpenUsePortal = true; # https://github.com/NixOS/nixpkgs/issues/160923
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-gnome
-      xdg-desktop-portal-gtk
-      xdg-desktop-portal-hyprland
-    ];
-  };
 
   fonts.packages = with pkgs; [
     nerd-fonts.fira-code
@@ -230,6 +208,7 @@
     };
     nano.enable = false;
     command-not-found.enable = false;
+    dconf.enable = true;
   };
   # remove every xorg package until `services.xserver.enable = false` and `environment.noXlibs = true`
   services.xserver.excludePackages = with pkgs.xorg; [
@@ -262,10 +241,8 @@
       # WARNING: do NOT mkForce it will break, very badly
       kakoune
       networkmanager
-      udiskie
       btop
       # libsForQt5.qt5.qtgraphicaleffects # sddm
-      libsForQt5.qt5.qtwayland # xdg-open
     ];
   };
   # list executables via `ls -1  /run/current-system/sw/bin/ | sed -E 's%.*-> .{43}-%%g' | sort`

@@ -10,6 +10,7 @@
 in {
   imports = [
     ./niri.nix
+    ./hyprland.nix
   ];
   home = {
     username = "u";
@@ -44,14 +45,6 @@ in {
     atuin
     babelfish
     bat
-    (
-      pkgs.writeShellApplication
-      {
-        name = "better-hyprshot";
-        runtimeInputs = [coreutils jq slurp grim libnotify hyprpicker];
-        text = builtins.readFile ./scripts/better-hyprshot.sh;
-      }
-    )
     brightnessctl
     broot
     btop
@@ -76,14 +69,6 @@ in {
     glow
     hypridle
     hyprlock
-    pkgs-unstable.hyprnotify # should fix cpu issues?
-    hyprpicker
-    (
-      pkgs.runCommand "hyprpolkitagent-fixed" {} ''
-        mkdir -p $out/libexec
-        cp ${pkgs.hyprpolkitagent}/libexec/hyprpolkitagent $out/libexec/
-      ''
-    )
     inlyne
     lazygit
     libnotify
@@ -140,6 +125,7 @@ in {
     tmux
     tofi
     trash-cli
+    udiskie
     vieb
     wallust
     waybar
