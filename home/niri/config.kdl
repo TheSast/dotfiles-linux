@@ -176,7 +176,7 @@ binds {
 }
 
 switch-events {
-    lid-close { spawn "loginctl lock-session"; }
+    lid-close { spawn "loginctl" "lock-session"; }
 }
 
 window-rule {
