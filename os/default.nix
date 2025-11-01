@@ -5,6 +5,10 @@
   inputs,
   ...
 }: {
+  imports = [
+    ./dm.nix
+  ];
+
   # WARNING: do not touchy
   system.stateVersion = "23.05";
 
@@ -137,22 +141,6 @@
     wireplumber.enable = true;
     pulse.enable = false;
   };
-
-  services.xserver = {
-    enable = true;
-    displayManager = {
-      gdm = {
-        enable = true;
-        wayland = true;
-      };
-    };
-    # nixpkgs sddm uses a setup command hard-coding tty7 as the initial tty
-    # forcing it flickers and moves it to tty1 (the right one), should be left to null when using sddm for it to work dynamically
-    # no idea for gdm, don't wanna bother
-    tty = null;
-  };
-  # programs.regreet.enable = false; # greetd
-  # environment.noXlibs = true; # gdm relies on xlibs even with `wayland = true;`
 
   services.physlock.enable = false;
 
