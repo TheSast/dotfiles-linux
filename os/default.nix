@@ -8,25 +8,7 @@
     ./dm.nix
   ];
 
-  # WARNING: do not touchy
-  system.stateVersion = "23.05";
-
   boot = {
-    loader = {
-      grub = {
-        enable = true;
-        efiSupport = true;
-        efiInstallAsRemovable = true;
-        useOSProber = true;
-        devices = ["nodev"];
-        fontSize = 30;
-      };
-      efi = {
-        canTouchEfiVariables = false;
-        efiSysMountPoint = "/boot";
-      };
-      timeout = 10;
-    };
     plymouth = {
       enable = true;
       theme = "breeze";
@@ -47,41 +29,7 @@
     ];
   };
 
-  powerManagement.enable = true;
-  services.thermald.enable = true;
-  services.auto-cpufreq = {
-    enable = true;
-    settings = {
-      battery = {
-        governor = "powersave";
-        turbo = "never";
-      };
-      charger = {
-        governor = "performance";
-        turbo = "auto";
-      };
-    };
-  };
-  systemd.sleep.extraConfig = ''
-    HibernateDelaySec=10m
-    HibernateMode=shutdown
-  ''; # systemd-suspend-then-hibernate delay to hibernation
-  systemd.services.fix-button-after-hibernate = {
-    # it is needed after terminating (by crashing?) user session and redoing login
-    description = "Reload ACPI Button Module After Hibernate";
-    after = ["hibernate.target" "hybrid-sleep.target" "suspend-then-hibernate.target"];
-    wantedBy = ["hibernate.target" "hybrid-sleep.target" "suspend-then-hibernate.target"];
-    serviceConfig = {
-      Type = "oneshot";
-      ExecStart = [
-        "${pkgs.kmod}/bin/modprobe -r button"
-        "${pkgs.kmod}/bin/modprobe button"
-      ];
-    };
-  };
-
   networking = {
-    hostName = "kafka";
     networkmanager = {
       enable = true;
       ethernet = {
@@ -132,7 +80,6 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     wireplumber.enable = true;
-    pulse.enable = false;
   };
 
   services.physlock.enable = false;
@@ -212,15 +159,20 @@
   services.blueman.enable = true;
   hardware.bluetooth.enable = true; # find a better spot! "connectivity"?
 
+  nix = {
+    channel.enable = false;
+    settings.use-registries = false;
+    settings.flake-registry = "";
+    nixPath = [];
+  };
+  nixpkgs.flake = {
+    setNixPath = false;
+    setFlakeRegistry = false;
+  };
   nix.gc = {
     automatic = true;
     dates = "daily";
     options = "--delete-older-than 7d";
-  };
-  nix.channel.enable = false;
-  nixpkgs.flake = {
-    setNixPath = false;
-    setFlakeRegistry = false;
   };
   nix.settings = {
     auto-optimise-store = true;

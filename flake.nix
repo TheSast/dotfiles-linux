@@ -37,33 +37,35 @@
       kafka = nixpkgs.lib.nixosSystem {
         modules = [
           ./os
-          ./os/hardware.nix
-          {
-            nix = {
-              channel.enable = false;
-              settings.use-registries = false;
-              settings.flake-registry = "";
-              nixPath = [];
-            };
-          }
+          ./os/kafka
+          ./os/kafka/hardware.nix
+        ];
+        specialArgs = {inherit inputs;};
+      };
+      firefly = nixpkgs.lib.nixosSystem {
+        modules = [
+          ./os
+          ./os/firefly
+          ./os/firefly/hardware.nix
         ];
         specialArgs = {inherit inputs;};
       };
     };
 
     homeConfigurations = {
-      u = home-manager.lib.homeManagerConfiguration {
+      "u@kafka" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules = [
           ./home
-          {
-            nix = {
-              settings.use-registries = false;
-              settings.flake-registry = "";
-              keepOldNixPath = false;
-              nixPath = [];
-            };
-          }
+          ./home/kafka
+        ];
+        extraSpecialArgs = {inherit inputs pkgs-unstable;};
+      };
+      "u@firefly" = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        modules = [
+          ./home
+          ./home/firefly
         ];
         extraSpecialArgs = {inherit inputs pkgs-unstable;};
       };

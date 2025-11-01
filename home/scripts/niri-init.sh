@@ -27,11 +27,13 @@ mkdir -p "$STATE"
 
 	"$XDG_STATE_HOME"/nix/profile/libexec/polkit-gnome-authentication-agent-1 >/dev/null 2>&1 &
 
-	hypridle >/dev/null 2>&1 &
-
-	trash "$XDG_CACHE_HOME"/cliphist
+	trash "$XDG_CACHE_HOME"/cliphist || true
 	wl-paste --type text --watch cliphist store >/dev/null 2>&1 & 
 	wl-paste --type image --watch cliphist store >/dev/null 2>&1 &
+
+	if [ "$(hostname)" = "kafka" ]; then
+		hypridle >/dev/null 2>&1 &
+	fi
 
 	"$XDG_CONFIG_HOME"/scripts/corn.sh --startup >/dev/null 2>&1 &
 } | log niri-init.sh >>"$STATE/niri-init.log" 2>&1

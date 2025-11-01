@@ -15,11 +15,14 @@ in {
   home = {
     username = "u";
     homeDirectory = "/home/u";
-
-    # do not touchy
-    stateVersion = "23.05";
   };
 
+  nix = {
+    settings.use-registries = false;
+    settings.flake-registry = "";
+    keepOldNixPath = false;
+    nixPath = [];
+  };
   nix = {
     gc = {
       automatic = true;
@@ -45,7 +48,6 @@ in {
     atuin
     babelfish
     bat
-    brightnessctl
     broot
     btop
     cliphist
@@ -67,8 +69,6 @@ in {
     git
     glib
     glow
-    hypridle
-    hyprlock
     inlyne
     lazygit
     libnotify
@@ -637,8 +637,7 @@ in {
         functions -e ll
         functions -e ls
         sh ${config.xdg.cacheHome}/wallust/tty.sh
-        eval (${lib.getExe pkgs.starship} init fish)
-        enable_transience
+        eval (${lib.getExe pkgs.starship} init fish) && enable_transience
         ${lib.getExe pkgs.zoxide} init fish | source
         source ${config.xdg.configHome}/fish/functions/z.fish
         ${lib.getExe pkgs.atuin} init fish --disable-up-arrow | source
