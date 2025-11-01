@@ -36,6 +36,9 @@ in {
       niri = {
         source = symlinkDirectly "niri";
       };
+      xdp = {
+        source = ./xdg-desktop-portal;
+      };
       mako = {
         source = ./mako;
       };
