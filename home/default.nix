@@ -275,6 +275,9 @@ in {
       scripts = {
         source = symlinkDirectly "scripts";
       };
+      swayimg = {
+        source = ./swayimg;
+      };
       starship = {
         source = ./starship;
       };
