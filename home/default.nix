@@ -127,6 +127,11 @@ in {
     trash-cli
     udiskie
     vieb
+    (lib.hiPrio (pkgs.runCommand "vieb.desktop-rename" {} ''
+      mkdir -p "$out/share/applications"
+      cat "${vieb}/share/applications/vieb.desktop" > "$out/share/applications/vieb.desktop"
+      sed -i -E "s/^(Name=)Web Browser/\1Vieb/" "$out/share/applications/vieb.desktop"
+    ''))
     wallust
     waybar
     wf-recorder
