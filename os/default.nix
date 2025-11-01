@@ -112,12 +112,6 @@
     };
   };
 
-  services.xserver = {
-    xkb.layout = "us";
-    xkb.variant = "";
-  };
-
-  # services.upower.ignoreLid = true;
   services.logind = {
     lidSwitch = "ignore";
     powerKey = "ignore";
@@ -159,25 +153,15 @@
   security = {
     polkit.enable = true;
     pam.services.hyprlock = {};
-    # sudo.enable = false;
-    # sudo-rs.enable = true; # not stable yet, wait for audit
-    # please.enable = true; # slow maintenance
-    # doas.enable = true; # no doasedit
-    # nitrokey.enable = true;
-    # lockKernelModules = true; # no usb hotswap
-    # protectKernelImage = true; # no kexec, WARNING: no hibernation!
+    # sudo.enable = false; # wait for new nh version
   };
-
-  # WARNING: Requires imperative setup first! Is experimental and highly unstable and incompatible with GRUB!
-  # see https://nixos.wiki/wiki/Secure_Boot
-  # boot.bootspec.enable = true;
 
   users.users = {
     u = {
       isNormalUser = true;
-      extraGroups = ["networkmanager" "wheel" "code"];
       shell =
         config.programs.fish.package;
+      extraGroups = ["networkmanager" "wheel"];
     };
   };
 
@@ -210,40 +194,10 @@
     command-not-found.enable = false;
     dconf.enable = true;
   };
-  # remove every xorg package until `services.xserver.enable = false` and `environment.noXlibs = true`
-  services.xserver.excludePackages = with pkgs.xorg; [
-    xorgserver.out
-    xrandr
-    xrdb
-    setxkbmap
-    iceauth
-    xlsclients
-    xset
-    xsetroot
-    xinput
-    xprop
-    xauth
-    xf86inputevdev.out
-    pkgs.xterm
-  ];
-  documentation.doc.enable = false; # remove nixos documentation desktopItem
-  # documentation.info.enable = false; # perl present
-  # documentation.nixos.enable = false; # perl present
-
+  documentation.doc.enable = false;
   environment = {
     binsh = lib.getExe pkgs.dash;
-    defaultPackages = []; # should be set to exclude instead of overwrite
-    variables = {
-      EDITOR = "kak";
-      VISUAL = "kak";
-    };
-    systemPackages = with pkgs; [
-      # WARNING: do NOT mkForce it will break, very badly
-      kakoune
-      networkmanager
-      btop
-      # libsForQt5.qt5.qtgraphicaleffects # sddm
-    ];
+    defaultPackages = [];
   };
   # list executables via `ls -1  /run/current-system/sw/bin/ | sed -E 's%.*-> .{43}-%%g' | sort`
   environment.etc."current-system-packages".text = let
