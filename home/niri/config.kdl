@@ -1,4 +1,6 @@
-spawn-sh-at-startup "$XDG_CONFIG_HOME/scripts/niri-init.sh"
+// passing via `sh -c` doesn't propagate SIGHUP properly
+spawn-at-startup "~/.config/scripts/niri-init.sh"
+// there is no way to use $XDG_PICTURES_DIR
 screenshot-path "~/Pictures/Screenshots/%Y/%m/%d/%H-%M-%S.png"
 prefer-no-csd
 

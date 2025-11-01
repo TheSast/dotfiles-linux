@@ -13,25 +13,25 @@ STATE="$XDG_STATE_HOME/niri-init"
 mkdir -p "$STATE"
 
 {
-	nohup nfsm >/dev/null 2>&1 & # INFO: daemon
+	nfsm >/dev/null 2>&1 &
 
-	nohup udiskie --tray >/dev/null 2>&1 & # INFO: daemon
+	udiskie --tray >/dev/null 2>&1 &
 
-	nohup mako >/dev/null 2>&1 & # INFO: daemon
+	mako >/dev/null 2>&1 &
 
-	nohup kanshi >/dev/null 2>&1 & # INFO: daemon
+	kanshi >/dev/null 2>&1 &
 
 	rm -f /tmp/wobpipe
 	touch /tmp/wobpipe
-	nohup tail -f /tmp/wobpipe | wob >/dev/null 2>&1 & # INFO: daemon
+	tail -f /tmp/wobpipe | wob >/dev/null 2>&1 &
 
-	nohup "$XDG_STATE_HOME"/nix/profile/libexec/hyprpolkitagent >/dev/null 2>&1 & # INFO: daemon
+	"$XDG_STATE_HOME"/nix/profile/libexec/polkit-gnome-authentication-agent-1 >/dev/null 2>&1 &
 
-	nohup hypridle >/dev/null 2>&1 & # INFO: daemon
+	hypridle >/dev/null 2>&1 &
 
 	trash "$XDG_CACHE_HOME"/cliphist
-	nohup wl-paste --type text --watch cliphist store >/dev/null 2>&1 &  # INFO: daemon
-	nohup wl-paste --type image --watch cliphist store >/dev/null 2>&1 & # INFO: daemon
+	wl-paste --type text --watch cliphist store >/dev/null 2>&1 & 
+	wl-paste --type image --watch cliphist store >/dev/null 2>&1 &
 
-	nohup "$XDG_CONFIG_HOME"/scripts/corn.sh --startup >/dev/null 2>&1 & # INFO: daemon
+	"$XDG_CONFIG_HOME"/scripts/corn.sh --startup >/dev/null 2>&1 &
 } | log niri-init.sh >>"$STATE/niri-init.log" 2>&1
