@@ -287,6 +287,9 @@ in {
       tmux-powerline = {
         source = ./tmux-powerline;
       };
+      tofi = {
+        source = ./tofi;
+      };
       Vieb = {
         source = ./Vieb;
         recursive = true;
