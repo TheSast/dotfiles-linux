@@ -53,7 +53,7 @@ in {
       hypr = {
         source = symlinkDirectly "hypr";
       };
-      xdp = {
+      xdg-desktop-portal = {
         source = ./xdg-desktop-portal;
       };
       kanshi = {

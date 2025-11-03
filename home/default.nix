@@ -30,7 +30,9 @@ in {
       options = "--delete-older-than 7d";
     };
     settings = {
+      auto-optimise-store = true;
       experimental-features = ["nix-command" "flakes"];
+      use-xdg-base-directories = true; # affects home.profileDirectory
     };
     package = pkgs.nix;
   };
@@ -143,6 +145,7 @@ in {
     zoxide
   ];
 
+  home.preferXdgDirectories = true;
   xdg = {
     enable = true;
     desktopEntries = {
