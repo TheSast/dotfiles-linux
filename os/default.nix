@@ -106,8 +106,6 @@
   users.users = {
     u = {
       isNormalUser = true;
-      shell =
-        config.programs.fish.package;
       extraGroups = ["networkmanager" "wheel"];
     };
   };

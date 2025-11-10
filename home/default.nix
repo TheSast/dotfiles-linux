@@ -346,6 +346,9 @@ in {
   };
 
   home.file = {
+    ".bashrc" = {
+      source = ./bashrc;
+    };
     ".vieb" = {
       source = ./Vieb;
     };
