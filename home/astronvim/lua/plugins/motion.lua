@@ -51,7 +51,7 @@ return {
     init = function() vim.api.nvim_set_hl(0, "LeapBackdrop", { link = "Comment" }) end,
     dependencies = {
       {
-        "vim-repeat",
+        "tpope/vim-repeat",
         enable = false, -- the issues with the plugin are not worth the benefits
         -- ISSUE: maps `.`, `u`, `U`, `<C-r>` at the time of loading
       },
