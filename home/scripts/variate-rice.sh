@@ -59,10 +59,13 @@ THEME=$("$XDG_CONFIG_HOME/scripts/theme.sh")
 {
 	echo "START"
 	GTK_THEME="adw-gtk3"
+	COLORSCHEME="prefer-light"
 	if [ "$THEME" = "dark" ]; then
 		GTK_THEME="adw-gtk3-dark"
+		COLORSCHEME="prefer-dark"
 	fi
 	gsettings set org.gnome.desktop.interface gtk-theme $GTK_THEME
+	gsettings set org.gnome.desktop.interface color-scheme $COLORSCHEME
 	echo "END"
 } 2>&1 | log gsettings &
 
