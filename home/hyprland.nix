@@ -18,12 +18,12 @@ in {
     hyprland
     pkgs-unstable.hyprnotify # should fix cpu issues?
     hyprpicker
-    (
-      pkgs.runCommand "hyprpolkitagent-fixed" {} ''
-        mkdir -p $out/libexec
-        cp ${pkgs.hyprpolkitagent}/libexec/hyprpolkitagent $out/libexec/
-      ''
-    )
+    # (
+    #   pkgs.runCommand "hyprpolkitagent-fixed" {} ''
+    #     mkdir -p $out/libexec
+    #     cp ${pkgs.hyprpolkitagent}/libexec/hyprpolkitagent $out/libexec/
+    #   ''
+    # )
     (
       pkgs.writeShellApplication
       {

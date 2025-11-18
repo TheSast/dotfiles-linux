@@ -120,6 +120,7 @@ in {
     onefetch
     ouch
     playerctl
+    polkit_gnome
     ripgrep
     swayimg
     pkgs-unstable.swww
