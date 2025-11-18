@@ -1,5 +1,6 @@
 " Options
-source colorscheme.vieb
+colorscheme dyn-verticaltabs
+set nativetheme=system
 set clearhistoryinterval=2days
 set containercolors=
 set containercolors+=temp\d+~#ff0
@@ -15,7 +16,6 @@ set permissionsensors=ask
 set permissionunknown=ask
 set replacestartup=newtab
 set searchengine=
-" DDG got no system theme
 set searchengine+=https://duckduckgo.com/?q=%s
 set searchengine+=https://startpage.com/sp/search?query=%s
 set searchengine+=https://search.brave.com/search?q=%s

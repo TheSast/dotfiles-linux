@@ -138,7 +138,8 @@
         "nfsm": "nfsm",
         "niri-blur": "niri-blur",
         "nixpkgs": "nixpkgs_2",
-        "nixpkgs-unstable": "nixpkgs-unstable"
+        "nixpkgs-unstable": "nixpkgs-unstable",
+        "vieb": "vieb"
       }
     },
     "systems": {
@@ -153,6 +154,26 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default-linux",
+        "type": "github"
+      }
+    },
+    "vieb": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1762232636,
+        "narHash": "sha256-xlkbo19xdmorjrzzoUq8//D1ilnK/0JhElEP5Juw368=",
+        "owner": "tejing1",
+        "repo": "vieb-nix",
+        "rev": "250d7245c51465395d35271cffa771a3b23b1137",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tejing1",
+        "repo": "vieb-nix",
         "type": "github"
       }
     }

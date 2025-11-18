@@ -110,17 +110,8 @@
 /* flipped tabs */
 #app {flex-direction: column-reverse;}
 #url-hover {bottom: 4em;}
-#suggest-dropdown {top: auto;bottom: 2.1em;flex-direction: column-reverse;}
-#mode-suggestions {top: auto;bottom: 2em;flex-direction: column-reverse;}
-.bottomright {right: .7em;bottom: 4em;;}
-.bottomleft {left: .7em;bottom: 4em;}
-.topright {right: .7em;top: .7em;}
-.topleft {left: .7em;top: .7em;}
-#app.tabshidden .topright, #app.tabshidden .topleft {top: .7em;}
-#app.navigationhidden .topright, #app.navigationhidden .topleft {top: .7em;}
-#app.tabshidden .bottomright, #app.tabshidden .bottomleft {bottom: 2em;}
-#app.navigationhidden .bottomright, #app.navigationhidden .bottomleft {bottom: 2em;}
-#app.navigationhidden.tabshidden .bottomright, #app.navigationhidden.tabshidden .bottomleft {bottom: 0;}
+#suggest-dropdown {top: auto;bottom: .1em;flex-direction: column-reverse;}
+#mode-suggestions {top: auto;bottom: 1.9em;flex-direction: column-reverse;}
 /* hidden bars */
 #app.tabshidden #url-hover, #app.navigationhidden #url-hover {bottom: 2em;}
 #app.tabshidden.navigationhidden #url-hover {bottom: 0;}

@@ -55,12 +55,6 @@ THEME=$("$XDG_CONFIG_HOME/scripts/theme.sh")
 
 {
 	echo "START"
-	"$XDG_CONFIG_HOME/scripts/variate-vieb.sh"
-	echo "END"
-} 2>&1 | log vieb &
-
-{
-	echo "START"
 	if command -v waybar >/dev/null 2>&1; then
 		nohup waybar "--style $XDG_CACHE_HOME/waybar.css" >/dev/null 2>&1 & # INFO: daemon
 	fi
