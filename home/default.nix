@@ -8,6 +8,7 @@
 }: let
   flakeLoc = "${config.xdg.configHome}/etc";
   symlinkDirectly = p: config.lib.file.mkOutOfStoreSymlink ("${flakeLoc}/home/" + p);
+  gsettings-schemas = "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.pname}-${pkgs.gsettings-desktop-schemas.version}";
 in {
   imports = [
     ./niri.nix
@@ -205,7 +206,7 @@ in {
       publicShare = null;
     };
     systemDirs = {
-      data = ["${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.pname}-${pkgs.gsettings-desktop-schemas.version}"];
+      data = [gsettings-schemas];
     };
     configFile = {
       alacritty-toml = {
@@ -386,6 +387,7 @@ in {
   # Session variables
   # These are picked up by GDM and KDE Plasma (apparently) but not by SDDM (which loads your shell config) or other DMs
   systemd.user.sessionVariables = {
+    GSETTINGS_SCHEMAS = gsettings-schemas;
     XDG_DOCUMENTS_DIR = config.xdg.userDirs.documents;
     XDG_PICTURES_DIR = config.xdg.userDirs.pictures;
     XDG_DOWNLOAD_DIR = config.xdg.userDirs.download;

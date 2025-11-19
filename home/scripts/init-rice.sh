@@ -10,6 +10,7 @@ set -o nounset
 # shellcheck source=./log.sh
 . "$XDG_CONFIG_HOME/scripts/log.sh"
 THEME=$("$XDG_CONFIG_HOME/scripts/theme.sh")
+export XDG_DATA_DIRS="$GSETTINGS_SCHEMAS${XDG_DATA_DIRS:+:$XDG_DATA_DIRS}"
 
 {
 	echo "START"
