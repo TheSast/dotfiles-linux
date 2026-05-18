@@ -624,6 +624,7 @@ in {
         set fish_cursor_replace_one underscore
         set fish_cursor_replace underscore
         set fish_cursor_external line blink
+        functions -e l
         functions -e la
         functions -e ll
         functions -e ls
