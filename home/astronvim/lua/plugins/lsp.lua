@@ -55,7 +55,7 @@ return {
         inlay_hints = true,
         semantic_tokens = true,
       },
-      -- :h lspconfig-server-configurations
+      -- :h lspconfig-all
       servers = {
         when_available = {
           "bashls",
