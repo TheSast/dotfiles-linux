@@ -341,8 +341,14 @@ in {
   };
 
   home.file = {
+    ".bash_profile" = {
+      source = ./bash/login.bash;
+    };
     ".bashrc" = {
-      source = ./bashrc;
+      text =
+        ''          eval "$(${lib.getExe pkgs.starship} init bash)"
+        ''
+        + (builtins.readFile ./bash/nonlogin.bash);
     };
     ".vieb" = {
       source = ./Vieb;

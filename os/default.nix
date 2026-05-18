@@ -110,6 +110,24 @@
     };
   };
 
+  services.openssh = {
+    enable = true;
+    settings = {
+      PasswordAuthentication = false;
+      PermitRootLogin = "no";
+    };
+  };
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    nssmdns6 = true;
+    publish = {
+      enable = true;
+      workstation = true;
+      addresses = true;
+    };
+  };
+
   system.tools = {
     nixos-enter.enable = false;
     nixos-option.enable = false;
