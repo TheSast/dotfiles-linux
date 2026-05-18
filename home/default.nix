@@ -13,7 +13,9 @@ in {
   imports = [
     ./niri.nix
     ./hyprland.nix
+    "${inputs.home-manager-unstable}/modules/services/syncthing.nix"
   ];
+  disabledModules = ["services/syncthing.nix"];
   home = {
     username = "u";
     homeDirectory = "/home/u";
@@ -421,6 +423,12 @@ in {
     eza = "${lib.getExe pkgs.eza} --icons auto --git";
   };
 
+  services.syncthing = {
+    enable = true;
+    package = pkgs-unstable.syncthing;
+    overrideDevices = false;
+    overrideFolders = false;
+  };
   programs.command-not-found.enable = false;
   programs.fish = {
     enable = true;

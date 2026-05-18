@@ -6,6 +6,10 @@
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    home-manager-unstable = {
+      url = "github:nix-community/home-manager/master";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
     niri-blur = {
       url = "github:visualglitch91/niri/2bc06170c36d613dad88ccf26cec8ca5e379d76e";
       inputs.rust-overlay.follows = "";
