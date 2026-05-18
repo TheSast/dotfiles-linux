@@ -75,7 +75,6 @@ return {
           "awk_ls",
           "lemminx",
           "phpactor",
-          "jdtls",
         },
         always = {
           "lua_ls",
