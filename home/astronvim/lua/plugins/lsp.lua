@@ -62,6 +62,7 @@ return {
           "clangd",
           "rust_analyzer", -- only seems to properly load in once InsertLeave is sent, and takes a while for `vim.lsp.buf.hover()` to work
           "marksman",
+          "ts_ls",
           "html",
           "htmx",
           -- TODO: check setup doc
@@ -75,10 +76,12 @@ return {
           "awk_ls",
           "lemminx",
           "phpactor",
+          "gopls",
+          "golangci_lint_ls",
+          "spyglassmc_language_server",
         },
         always = {
           "lua_ls",
-          -- "nixd",
           "nil_ls",
         },
       },

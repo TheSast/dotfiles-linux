@@ -11,6 +11,9 @@ return {
         builtins.diagnostics.alex,
         builtins.diagnostics.stylelint,
         builtins.diagnostics.markdownlint,
+        -- builtins.diagnostics.phpstan,
+        -- builtins.diagnostics.phpcs,
+        -- builtins.diagnostics.php,
 
         builtins.formatting.cmake_format,
         builtins.formatting.uncrustify,
@@ -24,6 +27,7 @@ return {
         builtins.formatting.mdformat,
         builtins.formatting.cbfmt,
         builtins.formatting.prettierd,
+        builtins.formatting.phpcsfixer,
       }),
       {
         builtins.diagnostics.deadnix,
