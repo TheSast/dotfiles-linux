@@ -101,10 +101,13 @@ in {
           ++ [
             # build
             gcc # nvim-treesitter
-            git # lazy.nvim
-            luarocks # lazy.nvim
+            git # lazy.nvim # luarocks.nvim # blink.cmp # snacks.nvim
+            luajit # luarocks.nvim
+            unzip # luarocks.nvim
             gnumake # jsregexp for LuaSnip
-            ripgrep # telescope-fzf-native.nvim
+            ripgrep # telescope-fzf-native.nvim # snacks.nvim
+            curl # blink.cmp
+            fd # snacks.nvim
             # xdg-utils?
             # wl-clipboard?
           ];
@@ -132,6 +135,12 @@ in {
     trash-cli
     udiskie
     inputs.vieb.packages."${pkgs.system}".default
+    # luakit
+    # qutebrowser
+    # vimb
+    # nyxt
+    # floorp
+    # helium
     wallust
     waybar
     wf-recorder
@@ -362,6 +371,8 @@ in {
 
   qt = {
     enable = true;
+    platformTheme.name = "gtk3";
+    style.name = "gtk2";
   };
 
   # Shell variables
@@ -578,6 +589,7 @@ in {
             bind -e --preset -M $mode \t
             bind -e --preset -M $mode \x7F
           end
+          bind --preset -M insert ctrl-n down-or-search
           bind -e --preset -M default \cc
           bind -e --preset -M replace \cc
           bind -e --user -M default \r # remove transient_execute by starship
