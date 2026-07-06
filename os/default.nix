@@ -60,15 +60,15 @@
     };
   };
 
-  services.logind = {
-    lidSwitch = "ignore";
-    powerKey = "ignore";
-    rebootKey = "ignore";
-    rebootKeyLongPress = "ignore";
-    suspendKey = "ignore";
-    suspendKeyLongPress = "ignore";
-    hibernateKey = "ignore";
-    hibernateKeyLongPress = "ignore";
+  services.logind.settings.Login = {
+    HandleLidSwitch = "ignore";
+    HandlePowerKey = "ignore";
+    HandleRebootKey = "ignore";
+    HandleRebootKeyLongPress = "ignore";
+    HandleSuspendKey = "ignore";
+    HandleSuspendKeyLongPress = "ignore";
+    HandleHibernateKey = "ignore";
+    HandleHibernateKeyLongPress = "ignore";
   };
 
   services.gpm.enable = true;
@@ -81,6 +81,7 @@
     alsa.support32Bit = true;
     wireplumber.enable = true;
   };
+  security.rtkit.enable = true;
 
   services.physlock.enable = false;
 
@@ -100,13 +101,17 @@
   security = {
     polkit.enable = true;
     pam.services.hyprlock = {};
-    # sudo.enable = false; # wait for new nh version
+    # sudo.enable = false;
   };
 
   users.users = {
     u = {
       isNormalUser = true;
-      extraGroups = ["networkmanager" "wheel"];
+      extraGroups = [
+        "networkmanager"
+        "wheel"
+        "audio"
+      ];
     };
   };
 
@@ -142,15 +147,17 @@
   programs = {
     fish = {
       enable = true;
-      package = pkgs
-        .fish
-        .overrideAttrs (oldAttrs: {
-        desktopItem = null;
-        postInstall =
-          oldAttrs.postInstall
-            or ""
-          + "rm -f $out/share/applications/fish.desktop";
-      });
+      package = let
+        fishNoDesktop = pkgs.symlinkJoin {
+          name = "fish-no-desktop";
+          paths = [pkgs.fish];
+
+          postBuild = ''
+            rm -f $out/share/applications/fish.desktop
+          '';
+        };
+      in
+        fishNoDesktop;
       useBabelfish = true;
     };
     nano.enable = false;
@@ -192,7 +199,10 @@
   };
   nix.settings = {
     auto-optimise-store = true;
-    experimental-features = ["nix-command" "flakes"];
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
     use-xdg-base-directories = true;
     trusted-users = ["@wheel"];
     substituters = [

@@ -2,7 +2,6 @@
   config,
   pkgs,
   lib,
-  pkgs-unstable,
   inputs,
   ...
 }: let
@@ -13,9 +12,7 @@ in {
   imports = [
     ./niri.nix
     ./hyprland.nix
-    "${inputs.home-manager-unstable}/modules/services/syncthing.nix"
   ];
-  disabledModules = ["services/syncthing.nix"];
   home = {
     username = "u";
     homeDirectory = "/home/u";
@@ -30,12 +27,15 @@ in {
   nix = {
     gc = {
       automatic = true;
-      frequency = "daily";
+      dates = "daily";
       options = "--delete-older-than 7d";
     };
     settings = {
       auto-optimise-store = true;
-      experimental-features = ["nix-command" "flakes"];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
       use-xdg-base-directories = true; # affects home.profileDirectory
     };
     package = pkgs.nix;
@@ -58,17 +58,17 @@ in {
     btop
     cliphist
     difftastic
-    du-dust
+    dust
     erdtree
     eza
-    (
-      pkgs.writeShellApplication
-      {
-        name = "fetch";
-        runtimeInputs = [hyfetch fastfetch];
-        text = ''exec hyfetch -b fastfetch "$@"'';
-      }
-    )
+    (pkgs.writeShellApplication {
+      name = "fetch";
+      runtimeInputs = [
+        hyfetch
+        fastfetch
+      ];
+      text = ''exec hyfetch -b fastfetch "$@"'';
+    })
     fd
     fzf
     gh
@@ -81,47 +81,46 @@ in {
     losslesscut-bin
     mpv
     neovide
-    (
-      pkgs.writeShellApplication
-      {
-        name = "nvim";
-        runtimeInputs = with pkgs;
-          [pkgs.neovim-unwrapped]
-          ++ [
-            # lsp
-            alejandra
-            deadnix
-            lua-language-server
-            luajitPackages.luacheck
-            selene
-            tinymist
-            nil
-            nodePackages.vscode-json-languageserver # neoconf
-            statix
-            stylua
-          ]
-          ++ [
-            # build
-            gcc # nvim-treesitter
-            git # lazy.nvim # luarocks.nvim # blink.cmp # snacks.nvim
-            luajit # luarocks.nvim
-            unzip # luarocks.nvim
-            gnumake # jsregexp for LuaSnip
-            ripgrep # telescope-fzf-native.nvim # snacks.nvim
-            curl # blink.cmp
-            fd # snacks.nvim
-            # xdg-utils?
-            # wl-clipboard?
-          ];
-        text = ''exec nvim "$@"'';
-      }
-    )
+    (pkgs.writeShellApplication {
+      name = "nvim";
+      runtimeInputs = with pkgs;
+        [pkgs.neovim-unwrapped]
+        ++ [
+          # lsp
+          alejandra
+          deadnix
+          lua-language-server
+          luajitPackages.luacheck
+          selene
+          tinymist
+          nil
+          vscode-json-languageserver # neoconf
+          statix
+          stylua
+        ]
+        ++ [
+          # build
+          gcc # nvim-treesitter
+          git # lazy.nvim # luarocks.nvim # blink.cmp # snacks.nvim
+          luajit # luarocks.nvim
+          unzip # luarocks.nvim
+          gnumake # jsregexp for LuaSnip
+          ripgrep # telescope-fzf-native.nvim # snacks.nvim
+          curl # blink.cmp
+          fd # snacks.nvim
+          # xdg-utils?
+          # wl-clipboard?
+        ];
+      text = ''exec nvim "$@"'';
+    })
     networkmanagerapplet
-    (lib.hiPrio (pkgs.runCommand "nm-applet.desktop-hide" {} ''
-      mkdir -p "$out/share/applications"
-      cat "${networkmanagerapplet}/share/applications/nm-connection-editor.desktop" > "$out/share/applications/nm-connection-editor.desktop"
-      echo "Hidden=1" >> "$out/share/applications/nm-connection-editor.desktop"
-    ''))
+    (lib.hiPrio (
+      pkgs.runCommand "nm-applet.desktop-hide" {} ''
+        mkdir -p "$out/share/applications"
+        cat "${networkmanagerapplet}/share/applications/nm-connection-editor.desktop" > "$out/share/applications/nm-connection-editor.desktop"
+        echo "Hidden=1" >> "$out/share/applications/nm-connection-editor.desktop"
+      ''
+    ))
     nh
     obsidian
     onefetch
@@ -130,13 +129,15 @@ in {
     polkit_gnome
     ripgrep
     swayimg
-    pkgs-unstable.swww
+    awww
     tabiew
     tmux
     tofi
     trash-cli
     udiskie
-    inputs.vieb.packages."${pkgs.system}".default
+    (inputs.vieb.packages."${pkgs.stdenv.hostPlatform.system}".default.override {
+      electron = pkgs.electron_42;
+    })
     # luakit
     # qutebrowser
     # vimb
@@ -165,7 +166,11 @@ in {
         icon = "${config.xdg.configHome}/Vieb/Erwic/Discord/icon.png";
         terminal = false;
         type = "Application";
-        categories = ["Network" "Chat" "InstantMessaging"];
+        categories = [
+          "Network"
+          "Chat"
+          "InstantMessaging"
+        ];
       };
       Element = {
         name = "Element";
@@ -174,7 +179,11 @@ in {
         icon = "${config.xdg.configHome}/Vieb/Erwic/Element/icon.png";
         terminal = false;
         type = "Application";
-        categories = ["Network" "Chat" "InstantMessaging"];
+        categories = [
+          "Network"
+          "Chat"
+          "InstantMessaging"
+        ];
       };
       Bitwarden = {
         name = "Bitwarden";
@@ -192,7 +201,10 @@ in {
         icon = "${config.xdg.configHome}/Vieb/Erwic/Proton_Mail/icon.png";
         terminal = false;
         type = "Application";
-        categories = ["Network" "Email"];
+        categories = [
+          "Network"
+          "Email"
+        ];
       };
       YouTube = {
         name = "YouTube";
@@ -212,6 +224,7 @@ in {
     };
     userDirs = {
       enable = true;
+      setSessionVariables = true;
       createDirectories = true;
       templates = null;
       publicShare = null;
@@ -265,7 +278,14 @@ in {
       };
       fastfetch = {
         target = "fastfetch/config.jsonc";
-        text = import ./fastfetch.nix {inherit config pkgs lib flakeLoc;};
+        text = import ./fastfetch.nix {
+          inherit
+            config
+            pkgs
+            lib
+            flakeLoc
+            ;
+        };
       };
       git = {
         source = symlinkDirectly "git";
@@ -348,7 +368,8 @@ in {
     };
     ".bashrc" = {
       text =
-        ''          eval "$(${lib.getExe pkgs.starship} init bash)"
+        ''
+          eval "$(${lib.getExe pkgs.starship} init bash)"
         ''
         + (builtins.readFile ./bash/nonlogin.bash);
     };
@@ -363,6 +384,7 @@ in {
   gtk = {
     enable = true;
     gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
+    gtk4.theme = config.gtk.theme;
     cursorTheme = {
       package = pkgs.bibata-cursors;
       name = "Bibata-Modern-Ice";
@@ -425,22 +447,23 @@ in {
 
   services.syncthing = {
     enable = true;
-    package = pkgs-unstable.syncthing;
     overrideDevices = false;
     overrideFolders = false;
   };
   programs.command-not-found.enable = false;
   programs.fish = {
     enable = true;
-    package = pkgs
-      .fish
-      .overrideAttrs (oldAttrs: {
-      desktopItem = null;
-      postInstall =
-        oldAttrs.postInstall
-          or ""
-        + "rm -f $out/share/applications/fish.desktop";
-    });
+    package = let
+      fishNoDesktop = pkgs.symlinkJoin {
+        name = "fish-no-desktop";
+        paths = [pkgs.fish];
+
+        postBuild = ''
+          rm -f $out/share/applications/fish.desktop
+        '';
+      };
+    in
+      fishNoDesktop;
     shellInit = ''
       set fish_greeting
     '';
@@ -583,36 +606,36 @@ in {
           end
           fish_vi_key_bindings --no-erase
 
-          for mode in default visual insert replace
-            bind -e --preset -M $mode \r # -k enter is broken
-            bind -e --preset -M $mode \cl
-            bind -e --preset -M $mode \cy
-            bind -e --preset -M $mode \e.
-            bind -e --preset -M $mode \ee
-            bind -e --preset -M $mode \el
-            bind -e --preset -M $mode \ev
-            bind -e --preset -M $mode \ew
-            bind -e --preset -M $mode \ey
-            bind -e --preset -M $mode \n
+          for mode in default visual insert replace replace_one
+            bind -e --preset -M $mode ctrl-l
+            bind -e --preset -M $mode ctrl-y
+            bind -e --preset -M $mode ctrl-m
+            bind -e --preset -M $mode alt-.
+            bind -e --preset -M $mode alt-e
+            bind -e --preset -M $mode alt-l
+            bind -e --preset -M $mode alt-v
+            bind -e --preset -M $mode alt-w
+            bind -e --preset -M $mode alt-y
+            bind -e --preset -M $mode enter
           end
           for mode in default visual
-            bind -e --preset -M $mode -k backspace
-            bind -e --preset -M $mode \cd
-            bind -e --preset -M $mode \cu
-            bind -e --preset -M $mode \cw
-            bind -e --preset -M $mode \t
-            bind -e --preset -M $mode \x7F
+            bind -e --preset -M $mode backspace
+            bind -e --preset -M $mode ctrl-d
+            bind -e --preset -M $mode ctrl-u
+            bind -e --preset -M $mode ctrl-w
+            bind -e --preset -M $mode tab
           end
           bind --preset -M insert ctrl-n down-or-search
-          bind -e --preset -M default \cc
-          bind -e --preset -M replace \cc
-          bind -e --user -M default \r # remove transient_execute by starship
-          bind --preset -M default \e 'if commandline -P; commandline -f cancel; else; edit_command_buffer; end'
+          bind -e --preset -M default ctrl-c
+          bind -e --preset -M replace ctrl-c
+          bind -e --user -M default enter # remove transient_execute by starship
+          bind --preset -M insert enter execute
+          bind --preset -M default escape 'if commandline -P; commandline -f cancel; else; edit_command_buffer; end'
           for mode in insert replace
-            bind --preset -M $mode \cd delete-char
-            bind --preset -M $mode \cd delete-char
+            bind --preset -M $mode ctrl-d delete-char
+            bind --preset -M $mode ctrl-d delete-char
           end
-          bind --preset -M replace \r insert-line-over
+          bind --preset -M replace enter insert-line-over
           # prevent escape sequences from triggering the escape key bind
           for mode in default visual insert replace
             for map in a b c d e f g h i j k l m n o p q r s t u v x y z 0 1 2 3 4 5 6 7 8 9 . \\ \| '\x20' '\x7F' '\r' '\t'
@@ -621,8 +644,8 @@ in {
               end
             end
             for map in (bind -K)
-              if not bind --preset -M $mode -k $map &> /dev/null
-                bind --preset -M $mode -k $map self-insert
+              if not bind --preset -M $mode $map &> /dev/null
+                bind --preset -M $mode $map self-insert
               end
             end
           end

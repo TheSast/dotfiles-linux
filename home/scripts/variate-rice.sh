@@ -3,7 +3,7 @@ set -o errexit
 set -o nounset
 
 # expects proper XDG base dirs variables to be set up
-# runtimeInputs = [findutils coreutils swww wallust waybar procps imagemagick glib gsettings-desktop-schemas]
+# runtimeInputs = [findutils coreutils awww wallust waybar procps imagemagick glib gsettings-desktop-schemas]
 # ++ ./log.sh.runtimeInputs
 # ++ ./theme.sh.runtimeInputs;
 
@@ -27,17 +27,17 @@ export XDG_DATA_DIRS="$GSETTINGS_SCHEMAS${XDG_DATA_DIRS:+:$XDG_DATA_DIRS}"
 
 {
 	echo "START"
-	if command -v swww >/dev/null 2>&1; then
-		if ! swww query >/dev/null 2>&1 || [ "$XDG_CURRENT_DESKTOP" = "niri" ] && ! swww query -n overview-bg >/dev/null 2>&1; then
-			if ! swww query >/dev/null 2>&1; then
-				swww-daemon -l bottom --no-cache & # INFO: daemon
+	if command -v awww >/dev/null 2>&1; then
+		if ! awww query >/dev/null 2>&1 || [ "$XDG_CURRENT_DESKTOP" = "niri" ] && ! awww query -n overview-bg >/dev/null 2>&1; then
+			if ! awww query >/dev/null 2>&1; then
+				awww-daemon -l bottom --no-cache & # INFO: daemon
 			fi
-			if [ "$XDG_CURRENT_DESKTOP" = "niri" ] && ! swww query -n overview-bg >/dev/null 2>&1; then
-				swww-daemon -n overview-bg --no-cache & # INFO: daemon
+			if [ "$XDG_CURRENT_DESKTOP" = "niri" ] && ! awww query -n overview-bg >/dev/null 2>&1; then
+				awww-daemon -n overview-bg --no-cache & # INFO: daemon
 			fi
-			swww img -t none -- "$XDG_CACHE_HOME/wallpaper"
+			awww img -t none -- "$XDG_CACHE_HOME/wallpaper"
 			if [ "$XDG_CURRENT_DESKTOP" = "niri" ]; then
-				swww img -n overview-bg -t none -- "$XDG_CACHE_HOME/wallpaper-blurred"
+				awww img -n overview-bg -t none -- "$XDG_CACHE_HOME/wallpaper-blurred"
 			fi
 		else
 			export SWWW_TRANSITION=$(shuf -e -n 1 "wave" "grow" "outer")
@@ -46,16 +46,16 @@ export XDG_DATA_DIRS="$GSETTINGS_SCHEMAS${XDG_DATA_DIRS:+:$XDG_DATA_DIRS}"
 			export SWWW_TRANSITION_WAVE=$(shuf -e -n 1 "100,1" "10,10" "20,20" "30,30" "40,40" "40,10" "30,20")
 			export SWWW_TRANSITION_FPS=255
 			export SWWW_TRANSITION_STEP=255
-			swww img -- "$XDG_CACHE_HOME/wallpaper"
+			awww img -- "$XDG_CACHE_HOME/wallpaper"
 			if [ "$XDG_CURRENT_DESKTOP" = "niri" ]; then
-				swww img -n overview-bg -- "$XDG_CACHE_HOME/wallpaper-blurred"
+				awww img -n overview-bg -- "$XDG_CACHE_HOME/wallpaper-blurred"
 				sleep 3
 				niri msg action load-config-file
 			fi
 		fi
 	fi
 	echo "END"
-} 2>&1 | log swww &
+} 2>&1 | log awww &
 
 {
 	echo "START"

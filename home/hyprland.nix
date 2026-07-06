@@ -16,7 +16,7 @@ in {
       echo "Hidden=1" >> "$out/share/applications/uuctl.desktop"
     ''))
     hyprland
-    pkgs-unstable.hyprnotify # should fix cpu issues?
+    hyprnotify
     hyprpicker
     # (
     #   pkgs.runCommand "hyprpolkitagent-fixed" {} ''

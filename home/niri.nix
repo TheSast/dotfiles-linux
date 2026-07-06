@@ -11,13 +11,13 @@
 in {
   services.gnome-keyring.enable = true;
   home.packages = with pkgs; [
-    inputs.niri-blur.packages.${pkgs.system}.default
-    pkgs-unstable.swww
+    niri
+    awww
     imagemagick
     wl-mirror
     kanshi
-    inputs.nfsm.packages.${pkgs.system}.nfsm
-    inputs.nfsm.packages.${pkgs.system}.nfsm-cli
+    inputs.nfsm.packages.${pkgs.stdenv.hostPlatform.system}.nfsm
+    inputs.nfsm.packages.${pkgs.stdenv.hostPlatform.system}.nfsm-cli
     mako
   ];
   xdg = {
@@ -29,7 +29,7 @@ in {
         xdg-desktop-portal-gtk
       ];
       configPackages = [
-        inputs.niri-blur.packages.${pkgs.system}.default
+        pkgs.niri
       ];
     };
     configFile = {

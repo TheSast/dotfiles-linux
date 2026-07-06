@@ -47,14 +47,13 @@ gestures {
         off
     }
 }
-
 output "eDP-1" {
-    mode "1920x1080"
     scale 1.2
 }
 
 output "ASUSTek COMPUTER INC VG279 L6LMQS002042" {
     mode "1920x1080@143.999"
+    variable-refresh-rate
 }
 
 layout {
@@ -67,17 +66,27 @@ layout {
         off
     }
     background-color "transparent"
-    blur {
-        on
-        passes 2
-        radius 4.0
-        noise 0.0
-    }
+}
+
+overview {
+    zoom 0.60
 }
 
 window-rule {
     geometry-corner-radius 8
     clip-to-geometry true
+    background-effect {
+        xray true
+        blur true
+    }
+
+    popups {
+        opacity 0.9
+        background-effect {
+            xray true
+            blur true
+        }
+    }
 }
 
 window-rule {
@@ -87,11 +96,11 @@ window-rule {
 
 window-rule {
     match is-focused=false
-    opacity 0.8
+    opacity 0.85
 }
 
 layer-rule {
-    match namespace="^swww-daemonoverview-bg$"
+    match namespace="^awww-daemonoverview-bg$"
     place-within-backdrop true
 }
 
@@ -108,8 +117,8 @@ binds {
     Mod+V { spawn-sh "cliphist list | tofi | cliphist decode | wl-copy"; }
     Mod+Shift+V { spawn-sh "$XDG_CONFIG_HOME/scripts/editclip.sh"; }
     Mod+Shift+Z { maximize-column; }
-    Mod+Z { spawn "nfsm-cli"; }
-    // Mod+Z { fullscreen-window; }
+    // Mod+Z { spawn "nfsm-cli"; }
+    Mod+Z { fullscreen-window; }
     Mod+B { toggle-window-floating; }
     Mod+Tab { toggle-overview; }
 
