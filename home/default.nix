@@ -7,7 +7,6 @@
 }: let
   flakeLoc = "${config.xdg.configHome}/etc";
   symlinkDirectly = p: config.lib.file.mkOutOfStoreSymlink ("${flakeLoc}/home/" + p);
-  gsettings-schemas = "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.pname}-${pkgs.gsettings-desktop-schemas.version}";
 in {
   imports = [
     ./secrets.nix
@@ -57,7 +56,6 @@ in {
     bat
     broot
     btop
-    cliphist
     difftastic
     dust
     erdtree
@@ -74,11 +72,9 @@ in {
     fzf
     gh
     git
-    glib
     glow
     inlyne
     lazygit
-    libnotify
     losslesscut-bin
     mpv
     neovide
@@ -126,16 +122,11 @@ in {
     obsidian
     onefetch
     ouch
-    playerctl
-    polkit_gnome
     ripgrep
     swayimg
-    awww
     tabiew
     tmux
-    tofi
     trash-cli
-    udiskie
     (inputs.vieb.packages."${pkgs.stdenv.hostPlatform.system}".default.override {
       electron = pkgs.electron_42;
     })
@@ -145,11 +136,8 @@ in {
     # nyxt
     # floorp
     # helium
-    wallust
-    waybar
     wf-recorder
     wl-clipboard
-    wob
     xdg-utils
     zathura
     zellij
@@ -230,9 +218,6 @@ in {
       templates = null;
       publicShare = null;
     };
-    systemDirs = {
-      data = [gsettings-schemas];
-    };
     configFile = {
       alacritty-toml = {
         text =
@@ -295,9 +280,6 @@ in {
         target = "hyfetch.json";
         source = ./hyfetch.json;
       };
-      hypr = {
-        source = symlinkDirectly "hypr";
-      };
       lazygit = {
         source = ./lazygit;
       };
@@ -325,34 +307,9 @@ in {
       tmux-powerline = {
         source = ./tmux-powerline;
       };
-      tofi = {
-        source = ./tofi;
-      };
       Vieb = {
         source = ./Vieb;
         recursive = true;
-      };
-      wallust = {
-        source = ./wallust;
-        recursive = true;
-      };
-      wallust-toml = {
-        text =
-          /*
-          toml
-          */
-          ''
-            [templates]
-            alacritty = { template = "alacritty.toml", target = "${config.xdg.cacheHome}/wallust/alacritty.toml" }
-            tty = { template = "tty.sh", target = "${config.xdg.cacheHome}/wallust/tty.sh" }
-          '';
-        target = "wallust/wallust.toml";
-      };
-      waybar = {
-        source = ./waybar;
-      };
-      wob = {
-        source = ./wob;
       };
     };
     # list executables via `ls -1  $XDG_STATE_DIR/nix/profile/bin/ | sed -E 's%.*-> .{43}-%%g' | sort`
@@ -386,30 +343,6 @@ in {
     # ssh keys handled via ./secrets.nix
   };
 
-  gtk = {
-    enable = true;
-    gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
-    gtk4.theme = config.gtk.theme;
-    cursorTheme = {
-      package = pkgs.bibata-cursors;
-      name = "Bibata-Modern-Ice";
-    };
-    theme = {
-      package = pkgs.adw-gtk3;
-      name = "adw-gtk3";
-    };
-    iconTheme = {
-      package = pkgs.adwaita-icon-theme;
-      name = "Adwaita";
-    };
-  };
-
-  qt = {
-    enable = true;
-    platformTheme.name = "gtk3";
-    style.name = "gtk2";
-  };
-
   # Shell variables
   home.sessionVariables =
     config.systemd.user.sessionVariables
@@ -431,7 +364,6 @@ in {
   # Session variables
   # These are picked up by GDM and KDE Plasma (apparently) but not by SDDM (which loads your shell config) or other DMs
   systemd.user.sessionVariables = {
-    GSETTINGS_SCHEMAS = gsettings-schemas;
     XDG_DOCUMENTS_DIR = config.xdg.userDirs.documents;
     XDG_PICTURES_DIR = config.xdg.userDirs.pictures;
     XDG_DOWNLOAD_DIR = config.xdg.userDirs.download;

@@ -13,23 +13,22 @@ STATE="$XDG_STATE_HOME/niri-init"
 mkdir -p "$STATE"
 
 {
-	nfsm >/dev/null 2>&1 &
+	# `noctalia` which is v5, lacks various features, notably:
+	# mirror-mirror plugin
+	# privacy-indicator plugin
+	# usb-device-manager plugin
+	# linux-wallpaper-engine-controller plugin
+	NOCTALIA_KIND=$(shuf -n 1 -e noctalia noctalia-shell)
+	log "Chosen $NOCTALIA_KIND session"
+	$NOCTALIA_KIND &
 
 	udiskie --tray >/dev/null 2>&1 &
 
-	mako >/dev/null 2>&1 &
-
 	kanshi >/dev/null 2>&1 &
 
-	rm -f /tmp/wobpipe
-	touch /tmp/wobpipe
-	tail -f /tmp/wobpipe | wob >/dev/null 2>&1 &
-
-	"$XDG_STATE_HOME"/nix/profile/libexec/polkit-gnome-authentication-agent-1 >/dev/null 2>&1 &
-
 	trash "$XDG_CACHE_HOME"/cliphist || true
-	wl-paste --type text --watch cliphist store >/dev/null 2>&1 & 
-	wl-paste --type image --watch cliphist store >/dev/null 2>&1 &
+	# wl-paste --type text --watch cliphist store >/dev/null 2>&1 & 
+	# wl-paste --type image --watch cliphist store >/dev/null 2>&1 &
 
 	if [ "$(hostname)" = "kafka" ]; then
 		hypridle >/dev/null 2>&1 &

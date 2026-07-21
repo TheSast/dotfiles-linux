@@ -14,24 +14,6 @@ export XDG_DATA_DIRS="$GSETTINGS_SCHEMAS${XDG_DATA_DIRS:+:$XDG_DATA_DIRS}"
 
 {
 	echo "START"
-	if command -v awww >/dev/null 2>&1; then
-		if ! awww query >/dev/null 2>&1; then
-			awww-daemon -l bottom --no-cache & # INFO: daemon
-		fi
-		if [ "$XDG_CURRENT_DESKTOP" = "niri" ] && ! awww query -n overview-bg >/dev/null 2>&1; then
-			awww-daemon -n overview-bg --no-cache & # INFO: daemon
-		fi
-		# transition to same image cache is unusable in multi-namespace usage
-		awww img -t none -- "$XDG_CACHE_HOME/wallpaper" # detaches
-		if [ "$XDG_CURRENT_DESKTOP" = "niri" ]; then
-			awww img -n overview-bg -t none -- "$XDG_CACHE_HOME/wallpaper-blurred"
-		fi
-	fi
-	echo "END"
-} 2>&1 | log awww &
-
-{
-	echo "START"
 	GTK_THEME="adw-gtk3"
 	COLORSCHEME="prefer-light"
 	if [ "$THEME" = "dark" ]; then
@@ -53,11 +35,3 @@ export XDG_DATA_DIRS="$GSETTINGS_SCHEMAS${XDG_DATA_DIRS:+:$XDG_DATA_DIRS}"
 		} &
 	fi
 } 2>&1 | log wallust &
-
-{
-	echo "START"
-	if command -v waybar >/dev/null 2>&1; then
-		nohup waybar "--style $XDG_CACHE_HOME/waybar.css" >/dev/null 2>&1 & # INFO: daemon
-	fi
-	echo "END"
-} 2>&1 | log waybar &
