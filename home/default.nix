@@ -614,7 +614,11 @@ in {
         functions -e la
         functions -e ll
         functions -e ls
-        sh ${config.xdg.cacheHome}/wallust/tty.sh
+        set tty_colors ${config.xdg.cacheHome}/wallust/tty.sh
+        if test -f $tty_colors
+          sh $tty_colors
+        end
+        set -e tty_colors
         eval (${lib.getExe pkgs.starship} init fish) && enable_transience
         ${lib.getExe pkgs.zoxide} init fish | source
         source ${config.xdg.configHome}/fish/functions/z.fish
