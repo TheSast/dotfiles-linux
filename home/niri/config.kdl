@@ -125,7 +125,6 @@ binds {
     Mod+Alt+V { spawn-sh "noctalia-shell ipc call launcher clipboard || noctalia msg panel-toggle clipboard"; }
     Mod+Shift+V { spawn-sh "$XDG_CONFIG_HOME/scripts/editclip.sh"; }
     Mod+Shift+Z { maximize-column; }
-    // Mod+Z { spawn "nfsm-cli"; }
     Mod+Z { fullscreen-window; }
     Mod+B { toggle-window-floating; }
     Mod+Tab { toggle-overview; }
