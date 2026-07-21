@@ -11,7 +11,6 @@ in {
   imports = [
     ./secrets.nix
     ./niri.nix
-    ./hyprland.nix
   ];
   home = {
     username = "u";
