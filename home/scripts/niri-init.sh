@@ -3,7 +3,7 @@ set -o errexit
 set -o nounset
 
 # expects proper XDG base dirs variables to be set up
-# runtimeInputs = [coreutils systemd noctalia udiskie kanshi kdeconnectd]
+# runtimeInputs = [coreutils systemd noctalia udiskie kanshi kdeconnectd steam]
 # ++ ./corn.sh.runtimeInputs;
 
 run() {
@@ -32,10 +32,14 @@ run noctalia &
 
 run udiskie --tray &
 
-run kanshi &
-
 if [ "$(hostname)" = "kafka" ]; then
+	run kanshi &
+
 	run kdeconnectd &
+fi
+
+if [ "$(hostname)" = "firefly" ]; then
+	run steam -nochatui -nofriendsui -silent &
 fi
 
 run "$XDG_CONFIG_HOME"/scripts/corn.sh --startup

@@ -1,0 +1,41 @@
+xwayland-satellite {
+  on
+}
+
+output "DP-3" {
+    scale 1.4
+    mode "2560x1440"
+    position x=0 y=0
+    focus-at-startup
+    variable-refresh-rate
+}
+
+input {
+    mouse {
+        accel-speed 0.3
+        accel-profile "flat"
+    }
+}
+
+// steam startup / update window
+window-rule {
+    match title="^$"
+    open-floating false
+    default-floating-position x=0 y=0 relative-to="bottom-right"
+}
+
+window-rule {
+    match app-id="steam"
+    exclude title=r#"^notificationtoasts_\d+_desktop$"#
+    open-fullscreen false
+}
+
+window-rule {
+    match app-id="steam" title=r#"^notificationtoasts_\d+_desktop$"#
+    default-floating-position x=10 y=10 relative-to="bottom-right"
+    open-focused false
+}
+
+// debug {
+//     wait-for-frame-completion-before-queueing
+// }
