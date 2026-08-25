@@ -1,11 +1,6 @@
-{inputs, ...}: {
-  imports = [
-    inputs.nix-flatpak.homeManagerModules.nix-flatpak
-  ];
+{
   services = {
     flatpak = {
-      enable = true;
-      uninstallUnmanaged = true;
       packages = let
         forceExplicitAutoUpdate = builtins.map (
           item:
@@ -39,22 +34,9 @@
             commit = "a86d30895e4f2fbd3127e2df49c5538ac6b7c78ff06d31c5e3c852c0d505db5c";
           }
         ];
-      # only works for those that have allowAutoUpdate = true
-      update.auto = {
-        enable = true;
-        onCalendar = "hourly";
-      };
       overrides = {
         # borken atm https://github.com/gmodena/nix-flatpak/issues/205
-        # pruneUnmanagedOverrides = 1rue;
         # settings = {
-        global = {
-          Context.sockets = [
-            "wayland"
-            "!x11"
-            "!fallback-x11"
-          ];
-        };
         # Gamescope has no winewayland support
         "moe.launcher.an-anime-game-launcher".Context.sockets = [
           "x11"
