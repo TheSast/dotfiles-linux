@@ -16,7 +16,7 @@ in {
     glib
     libnotify
     niri
-    inputs.noctalia.packages."${pkgs.stdenv.hostPlatform.system}".default
+    inputs.noctalia-unstable.packages."${pkgs.stdenv.hostPlatform.system}".default
     wl-mirror
   ];
   gtk = {
