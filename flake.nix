@@ -30,6 +30,11 @@
       url = "github:Jovian-Experiments/Jovian-NixOS";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    winpkgs = {
+      url = "github:calebstewart/winpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.home-manager.follows = "home-manager-unstable";
+    };
 
     # user
     home-manager = {
@@ -178,5 +183,95 @@
           ];
         };
     });
+
+    windowsConfigurations.sam = inputs.winpkgs.lib.windowsSystem {
+      modules = [
+        ./os/sam/sshd.nix
+        ./os/sam/wsl.nix
+        {
+          # should enable Doman and Public on "OpenSSH SHH Server (sshd)" in the "Windows Defender Firewall with Advanced Security"
+          services.opensshServer.enable = true;
+          services.opensshServer.startupType = "automatic";
+          networking.hostName = "sam";
+          # system.stateVersion = "26.05";
+          winget.packages = [
+            # { id = "glzr-io.glazewm"; upgrade = true; }
+            # { id = "glzr-io.zebar"; upgrade = true; }
+          ];
+          wsl = {
+            enable = true;
+            modules = [
+              {system.stateVersion = "26.05";}
+              {
+                services.openssh = {
+                  enable = true;
+                  ports = [2222];
+                  settings = {
+                    # PasswordAuthentication = false;
+                    # KbdInteractiveAuthentication = false;
+                    # PermitRootLogin = "no";
+                  };
+                };
+              }
+            ];
+            # packages = Seelen.SeelenUI Valve.Steam
+            defaultUser = "u";
+            openFirewall = true;
+            networkingMode = "Mirrored";
+          };
+          windows.gaming.hardwareAcceleratedScheduling = true;
+        }
+      ];
+    };
+
+    windowsHomeConfigurations = let
+      host = "sam";
+    in {
+      "u@${host}" = inputs.winpkgs.lib.homeConfiguration {
+        modules = [
+          {
+            home.file.".vieb".source = ./home/Vieb;
+            xdg.configFile."AutoDarkMode/config.yaml".source = ./home/AutoDarkMode/config.yaml;
+            xdg.configFile."AutoDarkMode/config.yaml".recursive = true;
+            programs.powershell.enable = true;
+            winpkgs.name = host;
+            winget.packages = [
+              "Jelmerro.Vieb"
+              "Fastfetch-cli.Fastfetch"
+              "ArminOsaj.AutoDarkMode"
+
+              "Starship.Starship"
+            ];
+            # scoop.packages = [
+            #   "extras/webcord"
+            #   "extras/mpv"
+            #   "main/yt-dlp" # for mpv
+            #   "main/ffmpeg" # for yt-dlp
+            #   "main/bun" # for yt-dlp
+            #   "main/git" # for extras
+            #   "main/7zip" # for extras
+            # ];
+            programs.starship.enable = false;
+            programs.powershell.initContent = ''
+              function Invoke-Starship-TransientFunction {
+                [Console]::Write("`n- `n")
+              }
+            
+              Invoke-Expression (&starship init powershell)
+               
+              Enable-TransientPrompt
+            '';
+            xdg.configFile."starship.toml".source = ./home/starship/starship.toml;
+
+            windows.gaming = {
+              gameMode = true;
+              captures = false;
+              gameBarWithController = false;
+              fullscreenOptimizations = true;
+            };
+          }
+        ];
+      };
+    };
   };
 }
